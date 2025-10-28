@@ -10,6 +10,10 @@ import AnimalDetailPage from './pages/AnimalDetailPage';
 import FAQPage from './pages/FAQPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
+import CommunityPage from './pages/CommunityPage';
+import OnlineVetPage from './pages/OnlineVetPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 
 
 function App() {
@@ -26,6 +30,10 @@ function App() {
                     <Route path="/adopt/:id" element={<AnimalDetailPage />} />
                     <Route path="/report" element={<ReportPage />} />
                     <Route path="/ai-assistant" element={<AIAssistantPage />} />
+                    <Route path="/community" element={<CommunityPage />} />
+                    <Route path="/online-vet" element={<OnlineVetPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignUpPage />} />
                     <Route path="/faq" element={<FAQPage />} />
                     </Routes>
                 </main>

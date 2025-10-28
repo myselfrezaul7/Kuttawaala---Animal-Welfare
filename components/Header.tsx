@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { MenuIcon, CloseIcon } from './icons';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  }
 
   const activeLinkClass = 'text-orange-600 dark:text-orange-400 font-semibold';
   const inactiveLinkClass = 'text-slate-600 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400';
@@ -29,19 +37,32 @@ const Header: React.FC = () => {
           </NavLink>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <ul className="flex items-center space-x-8 text-base font-medium">
+          <div className="hidden md:flex items-center space-x-6">
+            <ul className="flex items-center space-x-6 text-base font-medium">
               <li><NavLink to="/" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Home</NavLink></li>
               <li><NavLink to="/adopt" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Adopt</NavLink></li>
               <li><NavLink to="/report" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Report Rescue</NavLink></li>
+              <li><NavLink to="/community" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Community</NavLink></li>
+              <li><NavLink to="/online-vet" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Online Vet</NavLink></li>
               <li><NavLink to="/ai-assistant" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>AI Assistant</NavLink></li>
-              <li><NavLink to="/faq" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>FAQ</NavLink></li>
             </ul>
-            <ThemeToggle />
+            <div className="flex items-center space-x-4">
+              {isAuthenticated ? (
+                <button onClick={handleLogout} className="bg-orange-500 text-white font-bold py-2 px-4 rounded-md text-sm hover:bg-orange-600 transition-colors">
+                  Logout
+                </button>
+              ) : (
+                <NavLink to="/login" className="bg-orange-500 text-white font-bold py-2 px-5 rounded-md text-sm hover:bg-orange-600 transition-colors">
+                  Login
+                </NavLink>
+              )}
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+             <ThemeToggle />
             <button onClick={() => setIsMenuOpen(true)} className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400">
               <MenuIcon className="w-8 h-8" />
             </button>
@@ -60,16 +81,32 @@ const Header: React.FC = () => {
           </button>
         </div>
         <div className="flex flex-col justify-center items-center h-full -mt-16">
-            <nav className="flex flex-col space-y-6">
+            <nav className="flex flex-col space-y-6 text-center">
                 <MobileNavLink to="/">Home</MobileNavLink>
                 <MobileNavLink to="/adopt">Adopt</MobileNavLink>
                 <MobileNavLink to="/report">Report Rescue</MobileNavLink>
+                <MobileNavLink to="/community">Community</MobileNavLink>
+                <MobileNavLink to="/online-vet">Online Vet</MobileNavLink>
                 <MobileNavLink to="/ai-assistant">AI Assistant</MobileNavLink>
-                <MobileNavLink to="/faq">FAQ</MobileNavLink>
+                <div className="mt-8">
+                  {isAuthenticated ? (
+                     <button 
+                        onClick={() => { handleLogout(); setIsMenuOpen(false); }} 
+                        className="bg-orange-500 text-white font-bold py-3 px-10 rounded-full text-xl"
+                      >
+                       Logout
+                     </button>
+                  ) : (
+                      <NavLink 
+                        to="/login"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="bg-orange-500 text-white font-bold py-3 px-10 rounded-full text-xl"
+                      >
+                       Login / Sign Up
+                     </NavLink>
+                  )}
+                </div>
             </nav>
-            <div className="mt-12">
-                <ThemeToggle />
-            </div>
         </div>
       </div>
     </>

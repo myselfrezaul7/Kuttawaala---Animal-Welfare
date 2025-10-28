@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { GoogleIcon, AppleIcon, FacebookIcon } from '../components/icons';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -24,10 +25,34 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const SocialButton: React.FC<{ icon: React.ReactNode, label: string }> = ({ icon, label }) => (
+    <button
+      type="button"
+      className="flex items-center justify-center w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+    >
+      {icon}
+      <span className="ml-3 font-semibold text-slate-700 dark:text-slate-200">{label}</span>
+    </button>
+  );
+
+
   return (
     <div className="container mx-auto px-6 py-12 flex-grow flex items-center justify-center">
       <div className="w-full max-w-md bg-white dark:bg-slate-800 p-8 md:p-10 rounded-2xl shadow-xl">
-        <h1 className="text-3xl font-bold text-center text-slate-800 dark:text-slate-100 mb-8">Welcome Back!</h1>
+        <h1 className="text-3xl font-bold text-center text-slate-800 dark:text-slate-100 mb-6">Welcome Back!</h1>
+        
+        <div className="space-y-3 mb-6">
+            <SocialButton icon={<GoogleIcon className="w-6 h-6" />} label="Continue with Google" />
+            <SocialButton icon={<AppleIcon className="w-6 h-6" />} label="Continue with Apple" />
+            <SocialButton icon={<FacebookIcon className="w-6 h-6 text-[#1877F2]" />} label="Continue with Facebook" />
+        </div>
+
+        <div className="flex items-center my-6">
+          <hr className="flex-grow border-slate-200 dark:border-slate-600"/>
+          <span className="mx-4 text-slate-500 dark:text-slate-400 font-semibold text-sm">OR</span>
+          <hr className="flex-grow border-slate-200 dark:border-slate-600"/>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && <p className="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 p-3 rounded-lg text-center">{error}</p>}
           <div>

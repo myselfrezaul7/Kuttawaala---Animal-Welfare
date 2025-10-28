@@ -1,5 +1,5 @@
 // FIX: Added imports for new types used in mock data.
-import type { Animal, User, Post, Vet } from './types';
+import type { Animal, User, Post, Vet, SuccessStory } from './types';
 
 export const MOCK_ANIMALS: Animal[] = [
   {
@@ -116,5 +116,27 @@ export const MOCK_VETS: Vet[] = [
     specialization: 'Exotic Animals',
     imageUrl: 'https://picsum.photos/seed/vet4/200/200',
     isOnline: false,
+  },
+];
+
+// FIX: Added mock success stories for the homepage.
+export const MOCK_SUCCESS_STORIES: SuccessStory[] = [
+  {
+    id: 1,
+    name: 'Milo',
+    imageUrl: 'https://picsum.photos/seed/milo-adopted/500/500',
+    story: '"We found Milo scared and alone. Now, he\'s the heart of our family, filling our days with endless joy and sloppy kisses. Adopting him was the best decision we ever made!" - The Rahman Family',
+  },
+  {
+    id: 2,
+    name: 'Cleo',
+    imageUrl: 'https://picsum.photos/seed/cleo-adopted/500/500',
+    story: '"Cleo was so shy at first, but with a little patience, she blossomed into the most affectionate cat. Her purrs are the best therapy. Thank you, KUTTAWAALA!" - Ms. Anika',
+  },
+  {
+    id: 3,
+    name: 'Bolt',
+    imageUrl: 'https://picsum.photos/seed/bolt-adopted/500/500',
+    story: '"From a life on the streets to ruling the dog park! Bolt\'s energy is infectious. He reminds us every day to live life to the fullest. He\'s our little superhero." - The Hossain Couple',
   },
 ];

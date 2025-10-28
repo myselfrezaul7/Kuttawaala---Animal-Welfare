@@ -52,3 +52,11 @@ export interface Vet {
   imageUrl: string;
   isOnline: boolean;
 }
+
+// FIX: Added SuccessStory type for the homepage.
+export interface SuccessStory {
+  id: number;
+  name: string;
+  imageUrl: string;
+  story: string;
+}

@@ -22,8 +22,8 @@ const OnlineVetPage: React.FC = () => {
     <>
       <div className="container mx-auto px-6 py-16">
         <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-800">Consult a Veterinarian Online</h1>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto mt-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100">Consult a Veterinarian Online</h1>
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mt-4">
             Get professional advice for non-emergency situations from the comfort of your home. Our licensed veterinarians are here to help you with your pet's health concerns.
             </p>
         </div>

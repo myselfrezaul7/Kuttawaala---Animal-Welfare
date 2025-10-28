@@ -77,15 +77,15 @@ const ReportPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
-      <div className="w-full max-w-2xl bg-white p-8 md:p-12 rounded-2xl shadow-xl">
-        <h1 className="text-4xl font-bold text-center text-slate-800 mb-4">Report an Animal in Need</h1>
-        <p className="text-lg text-center text-slate-600 mb-10">
+      <div className="w-full max-w-2xl bg-white dark:bg-slate-800 p-8 md:p-12 rounded-2xl shadow-xl">
+        <h1 className="text-4xl font-bold text-center text-slate-800 dark:text-slate-100 mb-4">Report an Animal in Need</h1>
+        <p className="text-lg text-center text-slate-600 dark:text-slate-300 mb-10">
           See an animal that needs help? Fill out the form below, and our rescue team will be alerted.
         </p>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="animal-type" className="block text-base font-semibold text-slate-700 mb-2">Type of Animal</label>
-            <select id="animal-type" required className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
+            <label htmlFor="animal-type" className="block text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Type of Animal</label>
+            <select id="animal-type" required className="w-full p-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
               <option>Dog</option>
               <option>Cat</option>
               <option>Bird</option>
@@ -94,18 +94,18 @@ const ReportPage: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="condition" className="block text-base font-semibold text-slate-700 mb-2">Description of Condition</label>
-            <textarea id="condition" rows={4} required placeholder="e.g., Injured leg, looks lost and scared, etc." className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"></textarea>
+            <label htmlFor="condition" className="block text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Description of Condition</label>
+            <textarea id="condition" rows={4} required placeholder="e.g., Injured leg, looks lost and scared, etc." className="w-full p-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"></textarea>
           </div>
           
           <div>
-            <label className="block text-base font-semibold text-slate-700 mb-2">Photos or Videos (up to 10MB each)</label>
+            <label className="block text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Photos or Videos (up to 10MB each)</label>
             <div className="mt-2 flex items-center justify-center w-full">
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100">
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 dark:border-slate-600 border-dashed rounded-lg cursor-pointer bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700">
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <ImageIcon className="w-10 h-10 text-slate-500 mb-3" />
-                  <p className="mb-2 text-sm text-slate-600"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                  <p className="text-xs text-slate-500">Image or Video (MAX. 10MB)</p>
+                  <ImageIcon className="w-10 h-10 text-slate-500 dark:text-slate-400 mb-3" />
+                  <p className="mb-2 text-sm text-slate-600 dark:text-slate-300"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Image or Video (MAX. 10MB)</p>
                 </div>
                 <input ref={fileInputRef} type="file" multiple accept={ACCEPTED_FILE_TYPES} onChange={handleFileChange} className="hidden" />
               </label>
@@ -118,8 +118,8 @@ const ReportPage: React.FC = () => {
                     {file.type.startsWith('image/') ? (
                       <img src={URL.createObjectURL(file)} alt={file.name} className="w-full h-24 object-cover rounded-lg" />
                     ) : (
-                      <div className="w-full h-24 bg-slate-200 rounded-lg flex items-center justify-center p-2">
-                        <p className="text-xs text-slate-700 text-center break-all">{file.name}</p>
+                      <div className="w-full h-24 bg-slate-200 dark:bg-slate-600 rounded-lg flex items-center justify-center p-2">
+                        <p className="text-xs text-slate-700 dark:text-slate-200 text-center break-all">{file.name}</p>
                       </div>
                     )}
                     <button
@@ -137,7 +137,7 @@ const ReportPage: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="location" className="block text-base font-semibold text-slate-700 mb-2">Location (Address or Coordinates)</label>
+            <label htmlFor="location" className="block text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Location (Address or Coordinates)</label>
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
               <input 
                 type="text" 
@@ -146,7 +146,7 @@ const ReportPage: React.FC = () => {
                 onChange={(e) => setLocation(e.target.value)}
                 required 
                 placeholder="e.g., Near City Park, 123 Main St"
-                className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                className="w-full p-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
               />
               <button 
                 type="button"
@@ -158,7 +158,7 @@ const ReportPage: React.FC = () => {
                 {isLocating ? 'Locating...' : 'Use My Location'}
               </button>
             </div>
-            {status && <p className="text-sm text-gray-500 mt-2">{status}</p>}
+            {status && <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{status}</p>}
           </div>
 
           <div>

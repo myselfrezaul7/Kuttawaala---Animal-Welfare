@@ -51,16 +51,16 @@ const FAQPage: React.FC = () => {
   return (
     <div className="container mx-auto px-6 py-16">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-800">Frequently Asked Questions</h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto mt-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100">Frequently Asked Questions</h1>
+        <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-4">
           Find answers to common questions about our services and how you can help.
         </p>
       </div>
       <div className="max-w-3xl mx-auto space-y-10">
         {faqs.map((category) => (
           <div key={category.category}>
-            <h2 className="text-3xl font-bold text-slate-800 mb-6 border-b-2 border-orange-500 pb-2">{category.category}</h2>
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-6 border-b-2 border-orange-500 pb-2">{category.category}</h2>
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden">
                 {category.items.map((item) => (
                     <AccordionItem key={item.q} title={item.q}>
                         <p>{item.a}</p>

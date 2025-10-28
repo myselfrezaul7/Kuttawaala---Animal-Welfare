@@ -26,30 +26,30 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-6 py-12 flex-grow flex items-center justify-center">
-      <div className="w-full max-w-md bg-white p-8 md:p-10 rounded-2xl shadow-xl">
-        <h1 className="text-3xl font-bold text-center text-slate-800 mb-8">Welcome Back!</h1>
+      <div className="w-full max-w-md bg-white dark:bg-slate-800 p-8 md:p-10 rounded-2xl shadow-xl">
+        <h1 className="text-3xl font-bold text-center text-slate-800 dark:text-slate-100 mb-8">Welcome Back!</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {error && <p className="bg-red-100 text-red-700 p-3 rounded-lg text-center">{error}</p>}
+          {error && <p className="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 p-3 rounded-lg text-center">{error}</p>}
           <div>
-            <label htmlFor="email" className="block text-base font-semibold text-slate-700 mb-2">Email Address</label>
+            <label htmlFor="email" className="block text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
             <input 
               type="email" 
               id="email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required 
-              className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="w-full p-3 border border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-base font-semibold text-slate-700 mb-2">Password</label>
+            <label htmlFor="password" className="block text-base font-semibold text-slate-700 dark:text-slate-300 mb-2">Password</label>
             <input 
               type="password" 
               id="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required 
-              className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="w-full p-3 border border-slate-300 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             />
           </div>
           <div>
@@ -58,8 +58,8 @@ const LoginPage: React.FC = () => {
             </button>
           </div>
         </form>
-        <p className="text-center mt-6 text-slate-600">
-          Don't have an account? <Link to="/signup" className="font-bold text-orange-600 hover:underline">Sign up now</Link>
+        <p className="text-center mt-6 text-slate-600 dark:text-slate-300">
+          Don't have an account? <Link to="/signup" className="font-bold text-orange-600 dark:text-orange-400 hover:underline">Sign up now</Link>
         </p>
       </div>
     </div>

@@ -18,12 +18,13 @@ const AIAssistantPage: React.FC = () => {
     if (!userInput.trim() || isLoading) return;
 
     const newUserMessage: ChatMessage = { sender: 'user', text: userInput };
-    setChatHistory(prev => [...prev, newUserMessage]);
+    const updatedChatHistory = [...chatHistory, newUserMessage];
+    setChatHistory(updatedChatHistory);
     setUserInput('');
     setIsLoading(true);
 
     try {
-      const aiResponseText = await getVetAssistantResponse(userInput);
+      const aiResponseText = await getVetAssistantResponse(updatedChatHistory);
       const newAiMessage: ChatMessage = { sender: 'ai', text: aiResponseText };
       setChatHistory(prev => [...prev, newAiMessage]);
     } catch (error) {

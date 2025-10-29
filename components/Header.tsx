@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { MenuIcon, CloseIcon } from './icons';
+import { MenuIcon, CloseIcon, SearchIcon } from './icons';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
 import { useAuth } from '../contexts/AuthContext';
+import SearchModal from './SearchModal';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -46,7 +48,7 @@ const Header: React.FC = () => {
               <li><NavLink to="/online-vet" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Online Vet</NavLink></li>
               <li><NavLink to="/ai-assistant" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>AI Assistant</NavLink></li>
             </ul>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
               {isAuthenticated ? (
                 <button onClick={handleLogout} className="bg-orange-500 text-white font-bold py-2 px-4 rounded-md text-sm hover:bg-orange-600 transition-colors">
                   Logout
@@ -56,12 +58,26 @@ const Header: React.FC = () => {
                   Login
                 </NavLink>
               )}
+               <button 
+                  onClick={() => setIsSearchOpen(true)}
+                  className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                  aria-label="Search"
+                >
+                    <SearchIcon className="w-6 h-6" />
+                </button>
               <ThemeToggle />
             </div>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
+            <button 
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                aria-label="Search"
+              >
+                  <SearchIcon className="w-6 h-6" />
+            </button>
              <ThemeToggle />
             <button onClick={() => setIsMenuOpen(true)} className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400">
               <MenuIcon className="w-8 h-8" />
@@ -109,6 +125,7 @@ const Header: React.FC = () => {
             </nav>
         </div>
       </div>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 };

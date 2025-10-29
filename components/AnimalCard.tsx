@@ -21,10 +21,10 @@ const AnimalCard: React.FC<AnimalCardProps> = ({ animal }) => {
         <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">{animal.age} old &bull; {animal.gender}</p>
         <p className="text-slate-700 dark:text-slate-300 mt-4 flex-grow text-base line-clamp-3">{animal.description}</p>
       </div>
-       <div className="p-4 bg-slate-50 dark:bg-slate-700/50 border-t border-slate-100 dark:border-slate-700 mt-auto">
-          <p className="text-center font-semibold text-orange-600 dark:text-orange-400 group-hover:text-orange-700 dark:group-hover:text-orange-300">
-            View Details & Adopt
-          </p>
+       <div className="p-4 bg-slate-50 dark:bg-slate-700/50 mt-auto border-t border-slate-100 dark:border-slate-700">
+          <div className="w-full bg-orange-500 text-white font-bold py-2 px-4 rounded-lg text-center transition-colors group-hover:bg-orange-600">
+            Adopt Me
+          </div>
         </div>
     </Link>
   );

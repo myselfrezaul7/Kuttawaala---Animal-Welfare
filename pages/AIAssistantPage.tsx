@@ -28,7 +28,34 @@ const AIAssistantPage: React.FC = () => {
       const newAiMessage: ChatMessage = { sender: 'ai', text: aiResponseText };
       setChatHistory(prev => [...prev, newAiMessage]);
     } catch (error) {
-      const errorMessage: ChatMessage = { sender: 'ai', text: "Oops! Something went wrong. Please try again." };
+      const errorMessage: ChatMessage = { 
+        sender: 'ai', 
+        text: "I'm having trouble connecting to my knowledge base. Please check your connection and try again.",
+        isError: true 
+      };
+      setChatHistory(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleRetry = async () => {
+    // History before the error message was added
+    const historyToRetry = chatHistory.filter(m => !m.isError);
+    // Remove the error message from the UI and re-send the request
+    setChatHistory(historyToRetry);
+    setIsLoading(true);
+
+    try {
+      const aiResponseText = await getVetAssistantResponse(historyToRetry);
+      const newAiMessage: ChatMessage = { sender: 'ai', text: aiResponseText };
+      setChatHistory(prev => [...prev, newAiMessage]);
+    } catch (error) {
+      const errorMessage: ChatMessage = { 
+        sender: 'ai', 
+        text: "I'm having trouble connecting to my knowledge base. Please check your connection and try again.",
+        isError: true 
+      };
       setChatHistory(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -53,22 +80,43 @@ const AIAssistantPage: React.FC = () => {
               </div>
             </div>
 
-            {chatHistory.map((message, index) => (
-              <div key={index} className={`flex items-start gap-3 ${message.sender === 'user' ? 'justify-end' : ''}`}>
-                {message.sender === 'ai' && (
-                  <div className="bg-orange-500 p-2 rounded-full text-white flex-shrink-0">
-                    <PawIcon className="w-6 h-6" />
+            {chatHistory.map((message, index) => {
+              if (message.isError) {
+                return (
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="bg-red-500 p-2 rounded-full text-white flex-shrink-0">
+                      <PawIcon className="w-6 h-6" />
+                    </div>
+                    <div className="bg-red-100 dark:bg-red-900/30 p-4 rounded-xl rounded-tl-none max-w-lg">
+                      <p className="text-red-800 dark:text-red-200 font-medium">{message.text}</p>
+                      <button 
+                          onClick={handleRetry} 
+                          className="mt-3 bg-red-500 text-white font-bold py-1.5 px-4 rounded-full text-sm hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-100 dark:focus:ring-offset-red-900/30 focus:ring-red-500 disabled:bg-red-300"
+                          disabled={isLoading}
+                      >
+                          Retry
+                      </button>
+                    </div>
                   </div>
-                )}
-                <div className={`p-4 rounded-xl max-w-lg whitespace-pre-wrap ${
-                  message.sender === 'user' 
-                  ? 'bg-orange-500 text-white rounded-br-none' 
-                  : 'bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-tl-none'
-                }`}>
-                  <p>{message.text}</p>
+                )
+              }
+              return (
+                <div key={index} className={`flex items-start gap-3 ${message.sender === 'user' ? 'justify-end' : ''}`}>
+                  {message.sender === 'ai' && (
+                    <div className="bg-orange-500 p-2 rounded-full text-white flex-shrink-0">
+                      <PawIcon className="w-6 h-6" />
+                    </div>
+                  )}
+                  <div className={`p-4 rounded-xl max-w-lg whitespace-pre-wrap ${
+                    message.sender === 'user' 
+                    ? 'bg-orange-500 text-white rounded-br-none' 
+                    : 'bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-tl-none'
+                  }`}>
+                    <p>{message.text}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
             {isLoading && (
               <div className="flex items-start gap-3">
                 <div className="bg-orange-500 p-2 rounded-full text-white">

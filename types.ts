@@ -11,6 +11,7 @@ export interface Animal {
 export interface ChatMessage {
     sender: 'user' | 'ai';
     text: string;
+    isError?: boolean;
 }
 
 // FIX: Added User type for authentication and community features.

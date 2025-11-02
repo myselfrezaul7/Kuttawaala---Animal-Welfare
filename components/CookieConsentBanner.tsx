@@ -17,6 +17,11 @@ const CookieConsentBanner: React.FC = () => {
       }
     } catch (error) {
       console.error("Could not read from localStorage", error);
+      // If we can't read, default to showing the banner to be safe.
+      const timer = setTimeout(() => {
+          setIsVisible(true);
+        }, 1500);
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -26,6 +31,8 @@ const CookieConsentBanner: React.FC = () => {
       setIsVisible(false);
     } catch (error) {
       console.error("Could not write to localStorage", error);
+      // Still hide banner even if write fails, to not block user
+      setIsVisible(false);
     }
   };
 

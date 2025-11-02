@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CloseIcon, BKashIcon, NagadIcon } from './icons';
 
 interface DonationModalProps {
@@ -8,12 +8,60 @@ interface DonationModalProps {
 
 const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState<'mfs' | 'bank'>('mfs');
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Focus trapping and Escape key handling for accessibility
+  useEffect(() => {
+    if (isOpen) {
+      const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusableElements || focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      // Focus the first element (the close button) when the modal opens
+      closeButtonRef.current?.focus();
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            onClose();
+            return;
+        }
+
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) { // Shift+Tab
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else { // Tab
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      };
+      
+      document.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [isOpen, onClose]);
+
 
   if (!isOpen) return null;
 
   const TabButton: React.FC<{ tabName: 'mfs' | 'bank'; children: React.ReactNode }> = ({ tabName, children }) => (
     <button
       onClick={() => setActiveTab(tabName)}
+      role="tab"
+      aria-selected={activeTab === tabName}
       className={`py-2.5 px-4 w-1/2 text-center font-semibold rounded-t-lg transition-colors ${
         activeTab === tabName
           ? 'bg-white/30 dark:bg-black/30 text-orange-700 dark:text-orange-400'
@@ -25,21 +73,21 @@ const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
   );
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 transition-opacity duration-300" onClick={onClose}>
-      <div className="bg-white/30 dark:bg-slate-800/30 backdrop-blur-xl border border-white/30 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-md" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 transition-opacity duration-300" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="donation-modal-title">
+      <div ref={modalRef} className="bg-white/30 dark:bg-slate-800/30 backdrop-blur-xl border border-white/30 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-md" onClick={(e) => e.stopPropagation()}>
         <div className="p-6 relative">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50 text-center">Support Our Cause</h2>
+          <h2 id="donation-modal-title" className="text-2xl font-bold text-slate-900 dark:text-slate-50 text-center">Support Our Cause</h2>
           <p className="text-center text-slate-800 dark:text-slate-200 mt-1 mb-6">Your contribution makes a huge difference!</p>
-          <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-3xl font-light">&times;</button>
+          <button ref={closeButtonRef} onClick={onClose} aria-label="Close" className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-3xl font-light">&times;</button>
           
-          <div className="flex bg-white/20 dark:bg-black/20 rounded-t-lg">
+          <div className="flex bg-white/20 dark:bg-black/20 rounded-t-lg" role="tablist" aria-label="Donation Methods">
             <TabButton tabName="mfs">MFS (bKash/Nagad)</TabButton>
             <TabButton tabName="bank">Bank Transfer</TabButton>
           </div>
 
           <div className="p-6 bg-white/30 dark:bg-black/30 border-x border-b border-white/30 dark:border-white/10 rounded-b-lg">
             {activeTab === 'mfs' && (
-              <div className="space-y-6">
+              <div role="tabpanel" aria-labelledby="mfs-tab" className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 flex items-center mb-2"><BKashIcon className="w-20 h-auto mr-3" /> bKash</h3>
                   <p className="text-sm text-slate-700 dark:text-slate-200">Send donation via our Merchant Account:</p>
@@ -55,7 +103,7 @@ const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
             )}
 
             {activeTab === 'bank' && (
-              <div className="space-y-3">
+              <div role="tabpanel" aria-labelledby="bank-tab" className="space-y-3">
                 <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-3">Bank Account Details</h3>
                 <div className="text-sm">
                   <strong className="text-slate-700 dark:text-slate-300 block">Account Name:</strong>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { Animal } from '../types';
 
 interface AdoptionFormProps {
@@ -8,6 +8,53 @@ interface AdoptionFormProps {
 }
 
 const AdoptionForm: React.FC<AdoptionFormProps> = ({ animal, isOpen, onClose }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Focus trapping and Escape key handling for accessibility
+  useEffect(() => {
+    if (isOpen) {
+      const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusableElements || focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      // Focus the first element (the close button) when the modal opens
+      closeButtonRef.current?.focus();
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            onClose();
+            return;
+        }
+
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) { // Shift+Tab
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else { // Tab
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      };
+      
+      document.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [isOpen, onClose]);
+
+
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -19,15 +66,15 @@ const AdoptionForm: React.FC<AdoptionFormProps> = ({ animal, isOpen, onClose }) 
   const inputStyle = "mt-1 block w-full p-2 bg-white/20 dark:bg-black/20 border border-white/40 dark:border-white/20 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-slate-900 dark:text-slate-50";
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 transition-opacity duration-300" onClick={onClose}>
-      <div className="bg-slate-50/80 dark:bg-slate-800/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 transition-opacity duration-300" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="adoption-form-title">
+      <div ref={modalRef} className="bg-slate-50/80 dark:bg-slate-800/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <div className="p-8">
           <div className="flex justify-between items-start mb-4">
             <div>
-                <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Adoption Application</h2>
+                <h2 id="adoption-form-title" className="text-3xl font-bold text-slate-900 dark:text-slate-50">Adoption Application</h2>
                 <p className="text-slate-800 dark:text-slate-200 text-lg mt-1">You are applying to adopt: <span className="font-bold text-slate-900 dark:text-slate-50">{animal.name}</span></p>
             </div>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-4xl font-light">&times;</button>
+            <button ref={closeButtonRef} onClick={onClose} aria-label="Close" className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-4xl font-light">&times;</button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -37,20 +84,20 @@ const AdoptionForm: React.FC<AdoptionFormProps> = ({ animal, isOpen, onClose }) 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 dark:text-slate-200">Full Name</label>
-                        <input type="text" id="fullName" required className={inputStyle} />
+                        <input type="text" id="fullName" required className={inputStyle} autoComplete="name" />
                     </div>
                     <div>
                         <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-200">Phone Number (Bangladesh)</label>
-                        <input type="tel" id="phone" pattern="(\+8801|01)[3-9]\d{8}" placeholder="+8801..." required className={inputStyle} />
+                        <input type="tel" id="phone" pattern="(\+8801|01)[3-9]\d{8}" placeholder="+8801..." required className={inputStyle} autoComplete="tel" />
                     </div>
                 </div>
                  <div className="mt-4">
                     <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-200">Email Address</label>
-                    <input type="email" id="email" required className={inputStyle} />
+                    <input type="email" id="email" required className={inputStyle} autoComplete="email" />
                 </div>
                  <div className="mt-4">
                     <label htmlFor="address" className="block text-sm font-medium text-slate-700 dark:text-slate-200">Full Address (in Bangladesh)</label>
-                    <textarea id="address" rows={3} required className={inputStyle}></textarea>
+                    <textarea id="address" rows={3} required className={inputStyle} autoComplete="street-address"></textarea>
                 </div>
             </fieldset>
 

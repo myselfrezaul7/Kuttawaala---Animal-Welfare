@@ -65,7 +65,8 @@ const SignUpPage: React.FC = () => {
               id="name" 
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required 
+              required
+              autoComplete="name"
               className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors"
             />
           </div>
@@ -76,7 +77,8 @@ const SignUpPage: React.FC = () => {
               id="email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required 
+              required
+              autoComplete="email"
               className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors"
             />
           </div>
@@ -87,7 +89,8 @@ const SignUpPage: React.FC = () => {
               id="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required 
+              required
+              autoComplete="new-password"
               className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors"
             />
           </div>

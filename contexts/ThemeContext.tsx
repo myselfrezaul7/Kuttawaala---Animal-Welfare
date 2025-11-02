@@ -13,10 +13,16 @@ const getInitialTheme = (): Theme => {
   if (typeof window === 'undefined') {
     return 'light';
   }
-  const storedTheme = window.localStorage.getItem('theme');
-  if (storedTheme === 'light' || storedTheme === 'dark') {
-    return storedTheme;
+  
+  try {
+    const storedTheme = window.localStorage.getItem('theme');
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      return storedTheme;
+    }
+  } catch (error) {
+      console.error("Could not read theme from localStorage:", error);
   }
+
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     return 'dark';
   }
@@ -31,7 +37,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
-    localStorage.setItem('theme', theme);
+    try {
+        localStorage.setItem('theme', theme);
+    } catch (error) {
+        console.error("Could not save theme to localStorage:", error);
+    }
   }, [theme]);
 
   const toggleTheme = () => {

@@ -40,7 +40,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
       {post.imageUrl && (
         <div className="bg-black/10">
-          <img src={post.imageUrl} alt="Post content" className="w-full max-h-[500px] object-cover" />
+          <img src={post.imageUrl} alt="Post content" className="w-full max-h-[500px] object-cover" loading="lazy" />
         </div>
       )}
 
@@ -58,4 +58,4 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   );
 };
 
-export default PostCard;
+export default React.memo(PostCard);

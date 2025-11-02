@@ -15,6 +15,28 @@
             fontFamily: {
               sans: ['Poppins', 'sans-serif'],
             },
+            animation: {
+              fadeIn: 'fadeIn 0.5s ease-in-out',
+              pop: 'pop 0.3s ease-out',
+              heartbeat: 'heartbeat 1.5s ease-in-out infinite'
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              pop: {
+                '0%, 100%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.3)' },
+              },
+              heartbeat: {
+                '0%': { transform: 'scale(1)' },
+                '14%': { transform: 'scale(1.1)' },
+                '28%': { transform: 'scale(1)' },
+                '42%': { transform: 'scale(1.1)' },
+                '70%': { transform: 'scale(1)' },
+              }
+            }
           },
         },
       }

@@ -51,4 +51,4 @@ const VetClinicCard: React.FC<VetClinicCardProps> = ({ clinic }) => {
   );
 };
 
-export default VetClinicCard;
+export default React.memo(VetClinicCard);

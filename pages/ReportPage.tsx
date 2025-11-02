@@ -1,18 +1,29 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MapPinIcon, ImageIcon, CloseIcon } from '../components/icons';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 const ACCEPTED_FILE_TYPES = "image/jpeg, image/png, image/gif, video/mp4, video/quicktime";
 
+interface FilePreview {
+  file: File;
+  url: string;
+}
 
 const ReportPage: React.FC = () => {
   const [location, setLocation] = useState('');
   const [status, setStatus] = useState('');
   const [isLocating, setIsLocating] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<FilePreview[]>([]);
   const [fileError, setFileError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Effect to clean up object URLs on unmount
+  useEffect(() => {
+    return () => {
+      files.forEach(filePreview => URL.revokeObjectURL(filePreview.url));
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleGetLocation = () => {
     if (!navigator.geolocation) {
@@ -51,13 +62,20 @@ const ReportPage: React.FC = () => {
             return;
         }
     }
+    
+    const newFilePreviews = newFiles.map(file => ({
+        file: file,
+        url: URL.createObjectURL(file)
+    }));
 
-    setFiles(prevFiles => [...prevFiles, ...newFiles]);
+    setFiles(prevFiles => [...prevFiles, ...newFilePreviews]);
      if (fileInputRef.current) fileInputRef.current.value = '';
   };
   
-  const handleRemoveFile = (index: number) => {
-    setFiles(files.filter((_, i) => i !== index));
+  const handleRemoveFile = (indexToRemove: number) => {
+    // Revoke the object URL to prevent memory leaks
+    URL.revokeObjectURL(files[indexToRemove].url);
+    setFiles(prevFiles => prevFiles.filter((_, index) => index !== indexToRemove));
   };
 
 
@@ -70,6 +88,8 @@ const ReportPage: React.FC = () => {
     form.reset();
     setLocation('');
     setStatus('');
+    // Clean up all object URLs before clearing the state
+    files.forEach(filePreview => URL.revokeObjectURL(filePreview.url));
     setFiles([]);
     setFileError('');
     if (fileInputRef.current) fileInputRef.current.value = '';
@@ -115,13 +135,13 @@ const ReportPage: React.FC = () => {
             {fileError && <p className="text-sm text-red-600 mt-2">{fileError}</p>}
             {files.length > 0 && (
               <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {files.map((file, index) => (
+                {files.map((filePreview, index) => (
                   <div key={index} className="relative group">
-                    {file.type.startsWith('image/') ? (
-                      <img src={URL.createObjectURL(file)} alt={file.name} className="w-full h-24 object-cover rounded-lg" />
+                    {filePreview.file.type.startsWith('image/') ? (
+                      <img src={filePreview.url} alt={filePreview.file.name} className="w-full h-24 object-cover rounded-lg" />
                     ) : (
                       <div className="w-full h-24 bg-slate-200 dark:bg-slate-600 rounded-lg flex items-center justify-center p-2">
-                        <p className="text-xs text-slate-700 dark:text-slate-200 text-center break-all">{file.name}</p>
+                        <p className="text-xs text-slate-700 dark:text-slate-200 text-center break-all">{filePreview.file.name}</p>
                       </div>
                     )}
                     <button

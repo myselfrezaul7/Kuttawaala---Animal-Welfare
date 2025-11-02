@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
               <p className="text-lg text-center text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mb-12">
                   These lovely souls are looking for a forever home. Maybe one of them is for you?
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                   {MOCK_ANIMALS.slice(0, 3).map(animal => (
                       <AnimalCard key={animal.id} animal={animal} />
                   ))}
@@ -74,6 +74,22 @@ const HomePage: React.FC = () => {
           </div>
         </section>
 
+        {/* Quiz CTA Section */}
+        <section className="py-20 bg-orange-500/10 dark:bg-orange-900/20">
+          <div className="container mx-auto px-6 text-center">
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">Find Your Perfect Paw-tner</h2>
+            <p className="max-w-2xl mx-auto text-lg text-slate-800 dark:text-slate-200 leading-relaxed mb-8">
+              Not sure which pet is right for you? Take our quick and easy quiz to find the best companion for your lifestyle and personality!
+            </p>
+            <Link
+              to="/quiz"
+              className="inline-block bg-orange-500 text-white font-bold py-4 px-10 rounded-full text-xl hover:bg-orange-600 transition-all transform hover:scale-105 duration-300 shadow-lg"
+            >
+              Start the Quiz
+            </Link>
+          </div>
+        </section>
+
         {/* Success Stories Section */}
         <section className="py-20">
           <div className="container mx-auto px-6">
@@ -81,10 +97,10 @@ const HomePage: React.FC = () => {
             <p className="text-lg text-center text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mb-12">
               Read the heartwarming stories of animals who found their forever homes through KUTTAWAALA.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
               {MOCK_SUCCESS_STORIES.map(story => (
                 <div key={story.id} className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg overflow-hidden flex flex-col">
-                  <img src={story.imageUrl} alt={story.name} className="w-full h-64 object-cover" />
+                  <img src={story.imageUrl} alt={story.name} className="w-full h-64 object-cover" loading="lazy" />
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">{story.name}</h3>
                     <blockquote className="mt-4 border-l-4 border-orange-400 pl-4 italic text-slate-800 dark:text-slate-200 flex-grow">
@@ -97,11 +113,34 @@ const HomePage: React.FC = () => {
           </div>
         </section>
 
+        {/* Volunteer CTA Section */}
+        <section className="py-20">
+            <div className="container mx-auto px-6">
+                <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden lg:flex items-center">
+                    <div className="lg:w-1/2">
+                         <img src="https://picsum.photos/seed/volunteer/800/600" alt="Volunteer helping a dog" className="w-full h-64 lg:h-full object-cover" loading="lazy"/>
+                    </div>
+                    <div className="lg:w-1/2 p-8 md:p-12 text-center lg:text-left">
+                        <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">Make a Difference</h2>
+                        <p className="text-lg text-slate-800 dark:text-slate-200 leading-relaxed mb-8">
+                            Our volunteers are the backbone of our organization. By giving your time and skills, you can directly impact the lives of animals in need. Join our compassionate team today!
+                        </p>
+                        <Link
+                            to="/volunteer"
+                            className="inline-block bg-orange-500 text-white font-bold py-3 px-10 rounded-full text-lg hover:bg-orange-600 transition-all transform hover:scale-105 duration-300 shadow-lg"
+                        >
+                            Become a Volunteer
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {/* Donate Section */}
         <section className="py-20">
           <div className="container mx-auto px-6 text-center">
             <div className="max-w-4xl mx-auto p-10 bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg">
-              <HeartIcon className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <HeartIcon className="w-16 h-16 text-red-500 mx-auto mb-4 animate-heartbeat" />
               <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">Your Support Saves Lives</h2>
               <p className="max-w-3xl mx-auto text-lg text-slate-800 dark:text-slate-200 leading-relaxed mb-8">
                 Your generous donations help us provide food, shelter, and critical veterinary care to animals in need. Every contribution, big or small, helps us write a new chapter for a deserving animal.
@@ -124,4 +163,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default React.memo(HomePage);

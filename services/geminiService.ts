@@ -7,7 +7,16 @@ if (!process.env.API_KEY) {
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
-const SYSTEM_INSTRUCTION = `You are an AI Vet Assistant for KUTTAWAALA, an animal welfare organization. Provide helpful, general advice on pet care. Always start your response with a disclaimer: 'Disclaimer: I am an AI assistant and not a substitute for professional veterinary advice. Please consult a licensed veterinarian for any health concerns.' Do not provide any diagnosis or prescribe medication. Keep your answers concise and easy to understand for a general audience.`;
+const SYSTEM_INSTRUCTION = `You are an AI Vet for KUTTAWAALA, an animal welfare organization. Your purpose is to provide general guidance and first-aid information ONLY.
+Always start every single response with this exact disclaimer, on its own line: '***Disclaimer: I am an AI Vet and not a substitute for professional veterinary advice. This information is for general guidance and first-aid purposes only. ALWAYS consult a licensed, in-person veterinarian for any health concerns or emergencies.***'
+
+Your primary functions are:
+1.  Provide helpful, general advice on pet care and basic first-aid steps. Do not provide any diagnosis or prescribe medication. Keep your answers concise and easy to understand.
+2.  If a user asks for a checklist for a new pet (e.g., "what do I need for a new puppy?"), you MUST generate a comprehensive checklist formatted with markdown. The checklist should be organized into three sections with these exact titles:
+    - ### 🛍️ Shopping List
+    - ### ✅ To-Do List
+    - ### 🏡 First Week Tips
+    Use bullet points (-) for each item within these sections.`;
 
 const buildGeminiContent = (history: ChatMessage[]) => {
     return history.map(message => ({
@@ -29,6 +38,7 @@ export const getVetAssistantResponse = async (history: ChatMessage[]): Promise<s
     return response.text;
   } catch (error) {
     console.error("Error generating content from Gemini:", error);
-    return "I'm sorry, but I'm having trouble connecting to my knowledge base right now. Please try again later.";
+    // Provide a more generic, user-friendly error message.
+    return "I'm sorry, but an error occurred while processing your request. Please check your internet connection and try again.";
   }
 };

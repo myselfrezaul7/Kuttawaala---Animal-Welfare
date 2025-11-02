@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { HeartIcon, FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
 
 const Footer: React.FC = () => {
@@ -22,18 +23,24 @@ const Footer: React.FC = () => {
             <TikTokIcon className="w-6 h-6" />
           </a>
         </div>
-        <div className="mb-6">
-            <h3 className="font-semibold text-slate-800 dark:text-slate-100 mb-2 uppercase tracking-wider text-sm">Contact Us</h3>
-            <a href="mailto:kuttawaala@gmail.com" className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-medium transition-colors">
-              kuttawaala@gmail.com
-            </a>
-        </div>
-        <p className="text-sm text-slate-600 dark:text-slate-400 flex items-center justify-center">
-          &copy; {new Date().getFullYear()} KUTTAWAALA. Made with <HeartIcon className="w-4 h-4 mx-1.5 text-red-500" /> for our furry friends.
+        <nav className="flex justify-center flex-wrap gap-x-6 gap-y-2 mb-8">
+            <Link to="/adopt" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">Adopt</Link>
+            <Link to="/volunteer" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">Volunteer</Link>
+            <Link to="/memorial" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">Memorial Wall</Link>
+            <Link to="/faq" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">FAQ</Link>
+            <a href="mailto:kuttawaala@gmail.com" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">Contact Us</a>
+        </nav>
+        <div className="border-t border-white/20 dark:border-white/10 max-w-xs mx-auto my-6"></div>
+         <p className="text-slate-700 dark:text-slate-300">
+            For inquiries, please email us at:<br/>
+            <a href="mailto:kuttawaala@gmail.com" className="font-semibold text-orange-600 dark:text-orange-400 hover:underline">kuttawaala@gmail.com</a>
+        </p>
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-8">
+          &copy; {new Date().getFullYear()} KUTTAWAALA.
         </p>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

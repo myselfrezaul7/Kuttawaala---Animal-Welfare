@@ -43,13 +43,13 @@ const Header: React.FC = () => {
     <NavLink 
         to={to} 
         onClick={() => setIsMenuOpen(false)}
-        className={({ isActive }) => `block py-3 text-2xl text-center ${isActive ? 'text-orange-500 font-bold' : 'text-slate-800 dark:text-slate-100 font-medium'}`}
+        className={({ isActive }) => `block py-2 text-xl text-center ${isActive ? 'text-orange-500 font-bold' : 'text-slate-800 dark:text-slate-100 font-medium'}`}
     >
         {children}
     </NavLink>
   );
   
-  const mobileLinkClass = 'block py-3 text-2xl text-center text-slate-800 dark:text-slate-100 font-medium';
+  const mobileLinkClass = 'block py-2 text-xl text-center text-slate-800 dark:text-slate-100 font-medium';
 
   return (
     <>

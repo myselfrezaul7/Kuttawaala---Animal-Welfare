@@ -62,7 +62,7 @@ const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
       onClick={() => setActiveTab(tabName)}
       role="tab"
       aria-selected={activeTab === tabName}
-      className={`py-2.5 px-4 w-1/3 text-center font-semibold rounded-t-lg transition-colors ${
+      className={`py-2.5 px-4 w-1/3 text-center font-semibold rounded-t-lg transition-colors text-sm sm:text-base ${
         activeTab === tabName
           ? 'bg-white/30 dark:bg-black/30 text-orange-700 dark:text-orange-400'
           : 'bg-transparent text-slate-700 dark:text-slate-300 hover:bg-white/20 dark:hover:bg-black/20'

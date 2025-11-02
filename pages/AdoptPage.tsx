@@ -21,7 +21,7 @@ const AdoptPage: React.FC = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
         {MOCK_ANIMALS.map(animal => (
           <AnimalCard key={animal.id} animal={animal} />
         ))}

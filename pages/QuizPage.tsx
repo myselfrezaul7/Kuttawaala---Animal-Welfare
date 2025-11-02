@@ -82,7 +82,7 @@ const QuizPage: React.FC = () => {
         {quizCompleted && (
             <div className="mt-16">
                 {results.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                         {results.map(animal => (
                             <AnimalCard key={animal.id} animal={animal} />
                         ))}

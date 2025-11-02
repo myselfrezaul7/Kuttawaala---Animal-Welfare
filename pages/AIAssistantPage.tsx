@@ -124,8 +124,8 @@ const AIAssistantPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-80px)] container mx-auto p-4 sm:p-6 max-w-4xl">
-      <div className="text-center mb-6 pt-4">
+    <div className="flex flex-col flex-grow container mx-auto p-4 sm:p-6 max-w-4xl">
+      <div className="text-center mb-6">
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">AI Vet</h1>
         <p className="text-lg text-slate-800 dark:text-slate-200">Get general guidance and first-aid information for your pet.</p>
         {isWarningVisible && (
@@ -137,8 +137,8 @@ const AIAssistantPage: React.FC = () => {
             >
               <CloseIcon className="w-4 h-4" />
             </button>
-            <p className="font-bold pr-8">IMPORTANT: This is not a substitute for professional veterinary advice.</p>
-            <p className="mt-1 pr-8">This AI is for informational and first-aid purposes only. For any medical emergency or health concern, please consult a licensed, in-person veterinarian immediately.</p>
+            <p className="font-bold pr-4 sm:pr-8">IMPORTANT: This is not a substitute for professional veterinary advice.</p>
+            <p className="mt-1 pr-4 sm:pr-8">This AI is for informational and first-aid purposes only. For any medical emergency or health concern, please consult a licensed, in-person veterinarian immediately.</p>
           </div>
         )}
       </div>

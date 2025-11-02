@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20"></div>
           <div className="relative text-center z-10 p-4">
-            <h1 className="text-5xl md:text-7xl font-extrabold drop-shadow-2xl">Giving Paws a Second Chance</h1>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold drop-shadow-2xl">Giving Paws a Second Chance</h1>
             <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto drop-shadow-lg">
               At KUTTAWAALA, we believe every animal deserves a loving home. Join us in our mission to rescue, rehabilitate, and rehome animals in need.
             </p>
@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
               <p className="text-lg text-center text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mb-12">
                   These lovely souls are looking for a forever home. Maybe one of them is for you?
               </p>
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                   {MOCK_ANIMALS.slice(0, 3).map(animal => (
                       <AnimalCard key={animal.id} animal={animal} />
                   ))}

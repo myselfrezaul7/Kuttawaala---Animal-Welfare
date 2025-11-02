@@ -45,11 +45,11 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       )}
 
       <div className="px-6 py-3 border-t border-white/30 dark:border-white/10 flex justify-around">
-        <button className="flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors rounded-lg px-4 py-2 hover:bg-white/20 dark:hover:bg-black/20">
+        <button className="flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors rounded-lg px-2 sm:px-4 py-2 hover:bg-white/20 dark:hover:bg-black/20 text-sm sm:text-base">
           <ThumbsUpIcon className="w-5 h-5" />
           <span>Like ({post.likes})</span>
         </button>
-        <button className="flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors rounded-lg px-4 py-2 hover:bg-white/20 dark:hover:bg-black/20">
+        <button className="flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors rounded-lg px-2 sm:px-4 py-2 hover:bg-white/20 dark:hover:bg-black/20 text-sm sm:text-base">
           <ChatBubbleIcon className="w-5 h-5" />
           <span>Comment ({post.comments.length})</span>
         </button>

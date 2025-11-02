@@ -48,7 +48,7 @@ const FindVetPage: React.FC = () => {
         {/* Conditional Rendering */}
         {selectedDistrict ? (
             filteredClinics.length > 0 ? (
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 animate-fadeIn">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 animate-fadeIn">
                 {filteredClinics.map(clinic => (
                     <VetClinicCard key={clinic.id} clinic={clinic} />
                 ))}

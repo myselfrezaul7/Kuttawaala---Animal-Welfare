@@ -89,7 +89,7 @@ const AdoptionForm: React.FC<AdoptionFormProps> = ({ animal, isOpen, onClose }) 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 transition-opacity duration-300" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="adoption-form-title">
       <div ref={modalRef} className="bg-slate-50/80 dark:bg-slate-800/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        <div className="p-8">
+        <div className="p-6 sm:p-8">
           <div className="flex justify-between items-start mb-4">
             <div>
                 <h2 id="adoption-form-title" className="text-3xl font-bold text-slate-900 dark:text-slate-50">Adoption Application</h2>

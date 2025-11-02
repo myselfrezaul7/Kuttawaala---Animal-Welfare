@@ -228,7 +228,7 @@ const MemorialPage: React.FC = () => {
         onSubmit={handleAddMemorial}
       />
       
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {memorials.map(memorial => (
           <MemorialCard key={memorial.id} memorial={memorial} />
         ))}

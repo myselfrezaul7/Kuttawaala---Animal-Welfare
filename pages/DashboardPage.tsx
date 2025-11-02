@@ -38,7 +38,7 @@ const DashboardPage: React.FC = () => {
           Your Favorite Animals
         </h2>
         {favoriteAnimals.length > 0 ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {favoriteAnimals.map(animal => (
               <AnimalCard key={animal.id} animal={animal} />
             ))}

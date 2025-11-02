@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { ChatMessage } from '../types';
 import { getVetAssistantResponse } from '../services/geminiService';
-import { PawIcon, SendIcon, CloseIcon, WarningIcon } from '../components/icons';
+import { PawIcon, SendIcon, CloseIcon, WarningIcon, TrashIcon } from '../components/icons';
 
 const CHAT_HISTORY_STORAGE_KEY = 'kuttawaala_ai_chat_history';
 const FULL_DISCLAIMER_TEXT = `***Disclaimer: I am an AI Vet and not a substitute for professional veterinary advice. This information is for general guidance and first-aid purposes only. ALWAYS consult a licensed, in-person veterinarian for any health concerns or emergencies.***`;
@@ -122,6 +122,12 @@ const AIAssistantPage: React.FC = () => {
       setIsLoading(false);
     }
   };
+  
+  const handleClearChat = () => {
+    if (window.confirm("Are you sure you want to clear the entire chat history? This action cannot be undone.")) {
+      setChatHistory([]);
+    }
+  };
 
   return (
     <div className="flex flex-col flex-grow container mx-auto p-4 sm:p-6 max-w-4xl">
@@ -143,6 +149,18 @@ const AIAssistantPage: React.FC = () => {
         )}
       </div>
       <div className="flex-grow bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-xl flex flex-col overflow-hidden">
+        <div className="flex justify-between items-center p-4 border-b border-white/30 dark:border-white/10 flex-shrink-0">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-slate-50">Conversation</h2>
+          <button
+              onClick={handleClearChat}
+              disabled={chatHistory.length === 0}
+              className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-red-500 dark:hover:text-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              aria-label="Clear chat history"
+          >
+              <TrashIcon className="w-4 h-4" />
+              Clear Chat
+          </button>
+        </div>
         <div className="flex-grow p-6 overflow-y-auto">
           <div className="space-y-6">
             <div className="flex items-start gap-3">

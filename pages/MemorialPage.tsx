@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import type { Memorial } from '../types';
 import { MOCK_MEMORIALS } from '../constants';
 import { ImageIcon, HeartIcon } from '../components/icons';
+import FormError from '../components/FormError';
 
 const MEMORIALS_STORAGE_KEY = 'kuttawaala_memorials';
 
@@ -38,6 +39,8 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
     const [ownerName, setOwnerName] = useState('');
     const [tribute, setTribute] = useState('');
     const [image, setImage] = useState<string | null>(null);
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -93,25 +96,41 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
         setOwnerName('');
         setTribute('');
         setImage(null);
+        setError('');
+        setIsLoading(false);
         if(fileInputRef.current) fileInputRef.current.value = "";
         onClose();
     }, [onClose]);
 
-    const handleSubmit = useCallback((e: React.FormEvent) => {
+    const handleSubmit = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
+        setError('');
+
         if (!petName || !ownerName || !tribute || !image) {
-            alert("Please fill all fields and upload an image.");
+            setError("Please fill all fields and upload an image.");
             return;
         }
-        onSubmit({
-            id: Date.now(),
-            petName,
-            ownerName,
-            tribute,
-            imageUrl: image,
-            timestamp: new Date().toISOString(),
-        });
-        resetForm();
+        setIsLoading(true);
+        try {
+            // Simulate submission
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            if (Math.random() > 0.8) {
+                throw new Error("Failed to upload tribute. Please try again.");
+            }
+            onSubmit({
+                id: Date.now(),
+                petName,
+                ownerName,
+                tribute,
+                imageUrl: image,
+                timestamp: new Date().toISOString(),
+            });
+            resetForm();
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unknown error occurred.');
+        } finally {
+            setIsLoading(false);
+        }
     }, [petName, ownerName, tribute, image, resetForm, onSubmit]);
 
     if (!isVisible) return null;
@@ -126,6 +145,7 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
                         <h2 id="memorial-form-title" className="text-3xl font-bold text-slate-900 dark:text-slate-50">Share a Memory</h2>
                         <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="Close" className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-4xl font-light">&times;</button>
                     </div>
+                    <FormError message={error} />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label htmlFor="petName" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Pet's Name</label>
@@ -158,8 +178,8 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
                         )}
                     </div>
                     <div className="flex justify-end pt-4 border-t border-slate-300 dark:border-slate-600">
-                        <button type="submit" className="w-full sm:w-auto bg-orange-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-600 transition-colors">
-                            Submit Tribute
+                        <button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-orange-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-600 transition-colors disabled:bg-orange-300 disabled:cursor-wait">
+                            {isLoading ? 'Submitting...' : 'Submit Tribute'}
                         </button>
                     </div>
                 </form>

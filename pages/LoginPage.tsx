@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleIcon } from '../components/icons';
+import FormError from '../components/FormError';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -52,7 +53,7 @@ const LoginPage: React.FC = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {error && <p className="bg-red-500/20 text-red-900 dark:text-red-200 p-3 rounded-lg text-center">{error}</p>}
+          <FormError message={error} />
           <div>
             <label htmlFor="email" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Email Address</label>
             <input 

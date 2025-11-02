@@ -7,7 +7,7 @@ interface DonationModalProps {
 }
 
 const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<'mfs' | 'bank'>('mfs');
+  const [activeTab, setActiveTab] = useState<'mfs' | 'bank' | 'medicine'>('mfs');
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -57,12 +57,12 @@ const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const TabButton: React.FC<{ tabName: 'mfs' | 'bank'; children: React.ReactNode }> = ({ tabName, children }) => (
+  const TabButton: React.FC<{ tabName: 'mfs' | 'bank' | 'medicine'; children: React.ReactNode }> = ({ tabName, children }) => (
     <button
       onClick={() => setActiveTab(tabName)}
       role="tab"
       aria-selected={activeTab === tabName}
-      className={`py-2.5 px-4 w-1/2 text-center font-semibold rounded-t-lg transition-colors ${
+      className={`py-2.5 px-4 w-1/3 text-center font-semibold rounded-t-lg transition-colors ${
         activeTab === tabName
           ? 'bg-white/30 dark:bg-black/30 text-orange-700 dark:text-orange-400'
           : 'bg-transparent text-slate-700 dark:text-slate-300 hover:bg-white/20 dark:hover:bg-black/20'
@@ -81,7 +81,8 @@ const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
           <button ref={closeButtonRef} onClick={onClose} aria-label="Close" className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-3xl font-light">&times;</button>
           
           <div className="flex bg-white/20 dark:bg-black/20 rounded-t-lg" role="tablist" aria-label="Donation Methods">
-            <TabButton tabName="mfs">MFS (bKash/Nagad)</TabButton>
+            <TabButton tabName="mfs">Money</TabButton>
+            <TabButton tabName="medicine">Medicine</TabButton>
             <TabButton tabName="bank">Bank Transfer</TabButton>
           </div>
 
@@ -99,6 +100,36 @@ const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
                   <p className="text-sm text-slate-700 dark:text-slate-200">Send donation via our Merchant Account:</p>
                   <p className="font-mono bg-white/20 dark:bg-black/20 p-2 rounded-md text-center text-lg mt-2 text-slate-900 dark:text-slate-50 tracking-widest">01234567890</p>
                 </div>
+              </div>
+            )}
+            
+            {activeTab === 'medicine' && (
+               <div role="tabpanel" aria-labelledby="medicine-tab" className="space-y-4 animate-fadeIn">
+                <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Donate Essential Supplies</h3>
+                <p className="text-sm text-slate-700 dark:text-slate-200">
+                  Your in-kind donations of medical supplies are crucial. Below is a list of our most needed items.
+                </p>
+                <ul className="list-disc list-inside text-sm text-slate-700 dark:text-slate-200 space-y-1 bg-white/20 dark:bg-black/20 p-3 rounded-md">
+                  <li>Antibiotics (e.g., Doxycycline)</li>
+                  <li>Flea & Tick Prevention</li>
+                  <li>Deworming Medication</li>
+                  <li>Medicated Shampoos & Wipes</li>
+                  <li>Gauze, Bandages, and Medical Tape</li>
+                </ul>
+                <div>
+                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">Delivery Address:</p>
+                  <address className="text-sm bg-white/20 dark:bg-black/20 p-2 rounded-md mt-1 text-slate-900 dark:text-slate-50 not-italic">
+                    KUTTAWAALA Shelter<br/>
+                    House 123, Road 45, Gulshan 2<br/>
+                    Dhaka-1212, Bangladesh
+                  </address>
+                </div>
+                <a 
+                  href="mailto:kuttawaala@gmail.com?subject=Medicine%20Donation%20Inquiry"
+                  className="block w-full text-center bg-orange-500 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-orange-600 transition-colors"
+                >
+                  Contact to Coordinate
+                </a>
               </div>
             )}
 

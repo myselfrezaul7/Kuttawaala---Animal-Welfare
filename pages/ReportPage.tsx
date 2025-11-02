@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MapPinIcon, ImageIcon, CloseIcon } from '../components/icons';
+import FormError from '../components/FormError';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 const ACCEPTED_FILE_TYPES = "image/jpeg, image/png, image/gif, video/mp4, video/quicktime";
@@ -15,6 +16,8 @@ const ReportPage: React.FC = () => {
   const [isLocating, setIsLocating] = useState(false);
   const [files, setFiles] = useState<FilePreview[]>([]);
   const [fileError, setFileError] = useState('');
+  const [submissionError, setSubmissionError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Effect to clean up object URLs on unmount
@@ -79,20 +82,36 @@ const ReportPage: React.FC = () => {
   };
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you! Your report has been submitted. Our team will look into it shortly.');
-    // Here you would typically send the form data and files to a server
-    // For demo, we just reset the form
-    const form = e.target as HTMLFormElement;
-    form.reset();
-    setLocation('');
-    setStatus('');
-    // Clean up all object URLs before clearing the state
-    files.forEach(filePreview => URL.revokeObjectURL(filePreview.url));
-    setFiles([]);
-    setFileError('');
-    if (fileInputRef.current) fileInputRef.current.value = '';
+    setSubmissionError('');
+    setIsLoading(true);
+
+    try {
+        // In a real app, this is where you'd upload files and submit data
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // For demo, we'll randomly throw an error sometimes
+        if (Math.random() > 0.8) {
+            throw new Error("Failed to submit report. Please try again later.");
+        }
+
+        alert('Thank you! Your report has been submitted. Our team will look into it shortly.');
+        // Reset form on success
+        const form = e.target as HTMLFormElement;
+        form.reset();
+        setLocation('');
+        setStatus('');
+        files.forEach(filePreview => URL.revokeObjectURL(filePreview.url));
+        setFiles([]);
+        setFileError('');
+        if (fileInputRef.current) fileInputRef.current.value = '';
+
+    } catch (err) {
+        setSubmissionError(err instanceof Error ? err.message : 'An unknown error occurred.');
+    } finally {
+        setIsLoading(false);
+    }
   };
   
   const inputStyle = "w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors";
@@ -105,6 +124,7 @@ const ReportPage: React.FC = () => {
           See an animal that needs help? Fill out the form below, and our rescue team will be alerted.
         </p>
         <form onSubmit={handleSubmit} className="space-y-6">
+          <FormError message={submissionError} />
           <div>
             <label htmlFor="animal-type" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Type of Animal</label>
             <select id="animal-type" required className={inputStyle}>
@@ -184,8 +204,8 @@ const ReportPage: React.FC = () => {
           </div>
 
           <div>
-            <button type="submit" className="w-full bg-orange-500 text-white font-bold py-4 px-4 rounded-lg text-lg hover:bg-orange-600 transition-colors transform hover:scale-105">
-              Submit Report
+            <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-4 px-4 rounded-lg text-lg hover:bg-orange-600 transition-colors transform hover:scale-105 disabled:bg-orange-300 disabled:cursor-wait">
+              {isLoading ? 'Submitting...' : 'Submit Report'}
             </button>
           </div>
         </form>

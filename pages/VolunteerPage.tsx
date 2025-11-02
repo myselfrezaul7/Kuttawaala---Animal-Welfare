@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
+import FormError from '../components/FormError';
 
 const VolunteerPage: React.FC = () => {
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setFormSubmitted(true);
+        setError('');
+        setIsLoading(true);
+
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            if (Math.random() > 0.8) {
+                throw new Error("Could not submit application. Please try again.");
+            }
+            setFormSubmitted(true);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An unknown error occurred.');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const inputStyle = "w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors";
@@ -27,10 +44,18 @@ const VolunteerPage: React.FC = () => {
                         <div className="text-center p-8 bg-green-500/10 border border-green-500/30 rounded-lg">
                             <h3 className="text-2xl font-bold text-green-900 dark:text-green-200">Thank You!</h3>
                             <p className="text-slate-800 dark:text-slate-200 mt-2">Your application has been received. We'll get in touch with you soon!</p>
-                             <button onClick={() => setFormSubmitted(false)} className="mt-6 bg-orange-500 text-white font-bold py-2 px-6 rounded-full hover:bg-orange-600 transition-colors">Submit Another</button>
+                             <button 
+                                onClick={() => {
+                                    setFormSubmitted(false);
+                                    setError('');
+                                }} 
+                                className="mt-6 bg-orange-500 text-white font-bold py-2 px-6 rounded-full hover:bg-orange-600 transition-colors">
+                                Submit Another
+                            </button>
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="space-y-6">
+                            <FormError message={error} />
                             <div>
                                 <label htmlFor="name" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Full Name <span className="text-red-500">*</span></label>
                                 <input type="text" id="name" required className={inputStyle} autoComplete="name" />
@@ -62,7 +87,9 @@ const VolunteerPage: React.FC = () => {
                                 <textarea id="availability" rows={3} placeholder="e.g., Weekends, weekday evenings..." required className={inputStyle}></textarea>
                             </div>
                             <div>
-                                <button type="submit" className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg text-lg hover:bg-orange-600 transition-colors">Submit Application</button>
+                                <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg text-lg hover:bg-orange-600 transition-colors disabled:bg-orange-300 disabled:cursor-wait">
+                                    {isLoading ? 'Submitting...' : 'Submit Application'}
+                                </button>
                             </div>
                         </form>
                     )}

@@ -38,7 +38,10 @@ export const getVetAssistantResponse = async (history: ChatMessage[]): Promise<s
     return response.text;
   } catch (error) {
     console.error("Error generating content from Gemini:", error);
+    if (error instanceof Error && error.message.includes('API key not valid')) {
+        return "I'm sorry, but there seems to be an issue with the application configuration. Please contact the site administrator.";
+    }
     // Provide a more generic, user-friendly error message.
-    return "I'm sorry, but an error occurred while processing your request. Please check your internet connection and try again.";
+    return "I'm sorry, but an error occurred while processing your request. This could be due to a network issue. Please check your internet connection and try again.";
   }
 };

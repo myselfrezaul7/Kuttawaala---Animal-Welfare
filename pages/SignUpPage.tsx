@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleIcon } from '../components/icons';
+import FormError from '../components/FormError';
 
 const SignUpPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -57,7 +58,7 @@ const SignUpPage: React.FC = () => {
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">
-          {error && <p className="bg-red-500/20 text-red-900 dark:text-red-200 p-3 rounded-lg text-center">{error}</p>}
+          <FormError message={error} />
           <div>
             <label htmlFor="name" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Full Name</label>
             <input 

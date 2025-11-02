@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
 import CookieConsentBanner from './components/CookieConsentBanner';
 import { ArrowUpIcon } from './components/icons';
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Lazy load page components
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -59,24 +60,26 @@ function App() {
                     <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-100">
                     <Header />
                     <main className="flex-grow animate-fadeIn">
-                      <Suspense fallback={<LoadingSpinner />}>
-                        <Routes>
-                          <Route path="/" element={<HomePage />} />
-                          <Route path="/adopt" element={<AdoptPage />} />
-                          <Route path="/adopt/:id" element={<AnimalDetailPage />} />
-                          <Route path="/report" element={<ReportPage />} />
-                          <Route path="/ai-assistant" element={<AIAssistantPage />} />
-                          <Route path="/find-vet" element={<FindVetPage />} />
-                          <Route path="/login" element={<LoginPage />} />
-                          <Route path="/signup" element={<SignUpPage />} />
-                          <Route path="/faq" element={<FAQPage />} />
-                          <Route path="/quiz" element={<QuizPage />} />
-                          <Route path="/volunteer" element={<VolunteerPage />} />
-                          <Route path="/memorial" element={<MemorialPage />} />
-                          <Route path="/dashboard" element={<DashboardPage />} />
-                          <Route path="/community" element={<CommunityPage />} />
-                        </Routes>
-                      </Suspense>
+                      <ErrorBoundary>
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/adopt" element={<AdoptPage />} />
+                            <Route path="/adopt/:id" element={<AnimalDetailPage />} />
+                            <Route path="/report" element={<ReportPage />} />
+                            <Route path="/ai-assistant" element={<AIAssistantPage />} />
+                            <Route path="/find-vet" element={<FindVetPage />} />
+                            <Route path="/login" element={<LoginPage />} />
+                            <Route path="/signup" element={<SignUpPage />} />
+                            <Route path="/faq" element={<FAQPage />} />
+                            <Route path="/quiz" element={<QuizPage />} />
+                            <Route path="/volunteer" element={<VolunteerPage />} />
+                            <Route path="/memorial" element={<MemorialPage />} />
+                            <Route path="/dashboard" element={<DashboardPage />} />
+                            <Route path="/community" element={<CommunityPage />} />
+                          </Routes>
+                        </Suspense>
+                      </ErrorBoundary>
                     </main>
                     <Footer />
                     <CookieConsentBanner />

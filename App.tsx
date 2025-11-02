@@ -11,9 +11,10 @@ import FAQPage from './pages/FAQPage';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import CommunityPage from './pages/CommunityPage';
-import OnlineVetPage from './pages/OnlineVetPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import FindVetPage from './pages/FindVetPage';
+import CookieConsentBanner from './components/CookieConsentBanner';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
     <ThemeProvider>
         <AuthProvider>
             <HashRouter>
-                <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+                <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-100">
                 <Header />
                 <main className="flex-grow">
                     <Routes>
@@ -31,13 +32,14 @@ function App() {
                     <Route path="/report" element={<ReportPage />} />
                     <Route path="/ai-assistant" element={<AIAssistantPage />} />
                     <Route path="/community" element={<CommunityPage />} />
-                    <Route path="/online-vet" element={<OnlineVetPage />} />
+                    <Route path="/find-vet" element={<FindVetPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUpPage />} />
                     <Route path="/faq" element={<FAQPage />} />
                     </Routes>
                 </main>
                 <Footer />
+                <CookieConsentBanner />
                 </div>
             </HashRouter>
         </AuthProvider>

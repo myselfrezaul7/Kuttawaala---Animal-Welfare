@@ -1,5 +1,5 @@
 // FIX: Added imports for new types used in mock data.
-import type { Animal, User, Post, Vet, SuccessStory } from './types';
+import type { Animal, User, Post, SuccessStory, VetClinic, Vet } from './types';
 
 export const MOCK_ANIMALS: Animal[] = [
   {
@@ -87,37 +87,111 @@ export const MOCK_POSTS: Post[] = [
   },
 ];
 
-// FIX: Added mock vet data for the online vet page.
+// FIX: Added mock vet data to resolve compilation errors for the deprecated Online Vet feature.
 export const MOCK_VETS: Vet[] = [
   {
     id: 1,
-    name: 'Dr. Emily Carter',
-    specialization: 'Canine Specialist',
+    name: 'Dr. Anika Rahman',
+    specialization: 'Feline Medicine',
     imageUrl: 'https://picsum.photos/seed/vet1/200/200',
     isOnline: true,
   },
   {
     id: 2,
-    name: 'Dr. James Rodriguez',
-    specialization: 'Feline Nutritionist',
+    name: 'Dr. Farhan Hossain',
+    specialization: 'Canine Behavior',
     imageUrl: 'https://picsum.photos/seed/vet2/200/200',
     isOnline: false,
   },
   {
     id: 3,
-    name: 'Dr. Sarah Chen',
-    specialization: 'General Pet Health',
+    name: 'Dr. Samina Chowdhury',
+    specialization: 'Exotic Pets',
     imageUrl: 'https://picsum.photos/seed/vet3/200/200',
     isOnline: true,
   },
   {
     id: 4,
-    name: 'Dr. Michael Lee',
-    specialization: 'Exotic Animals',
+    name: 'Dr. Kamal Ahmed',
+    specialization: 'General Practice',
     imageUrl: 'https://picsum.photos/seed/vet4/200/200',
     isOnline: false,
   },
 ];
+
+// FIX: Added mock vet clinic data for the "Find a Vet" page.
+export const MOCK_VET_CLINICS: VetClinic[] = [
+  {
+    id: 1,
+    name: 'PAW Life Care',
+    address: 'House 1/2, Road 2, Block A, Section 10, Mirpur, Dhaka',
+    phone: '+8801712345678',
+    website: 'https://pawlifecare.com',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=PAW+Life+Care+Dhaka',
+    hours: '10:00 AM - 8:00 PM',
+  },
+  {
+    id: 2,
+    name: 'PetVet Care',
+    address: 'House 34, Road 12, Block E, Banani, Dhaka',
+    phone: '+8801812345679',
+    website: 'https://petvetcare.com',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=PetVet+Care+Banani+Dhaka',
+    hours: '9:00 AM - 9:00 PM',
+  },
+  {
+    id: 3,
+    name: 'Central Veterinary Hospital',
+    address: '42, Kazi Nazrul Islam Ave, Dhaka 1215',
+    phone: '+88029665492',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Central+Veterinary+Hospital+Dhaka',
+    hours: '24 Hours',
+  },
+  {
+    id: 4,
+    name: 'Gulshan Pet Animal Clinic',
+    address: 'House 20, Road 55, Gulshan 2, Dhaka',
+    phone: '+8801912345680',
+    website: 'https://gulshanpetclinic.com',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gulshan+Pet+Animal+Clinic+Dhaka',
+    hours: '11:00 AM - 7:00 PM',
+  },
+  {
+    id: 5,
+    name: 'Obhoyaronno Vet Clinic',
+    address: 'House-3, Road-1, Sector-1, Uttara, Dhaka 1230',
+    phone: '+8801718123456',
+    website: 'http://obhoyaronno.org',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Obhoyaronno+Vet+Clinic+Uttara+Dhaka',
+    hours: '10:00 AM - 7:00 PM',
+  },
+  {
+    id: 6,
+    name: 'The VET',
+    address: 'House 7, Road 2/A, Sector 4, Uttara, Dhaka',
+    phone: '+8801313303303',
+    website: 'https://thevet.com.bd',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=The+VET+Uttara+Dhaka',
+    hours: '10:00 AM - 10:00 PM',
+  },
+  {
+    id: 7,
+    name: 'Care & Cure Vet Chamber',
+    address: '5/4, Block-F, Lalmatia, Dhaka',
+    phone: '+8801711234567',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Care+&+Cure+Vet+Chamber+Lalmatia+Dhaka',
+    hours: '5:00 PM - 9:00 PM',
+  },
+  {
+    id: 8,
+    name: 'Dr. K-Nine Pet Zone & Clinic',
+    address: 'House 27, Road 15, Sector 13, Uttara, Dhaka',
+    phone: '+8801979362867',
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dr.+K-Nine+Pet+Zone+&+Clinic+Uttara+Dhaka',
+    hours: '11:00 AM - 10:00 PM',
+  },
+];
+
 
 // FIX: Added mock success stories for the homepage.
 export const MOCK_SUCCESS_STORIES: SuccessStory[] = [

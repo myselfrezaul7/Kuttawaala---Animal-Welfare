@@ -45,7 +45,7 @@ export interface Post {
   comments: Comment[];
 }
 
-// FIX: Added Vet type for the online veterinarian consultation feature.
+// FIX: Re-added Vet type to resolve compilation errors for the Online Vet feature, which appears to be deprecated but its component files remain.
 export interface Vet {
   id: number;
   name: string;
@@ -53,6 +53,18 @@ export interface Vet {
   imageUrl: string;
   isOnline: boolean;
 }
+
+// FIX: Replaced the Vet type with VetClinic for the new "Find a Vet" directory.
+export interface VetClinic {
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  website?: string;
+  mapUrl: string;
+  hours: string;
+}
+
 
 // FIX: Added SuccessStory type for the homepage.
 export interface SuccessStory {

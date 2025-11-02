@@ -12,11 +12,14 @@ interface SearchModalProps {
 const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<Animal[]>([]);
+  const [statusMessage, setStatusMessage] = useState('');
   const modalRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (searchTerm.trim() === '') {
       setResults([]);
+      setStatusMessage('');
       return;
     }
 
@@ -26,15 +29,23 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
       animal.breed.toLowerCase().includes(searchLower)
     );
     setResults(filtered);
+
+    if (filtered.length > 0) {
+      setStatusMessage(`${filtered.length} ${filtered.length === 1 ? 'result' : 'results'} found.`);
+    } else {
+      setStatusMessage(`No results found for "${searchTerm}".`);
+    }
   }, [searchTerm]);
 
   useEffect(() => {
-    // Reset search on close
     if (!isOpen) {
       setTimeout(() => {
         setSearchTerm('');
         setResults([]);
+        setStatusMessage('');
       }, 300); // Allow for closing animation
+    } else {
+      inputRef.current?.focus();
     }
   }, [isOpen]);
 
@@ -56,36 +67,48 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div 
-      className={`fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex justify-center items-start pt-[15vh] md:pt-20 p-4 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className={`fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-start pt-[15vh] md:pt-20 p-4 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       onClick={onClose}
     >
       <div 
         ref={modalRef} 
-        className={`bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[70vh] flex flex-col transition-all duration-300 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="search-modal-title"
+        className={`bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[70vh] flex flex-col transition-all duration-300 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center space-x-3">
-          <SearchIcon className="w-6 h-6 text-slate-500 dark:text-slate-400 flex-shrink-0" />
+        <h2 id="search-modal-title" className="sr-only">Search for an animal</h2>
+        <div className="p-4 border-b border-slate-300 dark:border-slate-600 flex items-center space-x-3">
+          <SearchIcon className="w-6 h-6 text-slate-600 dark:text-slate-400 flex-shrink-0" />
           <input
+            ref={inputRef}
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search for a name or breed..."
-            className="w-full bg-transparent text-lg text-slate-900 dark:text-slate-100 focus:outline-none"
-            autoFocus
+            aria-label="Search for an animal by name or breed"
+            aria-controls="search-results-list"
+            aria-autocomplete="list"
+            className="w-full bg-transparent text-lg text-slate-900 dark:text-slate-100 focus:outline-none placeholder:text-slate-500 dark:placeholder:text-slate-400"
           />
-           <button onClick={onClose} className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-light flex-shrink-0 leading-none">&times;</button>
+           <button onClick={onClose} aria-label="Close search" className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-300 text-3xl font-light flex-shrink-0 leading-none">&times;</button>
         </div>
+
+        <div className="sr-only" aria-live="polite" role="status">
+          {statusMessage}
+        </div>
+        
         <div className="overflow-y-auto">
           {searchTerm.trim() && results.length > 0 && (
-            <ul className="divide-y divide-slate-100 dark:divide-slate-700">
+            <ul id="search-results-list" role="listbox" aria-label="Search results" className="divide-y divide-slate-200 dark:divide-slate-700">
               {results.map(animal => (
-                <li key={animal.id}>
-                  <Link to={`/adopt/${animal.id}`} onClick={onClose} className="flex items-center p-4 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                <li key={animal.id} role="option">
+                  <Link to={`/adopt/${animal.id}`} onClick={onClose} className="flex items-center p-4 hover:bg-white/50 dark:hover:bg-slate-700/50 transition-colors">
                     <img src={animal.imageUrl} alt={animal.name} className="w-16 h-16 object-cover rounded-md mr-4 flex-shrink-0"/>
                     <div>
-                      <p className="font-bold text-slate-800 dark:text-slate-100">{animal.name}</p>
-                      <p className="text-slate-600 dark:text-slate-300">{animal.breed}</p>
+                      <p className="font-bold text-slate-900 dark:text-slate-100">{animal.name}</p>
+                      <p className="text-slate-700 dark:text-slate-300">{animal.breed}</p>
                     </div>
                   </Link>
                 </li>
@@ -94,12 +117,12 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
           )}
           {searchTerm.trim() && results.length === 0 && (
             <div className="p-10 text-center">
-              <p className="text-slate-600 dark:text-slate-300 font-semibold">No results found for "{searchTerm}"</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Try searching for a different name or breed.</p>
+              <p className="text-slate-700 dark:text-slate-300 font-semibold" aria-hidden="true">No results found for "{searchTerm}"</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2" aria-hidden="true">Try searching for a different name or breed.</p>
             </div>
           )}
            {!searchTerm.trim() && (
-             <div className="p-10 text-center text-slate-500 dark:text-slate-400">
+             <div className="p-10 text-center text-slate-600 dark:text-slate-400">
                 <p>Start typing to find your new best friend.</p>
             </div>
            )}

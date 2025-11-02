@@ -45,17 +45,17 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onAddPost }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-lg mb-8">
+    <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 p-6 rounded-2xl shadow-lg mb-8">
       <form onSubmit={handleSubmit}>
         <div className="flex items-start space-x-4">
-          <div className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
-            <UserIcon className="w-7 h-7 text-slate-600 dark:text-slate-300" />
+          <div className="w-12 h-12 rounded-full bg-white/20 dark:bg-slate-700/50 flex items-center justify-center flex-shrink-0">
+            <UserIcon className="w-7 h-7 text-slate-800 dark:text-slate-200" />
           </div>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder={`What's on your mind, ${currentUser?.name.split(' ')[0]}?`}
-            className="w-full p-3 border border-slate-200 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-100 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-300 resize-none"
+            className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-all duration-300 resize-none"
             rows={3}
           ></textarea>
         </div>

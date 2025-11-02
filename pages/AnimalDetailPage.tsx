@@ -12,8 +12,8 @@ const AnimalDetailPage: React.FC = () => {
   if (!animal) {
     return (
       <div className="text-center py-20">
-        <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">Animal not found!</h1>
-        <p className="text-slate-600 dark:text-slate-300 mt-4">The animal you are looking for might have been adopted or the link is incorrect.</p>
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Animal not found!</h1>
+        <p className="text-slate-800 dark:text-slate-200 mt-4">The animal you are looking for might have been adopted or the link is incorrect.</p>
         <Link to="/adopt" className="mt-8 inline-block bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition-colors">
             Back to Adoption Page
         </Link>
@@ -24,20 +24,20 @@ const AnimalDetailPage: React.FC = () => {
   return (
     <>
       <div className="container mx-auto px-6 py-12">
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden md:flex">
+        <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden md:flex">
             <div className="md:w-1/2">
                 <img src={animal.imageUrl} alt={animal.name} className="w-full h-full object-cover min-h-[300px]" />
             </div>
             <div className="p-8 md:p-12 md:w-1/2 flex flex-col justify-between">
                 <div>
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-slate-100">{animal.name}</h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-300 font-semibold mt-2">{animal.breed}</p>
-                    <div className="mt-4 text-lg text-gray-500 dark:text-gray-400 flex items-center space-x-4">
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-50">{animal.name}</h1>
+                    <p className="text-xl text-slate-800 dark:text-slate-200 font-semibold mt-2">{animal.breed}</p>
+                    <div className="mt-4 text-lg text-slate-700 dark:text-slate-300 flex items-center space-x-4">
                         <span>{animal.age} old</span>
-                        <span className="text-gray-300 dark:text-gray-600">&bull;</span>
+                        <span className="text-slate-400 dark:text-slate-600">&bull;</span>
                         <span>{animal.gender}</span>
                     </div>
-                    <p className="text-slate-700 dark:text-slate-300 mt-6 leading-relaxed text-lg">{animal.description}</p>
+                    <p className="text-slate-800 dark:text-slate-200 mt-6 leading-relaxed text-lg">{animal.description}</p>
                 </div>
                 <div className="mt-8">
                     <button 

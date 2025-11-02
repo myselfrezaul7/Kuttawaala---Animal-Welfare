@@ -18,13 +18,13 @@ const Header: React.FC = () => {
   }
 
   const activeLinkClass = 'text-orange-600 dark:text-orange-400 font-semibold';
-  const inactiveLinkClass = 'text-slate-600 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400';
+  const inactiveLinkClass = 'text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400';
   
   const MobileNavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, children }) => (
     <NavLink 
         to={to} 
         onClick={() => setIsMenuOpen(false)}
-        className={({ isActive }) => `block py-3 text-2xl text-center ${isActive ? 'text-orange-500 font-bold' : 'text-slate-700 dark:text-slate-200 font-medium'}`}
+        className={({ isActive }) => `block py-3 text-2xl text-center ${isActive ? 'text-orange-500 font-bold' : 'text-slate-800 dark:text-slate-100 font-medium'}`}
     >
         {children}
     </NavLink>
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-white/80 dark:bg-slate-900/80 shadow-sm sticky top-0 z-20 backdrop-blur-lg">
+      <header className="bg-white/20 dark:bg-slate-900/40 shadow-md sticky top-0 z-20 backdrop-blur-lg border-b border-white/30 dark:border-white/10">
         <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
           <NavLink to="/" className="flex items-center">
             <Logo className="h-10 w-auto"/>
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
               <li><NavLink to="/adopt" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Adopt</NavLink></li>
               <li><NavLink to="/report" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Report Rescue</NavLink></li>
               <li><NavLink to="/community" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Community</NavLink></li>
-              <li><NavLink to="/online-vet" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Online Vet</NavLink></li>
+              <li><NavLink to="/find-vet" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>Find a Vet</NavLink></li>
               <li><NavLink to="/ai-assistant" className={({ isActive }) => (isActive ? activeLinkClass : inactiveLinkClass)}>AI Assistant</NavLink></li>
             </ul>
             <div className="flex items-center space-x-2">
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
               )}
                <button 
                   onClick={() => setIsSearchOpen(true)}
-                  className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+                  className="p-2 rounded-full text-slate-800 dark:text-slate-200 hover:bg-white/50 dark:hover:bg-slate-700/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
                   aria-label="Search"
                 >
                     <SearchIcon className="w-6 h-6" />
@@ -73,13 +73,13 @@ const Header: React.FC = () => {
           <div className="md:hidden flex items-center gap-2">
             <button 
                 onClick={() => setIsSearchOpen(true)}
-                className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                className="p-2 rounded-full text-slate-800 dark:text-slate-200 hover:bg-white/50 dark:hover:bg-slate-700/50"
                 aria-label="Search"
               >
                   <SearchIcon className="w-6 h-6" />
             </button>
              <ThemeToggle />
-            <button onClick={() => setIsMenuOpen(true)} className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400">
+            <button onClick={() => setIsMenuOpen(true)} className="text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400">
               <MenuIcon className="w-8 h-8" />
             </button>
           </div>
@@ -87,12 +87,12 @@ const Header: React.FC = () => {
       </header>
       
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-white dark:bg-slate-900 z-50 transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out md:hidden`}>
+      <div className={`fixed inset-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl z-50 transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out md:hidden`}>
         <div className="container mx-auto px-6 py-3 flex justify-between items-center">
            <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="flex items-center">
             <Logo className="h-10 w-auto"/>
           </NavLink>
-          <button onClick={() => setIsMenuOpen(false)} className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400">
+          <button onClick={() => setIsMenuOpen(false)} className="text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400">
             <CloseIcon className="w-8 h-8" />
           </button>
         </div>
@@ -102,7 +102,7 @@ const Header: React.FC = () => {
                 <MobileNavLink to="/adopt">Adopt</MobileNavLink>
                 <MobileNavLink to="/report">Report Rescue</MobileNavLink>
                 <MobileNavLink to="/community">Community</MobileNavLink>
-                <MobileNavLink to="/online-vet">Online Vet</MobileNavLink>
+                <MobileNavLink to="/find-vet">Find a Vet</MobileNavLink>
                 <MobileNavLink to="/ai-assistant">AI Assistant</MobileNavLink>
                 <div className="mt-8">
                   {isAuthenticated ? (

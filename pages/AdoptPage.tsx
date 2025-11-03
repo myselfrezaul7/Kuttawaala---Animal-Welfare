@@ -21,6 +21,17 @@ const AdoptPage: React.FC = () => {
         </Link>
       </div>
 
+      {/* Rehoming Section */}
+      <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl p-8 mb-16 text-center max-w-3xl mx-auto">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-4">Need to Rehome Your Pet?</h2>
+        <p className="text-lg text-slate-800 dark:text-slate-200 max-w-2xl mx-auto mb-6">
+            If you need to find a loving new home for your pet, we're here to help. Please email us high-quality, clear pictures (no videos please) and a detailed description of your pet including their name, breed, age, temperament, and any medical history. Our team will review your submission and, if approved, feature them on our adoption page.
+        </p>
+        <p className="text-lg text-slate-800 dark:text-slate-200">
+            Email your submission to: <a href="mailto:kuttawaala@gmail.com" className="font-semibold text-orange-600 dark:text-orange-400 hover:underline">kuttawaala@gmail.com</a>
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
         {MOCK_ANIMALS.map(animal => (
           <AnimalCard key={animal.id} animal={animal} />

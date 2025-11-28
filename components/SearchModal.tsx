@@ -10,6 +10,29 @@ interface SearchModalProps {
   onClose: () => void;
 }
 
+// Mapping for Bangla keywords to English terms used in MOCK_ANIMALS
+const keywordMap: Record<string, string[]> = {
+    'কুকুর': ['dog', 'puppy', 'retriever', 'shepherd', 'beagle', 'labrador'],
+    'কুকুড়': ['dog', 'puppy', 'retriever', 'shepherd', 'beagle', 'labrador'],
+    'বিড়াল': ['cat', 'kitten', 'shorthair', 'siamese'],
+    'বিড়াল': ['cat', 'kitten', 'shorthair', 'siamese'],
+    'বেড়াল': ['cat', 'kitten', 'shorthair', 'siamese'],
+    'পাখি': ['bird', 'parrot'],
+    // Common names transliterated
+    'বাডি': ['buddy'],
+    'লুসি': ['lucy'],
+    'ম্যাক্স': ['max'],
+    'ডেইজি': ['daisy'],
+    'রকি': ['rocky'],
+    'মিস্টি': ['misty'],
+    // Breeds
+    'গোল্ডেন': ['golden'],
+    'জার্মান': ['german'],
+    'শেফার্ড': ['shepherd'],
+    'ল্যাবরাডর': ['labrador'],
+    'সিয়ামিজ': ['siamese']
+};
+
 const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<Animal[]>([]);
@@ -25,11 +48,24 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
       return;
     }
 
-    const searchLower = searchTerm.toLowerCase();
-    const filtered = MOCK_ANIMALS.filter(animal =>
-      animal.name.toLowerCase().includes(searchLower) ||
-      animal.breed.toLowerCase().includes(searchLower)
-    );
+    const searchLower = searchTerm.toLowerCase().trim();
+    
+    // Build a list of search terms. Start with what the user typed.
+    let searchTerms = [searchLower];
+
+    // If the input matches any Bangla keywords, add the corresponding English terms to the search.
+    Object.keys(keywordMap).forEach(key => {
+        if (searchLower.includes(key)) {
+            searchTerms = [...searchTerms, ...keywordMap[key]];
+        }
+    });
+
+    // Filter animals if ANY of the search terms match name, breed, or description
+    const filtered = MOCK_ANIMALS.filter(animal => {
+        const combinedText = `${animal.name} ${animal.breed} ${animal.description} ${animal.temperamentTags?.join(' ')}`.toLowerCase();
+        return searchTerms.some(term => combinedText.includes(term));
+    });
+
     setResults(filtered);
 
     if (filtered.length > 0) {

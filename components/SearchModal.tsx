@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MOCK_ANIMALS } from '../constants';
 import type { Animal } from '../types';
 import { SearchIcon } from './icons';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const [statusMessage, setStatusMessage] = useState('');
   const modalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (searchTerm.trim() === '') {
@@ -31,11 +33,12 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     setResults(filtered);
 
     if (filtered.length > 0) {
-      setStatusMessage(`${filtered.length} ${filtered.length === 1 ? 'result' : 'results'} found.`);
+      const key = filtered.length === 1 ? 'modals.search.resultFound' : 'modals.search.resultsFound';
+      setStatusMessage(t(key, { count: filtered.length }));
     } else {
-      setStatusMessage(`No results found for "${searchTerm}".`);
+      setStatusMessage(t('modals.search.noResults', { term: searchTerm }));
     }
-  }, [searchTerm]);
+  }, [searchTerm, t]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -67,7 +70,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div 
-      className={`fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-start pt-[15vh] md:pt-20 p-4 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className={`fixed inset-0 bg-black/50 backdrop-blur-lg z-50 flex justify-center items-start pt-[15vh] md:pt-20 p-4 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       onClick={onClose}
     >
       <div 
@@ -75,10 +78,10 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
         role="dialog"
         aria-modal="true"
         aria-labelledby="search-modal-title"
-        className={`bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[70vh] flex flex-col transition-all duration-300 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+        className={`bg-white/60 dark:bg-slate-800/70 backdrop-blur-2xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[70vh] flex flex-col transition-all duration-300 ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id="search-modal-title" className="sr-only">Search for an animal</h2>
+        <h2 id="search-modal-title" className="sr-only">{t('modals.search.title')}</h2>
         <div className="p-4 border-b border-slate-300 dark:border-slate-600 flex items-center space-x-3">
           <SearchIcon className="w-6 h-6 text-slate-600 dark:text-slate-400 flex-shrink-0" />
           <input
@@ -86,7 +89,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for a name or breed..."
+            placeholder={t('modals.search.placeholder')}
             aria-label="Search for an animal by name or breed"
             aria-controls="search-results-list"
             aria-autocomplete="list"
@@ -117,13 +120,13 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
           )}
           {searchTerm.trim() && results.length === 0 && (
             <div className="p-10 text-center">
-              <p className="text-slate-700 dark:text-slate-300 font-semibold" aria-hidden="true">No results found for "{searchTerm}"</p>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2" aria-hidden="true">Try searching for a different name or breed.</p>
+              <p className="text-slate-700 dark:text-slate-300 font-semibold" aria-hidden="true">{t('modals.search.noResults', { term: searchTerm })}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2" aria-hidden="true">{t('modals.search.noResults.suggestion')}</p>
             </div>
           )}
            {!searchTerm.trim() && (
              <div className="p-10 text-center text-slate-600 dark:text-slate-400">
-                <p>Start typing to find your new best friend.</p>
+                <p>{t('modals.search.initial')}</p>
             </div>
            )}
         </div>

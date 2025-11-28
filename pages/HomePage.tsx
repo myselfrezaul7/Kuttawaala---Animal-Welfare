@@ -4,9 +4,11 @@ import { HeartIcon } from '../components/icons';
 import AnimalCard from '../components/AnimalCard';
 import { MOCK_ANIMALS, MOCK_SUCCESS_STORIES } from '../constants';
 import DonationModal from '../components/DonationModal';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const HomePage: React.FC = () => {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -18,16 +20,16 @@ const HomePage: React.FC = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20"></div>
           <div className="relative text-center z-10 p-4">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold drop-shadow-2xl">Giving Paws a Second Chance</h1>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold drop-shadow-2xl">{t('homePage.hero.title')}</h1>
             <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto drop-shadow-lg">
-              At KUTTAWAALA, we believe every animal deserves a loving home. Join us in our mission to rescue, rehabilitate, and rehome animals in need.
+              {t('homePage.hero.subtitle')}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/adopt"
                 className="bg-orange-500 text-white font-bold py-3 px-10 rounded-full text-lg hover:bg-orange-600 transition-all transform hover:scale-105 duration-300 shadow-lg"
               >
-                Meet Our Animals
+                {t('homePage.hero.meetButton')}
               </Link>
               <a
                 href="https://www.petbhai.com"
@@ -35,7 +37,7 @@ const HomePage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="bg-white/90 text-orange-500 font-bold py-3 px-10 rounded-full text-lg hover:bg-white transition-all transform hover:scale-105 duration-300 shadow-lg backdrop-blur-sm"
               >
-                Visit Our Shop
+                {t('homePage.hero.shopButton')}
               </a>
             </div>
           </div>
@@ -44,9 +46,9 @@ const HomePage: React.FC = () => {
         {/* About Section */}
         <section className="py-20">
           <div className="container mx-auto px-6 text-center">
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">Our Mission</h2>
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">{t('homePage.mission.title')}</h2>
             <p className="max-w-3xl mx-auto text-lg text-slate-800 dark:text-slate-200 leading-relaxed">
-              KUTTAWAALA is dedicated to providing a safe haven for stray, abandoned, and abused animals. We offer medical care, nourishment, and a loving environment, with the ultimate goal of finding them a forever family. We are a community-powered organization, and your support makes all the difference.
+              {t('homePage.mission.text')}
             </p>
           </div>
         </section>
@@ -54,9 +56,9 @@ const HomePage: React.FC = () => {
         {/* Adoption Preview Section */}
         <section className="py-20">
           <div className="container mx-auto px-6">
-              <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4 text-center">Meet Some Friends</h2>
+              <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4 text-center">{t('homePage.preview.title')}</h2>
               <p className="text-lg text-center text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mb-12">
-                  These lovely souls are looking for a forever home. Maybe one of them is for you?
+                  {t('homePage.preview.subtitle')}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                   {MOCK_ANIMALS.slice(0, 3).map(animal => (
@@ -68,7 +70,7 @@ const HomePage: React.FC = () => {
                       to="/adopt"
                       className="inline-block bg-orange-500 text-white font-bold py-3 px-10 rounded-full text-lg hover:bg-orange-600 transition-all transform hover:scale-105 duration-300 shadow-lg"
                   >
-                      View All Animals
+                      {t('homePage.preview.viewAllButton')}
                   </Link>
               </div>
           </div>
@@ -77,15 +79,15 @@ const HomePage: React.FC = () => {
         {/* Quiz CTA Section */}
         <section className="py-20 bg-orange-500/10 dark:bg-orange-900/20">
           <div className="container mx-auto px-6 text-center">
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">Find Your Perfect Paw-tner</h2>
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">{t('homePage.quiz.title')}</h2>
             <p className="max-w-2xl mx-auto text-lg text-slate-800 dark:text-slate-200 leading-relaxed mb-8">
-              Not sure which pet is right for you? Take our quick and easy quiz to find the best companion for your lifestyle and personality!
+              {t('homePage.quiz.subtitle')}
             </p>
             <Link
               to="/quiz"
               className="inline-block bg-orange-500 text-white font-bold py-4 px-10 rounded-full text-xl hover:bg-orange-600 transition-all transform hover:scale-105 duration-300 shadow-lg"
             >
-              Start the Quiz
+              {t('homePage.quiz.startButton')}
             </Link>
           </div>
         </section>
@@ -93,13 +95,13 @@ const HomePage: React.FC = () => {
         {/* Success Stories Section */}
         <section className="py-20">
           <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4 text-center">Happy Tails</h2>
+            <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4 text-center">{t('homePage.success.title')}</h2>
             <p className="text-lg text-center text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mb-12">
-              Read the heartwarming stories of animals who found their forever homes through KUTTAWAALA.
+              {t('homePage.success.subtitle')}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
               {MOCK_SUCCESS_STORIES.map(story => (
-                <div key={story.id} className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg overflow-hidden flex flex-col">
+                <div key={story.id} className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden flex flex-col">
                   <img src={story.imageUrl} alt={story.name} className="w-full h-64 object-cover" loading="lazy" />
                   <div className="p-6 flex flex-col flex-grow">
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">{story.name}</h3>
@@ -116,20 +118,20 @@ const HomePage: React.FC = () => {
         {/* Volunteer CTA Section */}
         <section className="py-20">
             <div className="container mx-auto px-6">
-                <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden lg:flex items-center">
+                <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden lg:flex items-center">
                     <div className="lg:w-1/2">
                          <img src="https://picsum.photos/seed/volunteer/800/600" alt="Volunteer helping a dog" className="w-full h-64 lg:h-full object-cover" loading="lazy"/>
                     </div>
                     <div className="lg:w-1/2 p-8 md:p-12 text-center lg:text-left">
-                        <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">Make a Difference</h2>
+                        <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-4">{t('homePage.volunteer.title')}</h2>
                         <p className="text-lg text-slate-800 dark:text-slate-200 leading-relaxed mb-8">
-                            Our volunteers are the backbone of our organization. By giving your time and skills, you can directly impact the lives of animals in need. Join our compassionate team today!
+                            {t('homePage.volunteer.subtitle')}
                         </p>
                         <Link
                             to="/volunteer"
                             className="inline-block bg-orange-500 text-white font-bold py-3 px-10 rounded-full text-lg hover:bg-orange-600 transition-all transform hover:scale-105 duration-300 shadow-lg"
                         >
-                            Become a Volunteer
+                            {t('homePage.volunteer.button')}
                         </Link>
                     </div>
                 </div>
@@ -139,17 +141,17 @@ const HomePage: React.FC = () => {
         {/* Donate Section */}
         <section className="py-20">
           <div className="container mx-auto px-6 text-center">
-            <div className="max-w-4xl mx-auto p-10 bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg">
+            <div className="max-w-4xl mx-auto p-10 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl">
               <HeartIcon className="w-16 h-16 text-red-500 mx-auto mb-4 animate-heartbeat" />
-              <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">Your Support Saves Lives</h2>
+              <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50 mb-6">{t('homePage.donate.title')}</h2>
               <p className="max-w-3xl mx-auto text-lg text-slate-800 dark:text-slate-200 leading-relaxed mb-8">
-                Your generous donations help us provide food, shelter, and critical veterinary care to animals in need. Every contribution, big or small, helps us write a new chapter for a deserving animal.
+                {t('homePage.donate.subtitle')}
               </p>
               <button 
                 onClick={() => setIsDonationModalOpen(true)}
                 className="bg-red-500 text-white font-bold py-4 px-10 rounded-full text-xl hover:bg-red-600 transition-transform transform hover:scale-105 duration-300 shadow-lg"
               >
-                Donate Now
+                {t('homePage.donate.button')}
               </button>
             </div>
           </div>

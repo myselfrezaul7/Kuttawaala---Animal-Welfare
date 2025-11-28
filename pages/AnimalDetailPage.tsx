@@ -42,7 +42,7 @@ const AnimalDetailPage: React.FC = () => {
   return (
     <>
       <div className="container mx-auto px-6 py-12">
-        <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden md:flex">
+        <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-2xl overflow-hidden md:flex">
             <div className="md:w-1/2 relative">
                 <img src={animal.imageUrl} alt={animal.name} className="w-full h-full object-cover min-h-[300px]" loading="lazy" />
                 {isAuthenticated && (

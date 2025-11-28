@@ -8,10 +8,10 @@ interface VetClinicCardProps {
 
 const VetClinicCard: React.FC<VetClinicCardProps> = ({ clinic }) => {
   return (
-    <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg flex flex-col p-6 transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1">
+    <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl flex flex-col p-6 transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">{clinic.name}</h3>
       <p className="text-slate-800 dark:text-slate-200 mt-2 flex-grow">{clinic.address}</p>
-      <div className="mt-4 border-t border-white/20 dark:border-white/10 pt-4 space-y-3 text-slate-800 dark:text-slate-200">
+      <div className="mt-4 border-t border-white/20 dark:border-slate-700 pt-4 space-y-3 text-slate-800 dark:text-slate-200">
           <p className="flex items-center">
             <PhoneIcon className="w-5 h-5 mr-3 text-orange-500 flex-shrink-0" />
             <span>{clinic.phone}</span>

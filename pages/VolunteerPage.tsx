@@ -25,7 +25,7 @@ const VolunteerPage: React.FC = () => {
         }
     };
 
-    const inputStyle = "w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors";
+    const inputStyle = "w-full p-3 bg-white/50 dark:bg-slate-900/50 border border-white/30 dark:border-slate-700 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500/80 focus:border-orange-500 focus:bg-white/70 dark:focus:bg-slate-900/70 transition-colors";
 
     return (
         <div className="container mx-auto px-6 py-16">
@@ -38,7 +38,7 @@ const VolunteerPage: React.FC = () => {
 
             <div className="flex justify-center">
                 {/* Volunteer Form */}
-                <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-2xl">
+                <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 p-8 md:p-10 rounded-2xl shadow-2xl w-full max-w-2xl">
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-6">Become a Volunteer</h2>
                     {formSubmitted ? (
                         <div className="text-center p-8 bg-green-500/10 border border-green-500/30 rounded-lg">

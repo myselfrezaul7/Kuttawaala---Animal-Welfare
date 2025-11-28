@@ -1,16 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import { useCookieConsent } from './CookieConsentContext';
 
 const FAVORITES_STORAGE_KEY = 'kuttawaala_favorites';
-
-const getInitialFavorites = (): number[] => {
-  try {
-    const favorites = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
-    return favorites ? JSON.parse(favorites) : [];
-  } catch (error) {
-    console.error("Error reading favorites from localStorage", error);
-    return [];
-  }
-};
 
 interface FavoritesContextType {
   favoriteIds: number[];
@@ -21,15 +12,41 @@ interface FavoritesContextType {
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
 export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [favoriteIds, setFavoriteIds] = useState<number[]>(getInitialFavorites);
+  const { hasConsent } = useCookieConsent();
+  const [favoriteIds, setFavoriteIds] = useState<number[]>([]);
 
+  // Effect to load/clear favorites based on cookie consent.
   useEffect(() => {
-    try {
-      window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteIds));
-    } catch (error) {
-      console.error("Error writing favorites to localStorage", error);
+    if (hasConsent('functional')) {
+      try {
+        const favorites = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+        setFavoriteIds(favorites ? JSON.parse(favorites) : []);
+      } catch (error) {
+        console.error("Error reading favorites from localStorage", error);
+        setFavoriteIds([]);
+      }
+    } else {
+      setFavoriteIds([]);
     }
-  }, [favoriteIds]);
+  }, [hasConsent]);
+
+  // Effect to save favorites to storage when they change (if consent is given).
+  useEffect(() => {
+    if (hasConsent('functional')) {
+      try {
+        window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteIds));
+      } catch (error) {
+        console.error("Error writing favorites to localStorage", error);
+      }
+    } else {
+      // Ensure storage is cleared if consent is revoked or not for functional cookies.
+      try {
+        window.localStorage.removeItem(FAVORITES_STORAGE_KEY);
+      } catch(e) {
+         console.error("Error removing favorites from localStorage", e);
+      }
+    }
+  }, [favoriteIds, hasConsent]);
 
   const toggleFavorite = useCallback((animalId: number) => {
     setFavoriteIds(prevIds => {

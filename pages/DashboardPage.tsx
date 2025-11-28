@@ -44,7 +44,7 @@ const DashboardPage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center bg-white/20 dark:bg-black/20 p-8 rounded-2xl">
+          <div className="text-center bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 p-8 rounded-2xl">
             <p className="text-slate-800 dark:text-slate-200">You haven't favorited any animals yet. Start exploring!</p>
             <Link to="/adopt" className="mt-4 inline-block bg-orange-500 text-white font-bold py-2 px-6 rounded-full hover:bg-orange-600 transition-colors">
               Find a Friend
@@ -57,10 +57,10 @@ const DashboardPage: React.FC = () => {
         {/* Adoption Applications Section */}
         <section>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-6 border-b-2 border-orange-500 pb-2">My Applications</h2>
-          <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg overflow-hidden">
-            <ul className="divide-y divide-white/20 dark:divide-white/10">
+          <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+            <ul className="divide-y divide-white/20 dark:divide-slate-700">
               {MOCK_APPLICATIONS.map(app => (
-                <li key={app.id} className="p-4 flex justify-between items-center hover:bg-white/10 dark:hover:bg-black/10 transition-colors">
+                <li key={app.id} className="p-4 flex justify-between items-center hover:bg-white/20 dark:hover:bg-slate-900/20 transition-colors">
                   <div>
                     <p className="font-bold text-slate-900 dark:text-slate-50">Application for <Link to={`/adopt/${app.animalId}`} className="hover:underline text-orange-600 dark:text-orange-400">{app.animalName}</Link></p>
                     <p className="text-sm text-slate-700 dark:text-slate-300">Submitted: {app.date}</p>
@@ -77,10 +77,10 @@ const DashboardPage: React.FC = () => {
         {/* Donation History Section */}
         <section>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-6 border-b-2 border-orange-500 pb-2">Donation History</h2>
-          <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg overflow-hidden">
-             <ul className="divide-y divide-white/20 dark:divide-white/10">
+          <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+             <ul className="divide-y divide-white/20 dark:divide-slate-700">
                {MOCK_DONATIONS.map(donation => (
-                <li key={donation.id} className="p-4 flex justify-between items-center hover:bg-white/10 dark:hover:bg-black/10 transition-colors">
+                <li key={donation.id} className="p-4 flex justify-between items-center hover:bg-white/20 dark:hover:bg-slate-900/20 transition-colors">
                   <div>
                     <p className="font-bold text-slate-900 dark:text-slate-50">BDT {donation.amount.toLocaleString()}</p>
                     <p className="text-sm text-slate-700 dark:text-slate-300">Donated on {donation.date}</p>

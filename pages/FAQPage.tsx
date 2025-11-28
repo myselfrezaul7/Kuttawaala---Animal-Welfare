@@ -60,7 +60,7 @@ const FAQPage: React.FC = () => {
         {faqs.map((category, catIndex) => (
           <div key={category.category}>
             <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-6 border-b-2 border-orange-500 pb-2">{category.category}</h2>
-            <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden">
                 {category.items.map((item, itemIndex) => (
                     <AccordionItem key={item.q} title={item.q} id={`faq-${catIndex}-${itemIndex}`}>
                         <p>{item.a}</p>

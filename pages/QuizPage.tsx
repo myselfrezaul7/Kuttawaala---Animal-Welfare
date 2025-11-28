@@ -47,7 +47,7 @@ const QuizPage: React.FC = () => {
             </p>
         </div>
         
-        <div className="max-w-2xl mx-auto bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-xl p-8 md:p-12">
+        <div className="max-w-2xl mx-auto bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-2xl p-8 md:p-12">
             {!quizCompleted ? (
                 <div>
                     <div className="mb-8">
@@ -59,7 +59,7 @@ const QuizPage: React.FC = () => {
                             <button
                                 key={index}
                                 onClick={() => handleAnswer(option.tags)}
-                                className="w-full text-left bg-white/30 dark:bg-black/30 p-5 rounded-lg border-2 border-transparent hover:border-orange-500 hover:bg-white/50 dark:hover:bg-black/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                className="w-full text-left bg-white/50 dark:bg-slate-900/40 p-5 rounded-lg border-2 border-transparent hover:border-orange-500 hover:bg-white/70 dark:hover:bg-slate-900/60 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
                             >
                                 <span className="text-lg font-medium text-slate-900 dark:text-slate-100">{option.text}</span>
                             </button>
@@ -88,7 +88,7 @@ const QuizPage: React.FC = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center bg-white/20 dark:bg-black/20 p-8 rounded-2xl max-w-2xl mx-auto">
+                    <div className="text-center bg-white/40 dark:bg-slate-800/40 p-8 rounded-2xl max-w-2xl mx-auto shadow-xl">
                         <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">No exact matches right now</h3>
                         <p className="text-slate-800 dark:text-slate-200 mt-4">We don't have a perfect match right now, but please check out all our available animals. The perfect friend for you might just be a click away!</p>
                         <Link to="/adopt" className="mt-6 inline-block bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition-colors">

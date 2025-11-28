@@ -34,7 +34,7 @@ const FindVetPage: React.FC = () => {
             id="district-select"
             value={selectedDistrict}
             onChange={(e) => setSelectedDistrict(e.target.value)}
-            className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors text-lg"
+            className="w-full p-3 bg-white/50 dark:bg-slate-900/50 border border-white/30 dark:border-slate-700 text-slate-900 dark:text-slate-50 rounded-lg focus:ring-2 focus:ring-orange-500/80 focus:border-orange-500 focus:bg-white/70 dark:focus:bg-slate-900/70 transition-colors text-lg"
           >
             <option value="">-- Choose a district --</option>
             {BANGLADESH_DISTRICTS.sort().map(district => (
@@ -54,7 +54,7 @@ const FindVetPage: React.FC = () => {
                 ))}
                 </div>
             ) : (
-                <div className="text-center bg-white/20 dark:bg-black/20 p-8 rounded-2xl max-w-2xl mx-auto animate-fadeIn">
+                <div className="text-center bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 p-8 rounded-2xl shadow-xl max-w-2xl mx-auto animate-fadeIn">
                     <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">No Clinics Found</h3>
                     <p className="text-slate-800 dark:text-slate-200 mt-4">
                         We don't have any clinics listed for "{selectedDistrict}" at the moment. Please check back later or try a nearby district.
@@ -62,12 +62,12 @@ const FindVetPage: React.FC = () => {
                 </div>
             )
         ) : (
-            <div className="text-center bg-white/20 dark:bg-black/20 p-8 rounded-2xl max-w-2xl mx-auto">
+            <div className="text-center bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 p-8 rounded-2xl shadow-xl max-w-2xl mx-auto">
                 <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Please select a district to view vet clinics.</h3>
             </div>
         )}
 
-        <div className="mt-16 bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 p-6 rounded-2xl max-w-3xl mx-auto text-center">
+        <div className="mt-16 bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 p-6 rounded-2xl max-w-3xl mx-auto text-center">
             <h4 className="font-bold text-slate-900 dark:text-slate-100 text-lg">Disclaimer</h4>
             <p className="text-slate-800 dark:text-slate-200 mt-2 text-sm">
                 The veterinary clinics listed above are for informational purposes only and are not sponsored by or affiliated with KUTTAWAALA. We do not receive any compensation for these listings. We encourage you to do your own research and consult at your own discretion when choosing a veterinary service for your pet.

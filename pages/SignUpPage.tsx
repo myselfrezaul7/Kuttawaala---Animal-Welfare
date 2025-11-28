@@ -35,7 +35,7 @@ const SignUpPage: React.FC = () => {
     const SocialButton: React.FC<{ icon: React.ReactNode, label: string }> = ({ icon, label }) => (
     <button
       type="button"
-      className="flex items-center justify-center w-full p-3 border border-white/30 dark:border-white/20 rounded-lg bg-white/10 dark:bg-black/10 hover:bg-white/20 dark:hover:bg-black/20 transition-colors"
+      className="flex items-center justify-center w-full p-3 border border-white/30 dark:border-slate-700 rounded-lg bg-white/30 dark:bg-slate-900/30 hover:bg-white/50 dark:hover:bg-slate-900/50 transition-colors"
     >
       {icon}
       <span className="ml-3 font-semibold text-slate-800 dark:text-slate-100">{label}</span>
@@ -44,7 +44,7 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-6 py-12 flex-grow flex items-center justify-center">
-      <div className="w-full max-w-md bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 p-8 md:p-10 rounded-2xl shadow-xl">
+      <div className="w-full max-w-md bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 p-8 md:p-10 rounded-2xl shadow-2xl">
         <h1 className="text-3xl font-bold text-center text-slate-900 dark:text-slate-50 mb-6">Join Our Community</h1>
 
         <div className="space-y-3 mb-6">
@@ -68,7 +68,7 @@ const SignUpPage: React.FC = () => {
               onChange={(e) => setName(e.target.value)}
               required
               autoComplete="name"
-              className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors"
+              className="w-full p-3 bg-white/50 dark:bg-slate-900/50 border border-white/30 dark:border-slate-700 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500/80 focus:border-orange-500 focus:bg-white/70 dark:focus:bg-slate-900/70 transition-colors"
             />
           </div>
           <div>
@@ -80,7 +80,7 @@ const SignUpPage: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors"
+              className="w-full p-3 bg-white/50 dark:bg-slate-900/50 border border-white/30 dark:border-slate-700 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500/80 focus:border-orange-500 focus:bg-white/70 dark:focus:bg-slate-900/70 transition-colors"
             />
           </div>
           <div>
@@ -92,7 +92,7 @@ const SignUpPage: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="new-password"
-              className="w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors"
+              className="w-full p-3 bg-white/50 dark:bg-slate-900/50 border border-white/30 dark:border-slate-700 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500/80 focus:border-orange-500 focus:bg-white/70 dark:focus:bg-slate-900/70 transition-colors"
             />
           </div>
           <div>

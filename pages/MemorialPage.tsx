@@ -3,25 +3,12 @@ import type { Memorial } from '../types';
 import { MOCK_MEMORIALS } from '../constants';
 import { ImageIcon, HeartIcon } from '../components/icons';
 import FormError from '../components/FormError';
+import { useCookieConsent } from '../contexts/CookieConsentContext';
 
 const MEMORIALS_STORAGE_KEY = 'kuttawaala_memorials';
 
-const getInitialMemorials = (): Memorial[] => {
-  try {
-    const storedMemorials = window.localStorage.getItem(MEMORIALS_STORAGE_KEY);
-    if (storedMemorials) {
-      return JSON.parse(storedMemorials);
-    }
-    window.localStorage.setItem(MEMORIALS_STORAGE_KEY, JSON.stringify(MOCK_MEMORIALS));
-    return MOCK_MEMORIALS;
-  } catch (error) {
-    console.error("Error reading memorials from localStorage", error);
-    return MOCK_MEMORIALS;
-  }
-};
-
 const MemorialCard: React.FC<{ memorial: Memorial }> = React.memo(({ memorial }) => (
-  <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl shadow-lg overflow-hidden flex flex-col group">
+  <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden flex flex-col group">
     <img src={memorial.imageUrl} alt={memorial.petName} className="w-full h-64 object-cover" loading="lazy" />
     <div className="p-6 flex flex-col flex-grow">
       <div className="flex justify-between items-center">
@@ -135,11 +122,11 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
 
     if (!isVisible) return null;
 
-    const inputStyle = "w-full p-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:bg-white/30 dark:focus:bg-black/30 transition-colors";
+    const inputStyle = "w-full p-3 bg-white/50 dark:bg-slate-900/50 border border-white/30 dark:border-slate-700 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500/80 focus:border-orange-500 focus:bg-white/70 dark:focus:bg-slate-900/70 transition-colors";
 
     return (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="memorial-form-title">
-            <div ref={modalRef} className="bg-slate-50/80 dark:bg-slate-800/80 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-lg z-50 flex justify-center items-center p-4" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="memorial-form-title">
+            <div ref={modalRef} className="bg-white/60 dark:bg-slate-800/70 backdrop-blur-2xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <form onSubmit={handleSubmit} className="p-8 space-y-6">
                     <div className="flex justify-between items-center">
                         <h2 id="memorial-form-title" className="text-3xl font-bold text-slate-900 dark:text-slate-50">Share a Memory</h2>
@@ -164,7 +151,7 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
                         <label className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Photo of Your Pet</label>
                         {!image ? (
                              <div className="mt-2 flex items-center justify-center w-full">
-                                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-white/40 dark:border-white/20 border-dashed rounded-lg cursor-pointer bg-white/10 dark:bg-black/10 hover:bg-white/20 dark:hover:bg-black/20">
+                                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-400/80 dark:border-slate-600 border-dashed rounded-lg cursor-pointer bg-white/30 dark:bg-slate-900/30 hover:bg-white/50 dark:hover:bg-slate-900/50">
                                     <ImageIcon className="w-10 h-10 text-slate-700 dark:text-slate-300 mb-3" />
                                     <p className="text-sm text-slate-800 dark:text-slate-200"><span className="font-semibold">Click to upload</span></p>
                                     <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageChange} className="hidden" required />
@@ -189,16 +176,32 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
 };
 
 const MemorialPage: React.FC = () => {
-  const [memorials, setMemorials] = useState<Memorial[]>(getInitialMemorials);
+  const { hasConsent } = useCookieConsent();
+  const [memorials, setMemorials] = useState<Memorial[]>(() => {
+    if (hasConsent('functional')) {
+      try {
+        const storedMemorials = window.localStorage.getItem(MEMORIALS_STORAGE_KEY);
+        if (storedMemorials) {
+          return JSON.parse(storedMemorials);
+        }
+      } catch (error) {
+        console.error("Error reading memorials from localStorage", error);
+      }
+    }
+    return MOCK_MEMORIALS;
+  });
+
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem(MEMORIALS_STORAGE_KEY, JSON.stringify(memorials));
-    } catch (error) {
-      console.error("Error writing memorials to localStorage", error);
+    if (hasConsent('functional')) {
+      try {
+        window.localStorage.setItem(MEMORIALS_STORAGE_KEY, JSON.stringify(memorials));
+      } catch (error) {
+        console.error("Error writing memorials to localStorage", error);
+      }
     }
-  }, [memorials]);
+  }, [memorials, hasConsent]);
   
   const handleAddMemorial = useCallback((newMemorial: Memorial) => {
       setMemorials(prev => [newMemorial, ...prev]);

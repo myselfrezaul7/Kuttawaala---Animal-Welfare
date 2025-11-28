@@ -11,7 +11,7 @@ const AdoptPage: React.FC = () => {
         These wonderful animals are waiting for a loving family to call their own. Click on a pet's profile to learn more about them and to start the adoption process.
       </p>
 
-      <div className="bg-orange-500/10 dark:bg-orange-900/20 rounded-2xl p-8 mb-16 text-center max-w-3xl mx-auto">
+      <div className="bg-orange-500/10 dark:bg-orange-900/20 backdrop-blur-md rounded-2xl p-8 mb-16 text-center max-w-3xl mx-auto">
         <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-4">Can't Decide?</h2>
         <p className="text-lg text-slate-800 dark:text-slate-200 max-w-2xl mx-auto mb-6">
             Take our quick personality quiz to find the pet that best matches your lifestyle!
@@ -22,7 +22,7 @@ const AdoptPage: React.FC = () => {
       </div>
 
       {/* Rehoming Section */}
-      <div className="bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/30 dark:border-white/10 rounded-2xl p-8 mb-16 text-center max-w-3xl mx-auto">
+      <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl p-8 mb-16 text-center max-w-3xl mx-auto">
         <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-4">Need to Rehome Your Pet?</h2>
         <p className="text-lg text-slate-800 dark:text-slate-200 max-w-2xl mx-auto mb-6">
             If you need to find a loving new home for your pet, we're here to help. Please email us high-quality, clear pictures (no videos please) and a detailed description of your pet including their name, breed, age, temperament, and any medical history. Our team will review your submission and, if approved, feature them on our adoption page.

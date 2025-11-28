@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
+import { CookieConsentProvider } from './contexts/CookieConsentContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import CookieConsentBanner from './components/CookieConsentBanner';
 import { ArrowUpIcon } from './components/icons';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -53,50 +55,54 @@ function App() {
 
 
   return (
-    <ThemeProvider>
-        <AuthProvider>
-            <FavoritesProvider>
-                <HashRouter>
-                    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-100">
-                    <Header />
-                    <main className="flex-grow animate-fadeIn">
+    <CookieConsentProvider>
+      <ThemeProvider>
+        <LanguageProvider>
+          <AuthProvider>
+              <FavoritesProvider>
+                  <HashRouter>
                       <ErrorBoundary>
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/adopt" element={<AdoptPage />} />
-                            <Route path="/adopt/:id" element={<AnimalDetailPage />} />
-                            <Route path="/report" element={<ReportPage />} />
-                            <Route path="/ai-assistant" element={<AIAssistantPage />} />
-                            <Route path="/find-vet" element={<FindVetPage />} />
-                            <Route path="/login" element={<LoginPage />} />
-                            <Route path="/signup" element={<SignUpPage />} />
-                            <Route path="/faq" element={<FAQPage />} />
-                            <Route path="/quiz" element={<QuizPage />} />
-                            <Route path="/volunteer" element={<VolunteerPage />} />
-                            <Route path="/memorial" element={<MemorialPage />} />
-                            <Route path="/dashboard" element={<DashboardPage />} />
-                            <Route path="/community" element={<CommunityPage />} />
-                          </Routes>
-                        </Suspense>
+                        <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-100">
+                        <Header />
+                        <main className="flex-grow animate-fadeIn">
+                          <Suspense fallback={<LoadingSpinner />}>
+                            <Routes>
+                              <Route path="/" element={<HomePage />} />
+                              <Route path="/adopt" element={<AdoptPage />} />
+                              <Route path="/adopt/:id" element={<AnimalDetailPage />} />
+                              <Route path="/report" element={<ReportPage />} />
+                              <Route path="/ai-assistant" element={<AIAssistantPage />} />
+                              <Route path="/find-vet" element={<FindVetPage />} />
+                              <Route path="/login" element={<LoginPage />} />
+                              <Route path="/signup" element={<SignUpPage />} />
+                              <Route path="/faq" element={<FAQPage />} />
+                              <Route path="/quiz" element={<QuizPage />} />
+                              <Route path="/volunteer" element={<VolunteerPage />} />
+                              <Route path="/memorial" element={<MemorialPage />} />
+                              <Route path="/dashboard" element={<DashboardPage />} />
+                              <Route path="/community" element={<CommunityPage />} />
+                            </Routes>
+                          </Suspense>
+                        </main>
+                        <Footer />
+                        <CookieConsentBanner />
+                        {showScroll && (
+                            <button
+                              onClick={scrollTop}
+                              className="fixed bottom-8 right-8 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition-all duration-300 z-30 animate-fadeIn"
+                              aria-label="Scroll to top"
+                            >
+                              <ArrowUpIcon className="w-6 h-6" />
+                            </button>
+                          )}
+                        </div>
                       </ErrorBoundary>
-                    </main>
-                    <Footer />
-                    <CookieConsentBanner />
-                     {showScroll && (
-                        <button
-                          onClick={scrollTop}
-                          className="fixed bottom-8 right-8 bg-orange-500 text-white p-3 rounded-full shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 transition-all duration-300 z-30 animate-fadeIn"
-                          aria-label="Scroll to top"
-                        >
-                          <ArrowUpIcon className="w-6 h-6" />
-                        </button>
-                      )}
-                    </div>
-                </HashRouter>
-            </FavoritesProvider>
-        </AuthProvider>
-    </ThemeProvider>
+                  </HashRouter>
+              </FavoritesProvider>
+          </AuthProvider>
+        </LanguageProvider>
+      </ThemeProvider>
+    </CookieConsentProvider>
   );
 }
 

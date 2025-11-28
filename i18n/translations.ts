@@ -1,3 +1,4 @@
+
 export const en = {
     "nav.home": "Home",
     "nav.adopt": "Adopt",
@@ -300,7 +301,19 @@ export const en = {
     "modals.cookieInfo.functional.cookie5": "Saves community posts created by users.",
     "modals.cookieInfo.functional.cookie6": "Saves memorial tributes created by users.",
     "modals.cookieInfo.outro": "By choosing 'Accept necessary', only the strictly necessary cookies will be used. By choosing 'Accept all', you agree to the use of all cookies described above.",
-    "modals.cookieInfo.closeButton": "Got it"
+    "modals.cookieInfo.closeButton": "Got it",
+    "districts.Bagerhat": "Bagerhat", "districts.Bandarban": "Bandarban", "districts.Barguna": "Barguna", "districts.Barishal": "Barishal", "districts.Bhola": "Bhola", "districts.Bogura": "Bogura",
+    "districts.Brahmanbaria": "Brahmanbaria", "districts.Chandpur": "Chandpur", "districts.Chattogram": "Chattogram", "districts.Chuadanga": "Chuadanga", "districts.Comilla": "Comilla",
+    "districts.Cox's Bazar": "Cox's Bazar", "districts.Dhaka": "Dhaka", "districts.Dinajpur": "Dinajpur", "districts.Faridpur": "Faridpur", "districts.Feni": "Feni", "districts.Gaibandha": "Gaibandha",
+    "districts.Gazipur": "Gazipur", "districts.Gopalganj": "Gopalganj", "districts.Habiganj": "Habiganj", "districts.Jamalpur": "Jamalpur", "districts.Jashore": "Jashore", "districts.Jhalokati": "Jhalokati",
+    "districts.Jhenaidah": "Jhenaidah", "districts.Joypurhat": "Joypurhat", "districts.Khagrachari": "Khagrachari", "districts.Khulna": "Khulna", "districts.Kishoreganj": "Kishoreganj",
+    "districts.Kurigram": "Kurigram", "districts.Kushtia": "Kushtia", "districts.Lakshmipur": "Lakshmipur", "districts.Lalmonirhat": "Lalmonirhat", "districts.Madaripur": "Madaripur",
+    "districts.Magura": "Magura", "districts.Manikganj": "Manikganj", "districts.Meherpur": "Meherpur", "districts.Moulvibazar": "Moulvibazar", "districts.Munshiganj": "Munshiganj",
+    "districts.Mymensingh": "Mymensingh", "districts.Naogaon": "Naogaon", "districts.Narail": "Narail", "districts.Narayanganj": "Narayanganj", "districts.Narsingdi": "Narsingdi", "districts.Natore": "Natore",
+    "districts.Nawabganj": "Nawabganj", "districts.Netrokona": "Netrokona", "districts.Nilphamari": "Nilphamari", "districts.Noakhali": "Noakhali", "districts.Pabna": "Pabna",
+    "districts.Panchagarh": "Panchagarh", "districts.Patuakhali": "Patuakhali", "districts.Pirojpur": "Pirojpur", "districts.Rajbari": "Rajbari", "districts.Rajshahi": "Rajshahi",
+    "districts.Rangamati": "Rangamati", "districts.Rangpur": "Rangpur", "districts.Satkhira": "Satkhira", "districts.Shariatpur": "Shariatpur", "districts.Sherpur": "Sherpur", "districts.Sirajganj": "Sirajganj",
+    "districts.Sunamganj": "Sunamganj", "districts.Sylhet": "Sylhet", "districts.Tangail": "Tangail", "districts.Thakurgaon": "Thakurgaon"
 };
 
 export const bn = {
@@ -539,7 +552,7 @@ export const bn = {
     "modals.adoptionForm.hoursAlone.option2": "২-৪ ঘণ্টা",
     "modals.adoptionForm.hoursAlone.option3": "৪-৬ ঘণ্টা",
     "modals.adoptionForm.hoursAlone.option4": "৬-৮ ঘণ্টা",
-    "modals.adoptionForm.hoursAlone.option5": "৮ ঘণ্টার বেশি",
+    "modals.adoptionForm.hoursAlone.option5": "৮ ঘন্টার বেশি",
     "modals.adoptionForm.otherPets.label": "আপনার কি অন্য কোনো পোষা প্রাণী আছে?",
     "modals.adoptionForm.otherPets.yes": "হ্যাঁ",
     "modals.adoptionForm.otherPets.no": "না",
@@ -605,5 +618,17 @@ export const bn = {
     "modals.cookieInfo.functional.cookie5": "আপনার কমিউনিটি পোস্টগুলো সেভ রাখে।",
     "modals.cookieInfo.functional.cookie6": "আপনার দেওয়া স্মৃতিচারণগুলো সেভ রাখে।",
     "modals.cookieInfo.outro": "'প্রয়োজনীয়গুলো গ্রহণ করুন' দিলে শুধু জরুরি কুকিগুলোই চালু থাকবে।",
-    "modals.cookieInfo.closeButton": "বুঝেছি"
+    "modals.cookieInfo.closeButton": "বুঝেছি",
+    "districts.Bagerhat": "বাগেরহাট", "districts.Bandarban": "বান্দরবান", "districts.Barguna": "বরগুনা", "districts.Barishal": "বরিশাল", "districts.Bhola": "ভোলা", "districts.Bogura": "বগুড়া",
+    "districts.Brahmanbaria": "ব্রাহ্মণবাড়িয়া", "districts.Chandpur": "চাঁদপুর", "districts.Chattogram": "চট্টগ্রাম", "districts.Chuadanga": "চুয়াডাঙ্গা", "districts.Comilla": "কুমিল্লা",
+    "districts.Cox's Bazar": "কক্সবাজার", "districts.Dhaka": "ঢাকা", "districts.Dinajpur": "দিনাজপুর", "districts.Faridpur": "ফরিদপুর", "districts.Feni": "ফেনী", "districts.Gaibandha": "গাইবান্ধা",
+    "districts.Gazipur": "গাজীপুর", "districts.Gopalganj": "গোপালগঞ্জ", "districts.Habiganj": "হবিগঞ্জ", "districts.Jamalpur": "জামালপুর", "districts.Jashore": "যশোর", "districts.Jhalokati": "ঝালকাঠি",
+    "districts.Jhenaidah": "ঝিনাইদহ", "districts.Joypurhat": "জয়পুরহাট", "districts.Khagrachari": "খাগড়াছড়ি", "districts.Khulna": "খুলনা", "districts.Kishoreganj": "কিশোরগঞ্জ",
+    "districts.Kurigram": "কুড়িগ্রাম", "districts.Kushtia": "কুষ্টিয়া", "districts.Lakshmipur": "লক্ষ্মীপুর", "districts.Lalmonirhat": "লালমনিরহাট", "districts.Madaripur": "মাদারীপুর",
+    "districts.Magura": "মাগুরা", "districts.Manikganj": "মানিকগঞ্জ", "districts.Meherpur": "মেহেরপুর", "districts.Moulvibazar": "মৌলভীবাজার", "districts.Munshiganj": "মুন্সীগঞ্জ",
+    "districts.Mymensingh": "ময়মনসিংহ", "districts.Naogaon": "নওগাঁ", "districts.Narail": "নড়াইল", "districts.Narayanganj": "নারায়ণগঞ্জ", "districts.Narsingdi": "নরসিংদী", "districts.Natore": "নাটোর",
+    "districts.Nawabganj": "নবাবগঞ্জ", "districts.Netrokona": "নেত্রকোনা", "districts.Nilphamari": "নীলফামারী", "districts.Noakhali": "নোয়াখালী", "districts.Pabna": "পাবনা",
+    "districts.Panchagarh": "পঞ্চগড়", "districts.Patuakhali": "পটুয়াখালী", "districts.Pirojpur": "পিরোজপুর", "districts.Rajbari": "রাজবাড়ী", "districts.Rajshahi": "রাজশাহী",
+    "districts.Rangamati": "রাঙ্গামাটি", "districts.Rangpur": "রংপুর", "districts.Satkhira": "সাতক্ষীরা", "districts.Shariatpur": "শরীয়তপুর", "districts.Sherpur": "শেরপুর", "districts.Sirajganj": "সিরাজগঞ্জ",
+    "districts.Sunamganj": "সুনামগঞ্জ", "districts.Sylhet": "সিলেট", "districts.Tangail": "টাঙ্গাইল", "districts.Thakurgaon": "ঠাকুরগাঁও"
 };

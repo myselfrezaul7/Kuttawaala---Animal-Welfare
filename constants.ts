@@ -1,3 +1,4 @@
+
 // FIX: Added imports for new types used in mock data.
 import type { Animal, User, SuccessStory, VetClinic, Post, QuizQuestion, VolunteerOpportunity, Memorial, Donation, Application, Vet } from './types';
 
@@ -86,59 +87,100 @@ export const BANGLADESH_DISTRICTS: string[] = [
 ];
 
 
-// FIX: Added mock vet clinic data for the "Find a Vet" page.
+// FIX: Vastly expanded mock vet clinic data for the "Find a Vet" page.
+// MAP URLS UPDATED to be functional Google Maps search queries.
 export const MOCK_VET_CLINICS: VetClinic[] = [
-  // Dhaka Division
-  { id: 1, name: 'PAW Life Care', address: 'House 1/2, Road 2, Block A, Section 10, Mirpur, Dhaka', phone: '+8801712345678', website: 'https://pawlifecare.com', mapUrl: 'https://www.google.com/maps/search/?api=1&query=PAW+Life+Care+Dhaka', hours: '10:00 AM - 8:00 PM', district: 'Dhaka' },
+  // --- DHAKA DIVISION ---
+  { id: 1, name: 'PAW Life Care', address: 'House 1/2, Road 2, Block A, Section 10, Mirpur, Dhaka', phone: '+8801712345678', website: 'https://pawlifecare.com', mapUrl: 'https://www.google.com/maps/search/?api=1&query=PAW+Life+Care+Mirpur+Dhaka', hours: '10:00 AM - 8:00 PM', district: 'Dhaka' },
   { id: 2, name: 'PetVet Care', address: 'House 34, Road 12, Block E, Banani, Dhaka', phone: '+8801812345679', website: 'https://petvetcare.com', mapUrl: 'https://www.google.com/maps/search/?api=1&query=PetVet+Care+Banani+Dhaka', hours: '9:00 AM - 9:00 PM', district: 'Dhaka' },
   { id: 3, name: 'Central Veterinary Hospital', address: '42, Kazi Nazrul Islam Ave, Dhaka 1215', phone: '+88029665492', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Central+Veterinary+Hospital+Dhaka', hours: '24 Hours', district: 'Dhaka' },
   { id: 4, name: 'Gulshan Pet Animal Clinic', address: 'House 20, Road 55, Gulshan 2, Dhaka', phone: '+8801912345680', website: 'https://gulshanpetclinic.com', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gulshan+Pet+Animal+Clinic+Dhaka', hours: '11:00 AM - 7:00 PM', district: 'Dhaka' },
   { id: 5, name: 'Obhoyaronno Vet Clinic', address: 'House-3, Road-1, Sector-1, Uttara, Dhaka 1230', phone: '+8801718123456', website: 'http://obhoyaronno.org', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Obhoyaronno+Vet+Clinic+Uttara+Dhaka', hours: '10:00 AM - 7:00 PM', district: 'Dhaka' },
   { id: 6, name: 'The VET', address: 'House 7, Road 2/A, Sector 4, Uttara, Dhaka', phone: '+8801313303303', website: 'https://thevet.com.bd', mapUrl: 'https://www.google.com/maps/search/?api=1&query=The+VET+Uttara+Dhaka', hours: '10:00 AM - 10:00 PM', district: 'Dhaka' },
-  { id: 7, name: 'Care & Cure Vet Chamber', address: '5/4, Block-F, Lalmatia, Dhaka', phone: '+8801711234567', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Care+&+Cure+Vet+Chamber+Lalmatia+Dhaka', hours: '5:00 PM - 9:00 PM', district: 'Dhaka' },
-  { id: 8, name: 'Dr. K-Nine Pet Zone & Clinic', address: 'House 27, Road 15, Sector 13, Uttara, Dhaka', phone: '+8801979362867', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dr.+K-Nine+Pet+Zone+&+Clinic+Uttara+Dhaka', hours: '11:00 AM - 10:00 PM', district: 'Dhaka' },
-  { id: 9, name: 'Gazipur Pet Clinic', address: 'Joydebpur, Gazipur', phone: '+8801711111111', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gazipur+Pet+Clinic', hours: '10 AM - 6 PM', district: 'Gazipur' },
-  { id: 10, name: 'Narayanganj Animal Care', address: 'Chashara, Narayanganj', phone: '+8801822222222', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Narayanganj+Animal+Care', hours: '11 AM - 8 PM', district: 'Narayanganj' },
-  { id: 11, name: 'Manikganj Vet Care', address: 'Manikganj Sadar, Manikganj', phone: '+8801933333333', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Manikganj+Vet+Care', hours: '9 AM - 5 PM', district: 'Manikganj' },
-  { id: 12, name: 'Tangail Pet Hospital', address: 'Tangail Sadar, Tangail', phone: '+8801544444444', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Tangail+Pet+Hospital', hours: '10 AM - 7 PM', district: 'Tangail' },
-  { id: 13, name: 'Kishoreganj Animal Clinic', address: 'Kishoreganj Sadar, Kishoreganj', phone: '+8801655555555', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kishoreganj+Animal+Clinic', hours: '10 AM - 6 PM', district: 'Kishoreganj' },
-  { id: 14, name: 'Faridpur Vet Service', address: 'Faridpur Sadar, Faridpur', phone: '+8801766666666', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Faridpur+Vet+Service', hours: '9 AM - 5 PM', district: 'Faridpur' },
-
-  // Chattogram Division
-  { id: 15, name: 'Chattogram Vet & Pet Care', address: 'Nasirabad, Chattogram', phone: '+8801812345678', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Chattogram+Vet+&+Pet+Care', hours: '10 AM - 9 PM', district: 'Chattogram' },
-  { id: 16, name: 'CVASU Veterinary Clinic', address: 'Khulshi, Chattogram', phone: '+88031659093', website: 'https://cvasu.ac.bd', mapUrl: 'https://www.google.com/maps/search/?api=1&query=CVASU+Veterinary+Clinic+Chattogram', hours: '9 AM - 5 PM', district: 'Chattogram' },
-  { id: 17, name: 'Cox\'s Bazar Pet Clinic', address: 'Kolatoli, Cox\'s Bazar', phone: '+8801777777777', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Cox%27s+Bazar+Pet+Clinic', hours: '10 AM - 7 PM', district: "Cox's Bazar" },
-  { id: 18, name: 'Cumilla Pet Care', address: 'Kandirpar, Cumilla', phone: '+8801988888888', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Cumilla+Pet+Care', hours: '11 AM - 8 PM', district: 'Comilla' },
-  { id: 19, name: 'Feni Animal Hospital', address: 'Feni Sadar, Feni', phone: '+8801599999999', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Feni+Animal+Hospital', hours: '10 AM - 6 PM', district: 'Feni' },
-  { id: 20, name: 'Noakhali Pet Vet', address: 'Maijdee, Noakhali', phone: '+8801610101010', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Noakhali+Pet+Vet', hours: '10 AM - 7 PM', district: 'Noakhali' },
-
-  // Rajshahi Division
-  { id: 21, name: 'Rajshahi Pet Clinic', address: 'Uposhohor, Rajshahi', phone: '+8801712345679', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rajshahi+Pet+Clinic', hours: '10 AM - 8 PM', district: 'Rajshahi' },
-  { id: 22, name: 'Bogura Animal Care Center', address: 'Shatmatha, Bogura', phone: '+8801912345670', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bogura+Animal+Care+Center', hours: '11 AM - 7 PM', district: 'Bogura' },
-  { id: 23, name: 'Pabna Vet Point', address: 'Pabna Sadar, Pabna', phone: '+8801811112222', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Pabna+Vet+Point', hours: '9 AM - 5 PM', district: 'Pabna' },
-  { id: 24, name: 'Sirajganj Pet Care', address: 'Sirajganj Sadar, Sirajganj', phone: '+8801722223333', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sirajganj+Pet+Care', hours: '10 AM - 6 PM', district: 'Sirajganj' },
-
-  // Khulna Division
-  { id: 25, name: 'Khulna Pet Hospital', address: 'Shibbari More, Khulna', phone: '+8801912345671', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Khulna+Pet+Hospital', hours: '10 AM - 9 PM', district: 'Khulna' },
-  { id: 26, name: 'Jashore Pet Vet', address: 'MK Road, Jashore', phone: '+8801712345672', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Jashore+Pet+Vet', hours: '11 AM - 8 PM', district: 'Jashore' },
-  { id: 27, name: 'Kushtia Animal Clinic', address: 'NS Road, Kushtia', phone: '+8801912345673', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kushtia+Animal+Clinic', hours: '10 AM - 7 PM', district: 'Kushtia' },
-
-  // Barishal Division
-  { id: 28, name: 'Barishal Pet Care', address: 'Sadar Road, Barishal', phone: '+8801712345674', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Barishal+Pet+Care', hours: '10 AM - 7 PM', district: 'Barishal' },
-  { id: 29, name: 'Patuakhali Vet Clinic', address: 'Patuakhali Sadar, Patuakhali', phone: '+8801912345675', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Patuakhali+Vet+Clinic', hours: '9 AM - 6 PM', district: 'Patuakhali' },
+  { id: 7, name: 'Care & Cure Vet Chamber', address: '5/4, Block-F, Lalmatia, Dhaka', phone: '+8801711234567', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Care+and+Cure+Vet+Chamber+Lalmatia', hours: '5:00 PM - 9:00 PM', district: 'Dhaka' },
+  { id: 8, name: 'Dr. K-Nine Pet Zone & Clinic', address: 'House 27, Road 15, Sector 13, Uttara, Dhaka', phone: '+8801979362867', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dr+K-Nine+Pet+Zone+Clinic+Uttara', hours: '11:00 AM - 10:00 PM', district: 'Dhaka' },
   
-  // Sylhet Division
-  { id: 30, name: 'Sylhet Pet Care & Vet Point', address: 'Zindabazar, Sylhet', phone: '+8801712345676', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sylhet+Pet+Care+&+Vet+Point', hours: '11 AM - 9 PM', district: 'Sylhet' },
-  { id: 31, name: 'Moulvibazar Animal Clinic', address: 'Moulvibazar Sadar, Moulvibazar', phone: '+8801912345677', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Moulvibazar+Animal+Clinic', hours: '10 AM - 7 PM', district: 'Moulvibazar' },
-  
-  // Rangpur Division
-  { id: 32, name: 'Rangpur Pet Point', address: 'Dhap, Rangpur', phone: '+8801712345680', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rangpur+Pet+Point', hours: '10 AM - 8 PM', district: 'Rangpur' },
-  { id: 33, name: 'Dinajpur Vet Care', address: 'Balubari, Dinajpur', phone: '+8801912345681', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dinajpur+Vet+Care', hours: '10 AM - 6 PM', district: 'Dinajpur' },
-  
-  // Mymensingh Division
+  // Government/District Hospitals - Dhaka Division
+  { id: 9, name: 'Gazipur District Veterinary Hospital', address: 'Joydebpur, Gazipur', phone: '+88029261010', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gazipur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Gazipur' },
+  { id: 10, name: 'Narayanganj District Veterinary Hospital', address: 'Chashara, Narayanganj', phone: '+88027645890', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Narayanganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Narayanganj' },
+  { id: 11, name: 'Manikganj District Veterinary Hospital', address: 'Manikganj Sadar, Manikganj', phone: '+8801711000000', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Manikganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Manikganj' },
+  { id: 12, name: 'Tangail District Veterinary Hospital', address: 'Tangail Sadar, Tangail', phone: '+88092164050', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Tangail+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Tangail' },
+  { id: 13, name: 'Kishoreganj District Veterinary Hospital', address: 'Kishoreganj Sadar, Kishoreganj', phone: '+88094161870', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kishoreganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Kishoreganj' },
+  { id: 14, name: 'Faridpur District Veterinary Hospital', address: 'Faridpur Sadar, Faridpur', phone: '+88063164530', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Faridpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Faridpur' },
+  { id: 101, name: 'Narsingdi District Veterinary Hospital', address: 'Velanagar, Narsingdi', phone: '+88029462345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Narsingdi+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Narsingdi' },
+  { id: 102, name: 'Munshiganj District Veterinary Hospital', address: 'Sadar, Munshiganj', phone: '+88027612345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Munshiganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Munshiganj' },
+  { id: 103, name: 'Gopalganj District Veterinary Hospital', address: 'Sadar, Gopalganj', phone: '+88026685430', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gopalganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Gopalganj' },
+  { id: 123, name: 'Rajbari District Veterinary Hospital', address: 'Sadar, Rajbari', phone: '+88064165432', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rajbari+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Rajbari' },
+  { id: 124, name: 'Shariatpur District Veterinary Hospital', address: 'Sadar, Shariatpur', phone: '+88060161234', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Shariatpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Shariatpur' },
+  { id: 125, name: 'Madaripur District Veterinary Hospital', address: 'Sadar, Madaripur', phone: '+88066162345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Madaripur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Madaripur' },
+
+  // --- CHATTOGRAM DIVISION ---
+  { id: 15, name: 'Chattogram District Veterinary Hospital', address: 'Chawkbazar, Chattogram', phone: '+88031612345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Chattogram+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Chattogram' },
+  { id: 16, name: 'CVASU Veterinary Teaching Hospital', address: 'Khulshi, Chattogram', phone: '+88031659093', website: 'https://cvasu.ac.bd', mapUrl: 'https://www.google.com/maps/search/?api=1&query=CVASU+Veterinary+Teaching+Hospital', hours: '9 AM - 5 PM', district: 'Chattogram' },
+  { id: 17, name: 'Cox\'s Bazar District Veterinary Hospital', address: 'Sadar, Cox\'s Bazar', phone: '+88034163210', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Coxs+Bazar+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: "Cox's Bazar" },
+  { id: 18, name: 'Cumilla District Veterinary Hospital', address: 'Kandirpar, Cumilla', phone: '+8808165430', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Cumilla+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Comilla' },
+  { id: 19, name: 'Feni District Veterinary Hospital', address: 'Feni Sadar, Feni', phone: '+88033174560', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Feni+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Feni' },
+  { id: 20, name: 'Noakhali District Veterinary Hospital', address: 'Maijdee, Noakhali', phone: '+88032161230', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Noakhali+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Noakhali' },
+  { id: 104, name: 'Brahmanbaria District Veterinary Hospital', address: 'Sadar, Brahmanbaria', phone: '+88085162340', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Brahmanbaria+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Brahmanbaria' },
+  { id: 105, name: 'Chandpur District Veterinary Hospital', address: 'Sadar, Chandpur', phone: '+88084163450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Chandpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Chandpur' },
+  { id: 106, name: 'Lakshmipur District Veterinary Hospital', address: 'Sadar, Lakshmipur', phone: '+88038162120', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Lakshmipur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Lakshmipur' },
+  { id: 126, name: 'Bandarban District Veterinary Hospital', address: 'Sadar, Bandarban', phone: '+88036162345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bandarban+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Bandarban' },
+  { id: 127, name: 'Khagrachari District Veterinary Hospital', address: 'Sadar, Khagrachari', phone: '+88037162123', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Khagrachari+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Khagrachari' },
+  { id: 128, name: 'Rangamati District Veterinary Hospital', address: 'Sadar, Rangamati', phone: '+88035163456', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rangamati+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Rangamati' },
+
+  // --- RAJSHAHI DIVISION ---
+  { id: 21, name: 'Rajshahi District Veterinary Hospital', address: 'Sadar, Rajshahi', phone: '+880721774560', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rajshahi+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Rajshahi' },
+  { id: 22, name: 'Bogura District Veterinary Hospital', address: 'Sadar, Bogura', phone: '+8805166780', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bogura+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Bogura' },
+  { id: 23, name: 'Pabna District Veterinary Hospital', address: 'Pabna Sadar, Pabna', phone: '+88073165430', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Pabna+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Pabna' },
+  { id: 24, name: 'Sirajganj District Veterinary Hospital', address: 'Sirajganj Sadar, Sirajganj', phone: '+88075162340', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sirajganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Sirajganj' },
+  { id: 107, name: 'Natore District Veterinary Hospital', address: 'Sadar, Natore', phone: '+88077166540', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Natore+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Natore' },
+  { id: 108, name: 'Naogaon District Veterinary Hospital', address: 'Sadar, Naogaon', phone: '+88074162120', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Naogaon+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Naogaon' },
+  { id: 109, name: 'Chapainawabganj District Veterinary Hospital', address: 'Sadar, Nawabganj', phone: '+88078163450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Chapainawabganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Nawabganj' },
+  { id: 129, name: 'Joypurhat District Veterinary Hospital', address: 'Sadar, Joypurhat', phone: '+88057163210', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Joypurhat+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Joypurhat' },
+
+  // --- KHULNA DIVISION ---
+  { id: 25, name: 'Khulna District Veterinary Hospital', address: 'Sadar, Khulna', phone: '+88041760450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Khulna+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Khulna' },
+  { id: 26, name: 'Jashore District Veterinary Hospital', address: 'Sadar, Jashore', phone: '+88042168540', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Jashore+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Jashore' },
+  { id: 27, name: 'Kushtia District Veterinary Hospital', address: 'Sadar, Kushtia', phone: '+8807161230', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kushtia+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Kushtia' },
+  { id: 110, name: 'Satkhira District Veterinary Hospital', address: 'Sadar, Satkhira', phone: '+88047163450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Satkhira+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Satkhira' },
+  { id: 111, name: 'Bagerhat District Veterinary Hospital', address: 'Sadar, Bagerhat', phone: '+88046862340', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bagerhat+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Bagerhat' },
+  { id: 112, name: 'Chuadanga District Veterinary Hospital', address: 'Sadar, Chuadanga', phone: '+88076162120', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Chuadanga+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Chuadanga' },
+  { id: 130, name: 'Jhenaidah District Veterinary Hospital', address: 'Sadar, Jhenaidah', phone: '+88045161450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Jhenaidah+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Jhenaidah' },
+  { id: 131, name: 'Magura District Veterinary Hospital', address: 'Sadar, Magura', phone: '+88048862210', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Magura+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Magura' },
+  { id: 132, name: 'Meherpur District Veterinary Hospital', address: 'Sadar, Meherpur', phone: '+88079162345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Meherpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Meherpur' },
+  { id: 133, name: 'Narail District Veterinary Hospital', address: 'Sadar, Narail', phone: '+88048161540', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Narail+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Narail' },
+
+  // --- BARISHAL DIVISION ---
+  { id: 28, name: 'Barishal District Veterinary Hospital', address: 'Sadar, Barishal', phone: '+88043164870', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Barishal+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Barishal' },
+  { id: 29, name: 'Patuakhali District Veterinary Hospital', address: 'Patuakhali Sadar, Patuakhali', phone: '+88044162120', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Patuakhali+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Patuakhali' },
+  { id: 113, name: 'Bhola District Veterinary Hospital', address: 'Sadar, Bhola', phone: '+88049162340', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bhola+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Bhola' },
+  { id: 114, name: 'Pirojpur District Veterinary Hospital', address: 'Sadar, Pirojpur', phone: '+88046162450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Pirojpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Pirojpur' },
+  { id: 134, name: 'Barguna District Veterinary Hospital', address: 'Sadar, Barguna', phone: '+88044862210', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Barguna+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Barguna' },
+  { id: 135, name: 'Jhalokati District Veterinary Hospital', address: 'Sadar, Jhalokati', phone: '+88049662345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Jhalokati+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Jhalokati' },
+
+  // --- SYLHET DIVISION ---
+  { id: 30, name: 'Sylhet District Veterinary Hospital', address: 'Tilagor, Sylhet', phone: '+880821716450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sylhet+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Sylhet' },
+  { id: 31, name: 'Moulvibazar District Veterinary Hospital', address: 'Moulvibazar Sadar, Moulvibazar', phone: '+88086162340', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Moulvibazar+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Moulvibazar' },
+  { id: 115, name: 'SAU Veterinary Clinic', address: 'Sylhet Agricultural University, Sylhet', phone: '+880821761623', mapUrl: 'https://www.google.com/maps/search/?api=1&query=SAU+Veterinary+Clinic+Sylhet', hours: '9 AM - 5 PM', district: 'Sylhet' },
+  { id: 116, name: 'Habiganj District Veterinary Hospital', address: 'Sadar, Habiganj', phone: '+88083162120', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Habiganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Habiganj' },
+  { id: 117, name: 'Sunamganj District Veterinary Hospital', address: 'Sadar, Sunamganj', phone: '+88087161540', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sunamganj+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Sunamganj' },
+
+  // --- RANGPUR DIVISION ---
+  { id: 32, name: 'Rangpur District Veterinary Hospital', address: 'Sadar, Rangpur', phone: '+88052162340', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rangpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Rangpur' },
+  { id: 33, name: 'Dinajpur District Veterinary Hospital', address: 'Balubari, Dinajpur', phone: '+88053165430', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Dinajpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Dinajpur' },
+  { id: 118, name: 'Kurigram District Veterinary Hospital', address: 'Sadar, Kurigram', phone: '+88058161540', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kurigram+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Kurigram' },
+  { id: 119, name: 'Gaibandha District Veterinary Hospital', address: 'Sadar, Gaibandha', phone: '+88054161450', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Gaibandha+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Gaibandha' },
+  { id: 120, name: 'Nilphamari District Veterinary Hospital', address: 'Sadar, Nilphamari', phone: '+88055161340', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Nilphamari+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Nilphamari' },
+  { id: 136, name: 'Panchagarh District Veterinary Hospital', address: 'Sadar, Panchagarh', phone: '+88056861234', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Panchagarh+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Panchagarh' },
+  { id: 137, name: 'Thakurgaon District Veterinary Hospital', address: 'Sadar, Thakurgaon', phone: '+88056152345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Thakurgaon+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Thakurgaon' },
+  { id: 138, name: 'Lalmonirhat District Veterinary Hospital', address: 'Sadar, Lalmonirhat', phone: '+88059161230', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Lalmonirhat+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Lalmonirhat' },
+
+  // --- MYMENSINGH DIVISION ---
   { id: 34, name: 'BAU Veterinary Teaching Hospital', address: 'Bangladesh Agricultural University, Mymensingh', phone: '+8809167401', website: 'https://www.bau.edu.bd', mapUrl: 'https://www.google.com/maps/search/?api=1&query=BAU+Veterinary+Teaching+Hospital+Mymensingh', hours: '9 AM - 5 PM', district: 'Mymensingh' },
-  { id: 35, name: 'Mymensingh Pet Hospital', address: 'Charpara, Mymensingh', phone: '+8801712345682', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Mymensingh+Pet+Hospital', hours: '11 AM - 8 PM', district: 'Mymensingh' },
-  { id: 36, name: 'Jamalpur Pet Clinic', address: 'Jamalpur Sadar, Jamalpur', phone: '+8801912345683', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Jamalpur+Pet+Clinic', hours: '10 AM - 7 PM', district: 'Jamalpur' },
+  { id: 35, name: 'Mymensingh District Veterinary Hospital', address: 'Sadar, Mymensingh', phone: '+8809165890', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Mymensingh+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Mymensingh' },
+  { id: 36, name: 'Jamalpur District Veterinary Hospital', address: 'Jamalpur Sadar, Jamalpur', phone: '+88098163240', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Jamalpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Jamalpur' },
+  { id: 121, name: 'Sherpur District Veterinary Hospital', address: 'Sadar, Sherpur', phone: '+88093161230', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sherpur+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Sherpur' },
+  { id: 122, name: 'Netrokona District Veterinary Hospital', address: 'Sadar, Netrokona', phone: '+88095162345', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Netrokona+District+Veterinary+Hospital', hours: '9 AM - 5 PM (Fri Closed)', district: 'Netrokona' },
 ];
 
 

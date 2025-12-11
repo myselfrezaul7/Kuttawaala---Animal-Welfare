@@ -43,32 +43,32 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   }
 
   return (
-    <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden">
-      <div className="p-6">
-        <div className="flex items-center space-x-4 mb-4">
-          <div className="w-12 h-12 rounded-full bg-white/20 dark:bg-slate-700/50 flex items-center justify-center flex-shrink-0">
-            <UserIcon className="w-7 h-7 text-slate-800 dark:text-slate-200" />
+    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm overflow-hidden">
+      <div className="p-5">
+        <div className="flex items-center space-x-3 mb-3">
+          <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0 text-slate-600 dark:text-slate-300">
+            <UserIcon className="w-6 h-6" />
           </div>
           <div>
-            <p className="font-bold text-slate-900 dark:text-slate-50 text-lg">{post.author.name}</p>
-            <p className="text-sm text-slate-700 dark:text-slate-300">{timeSince(post.timestamp)}</p>
+            <p className="font-bold text-slate-900 dark:text-white text-base">{post.author.name}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{timeSince(post.timestamp)}</p>
           </div>
         </div>
-        <p className="text-slate-800 dark:text-slate-200 text-base mb-4 whitespace-pre-wrap">{post.content}</p>
+        <p className="text-slate-800 dark:text-slate-200 text-base mb-4 whitespace-pre-wrap leading-relaxed">{post.content}</p>
       </div>
 
       {post.imageUrl && (
-        <div className="bg-black/10">
+        <div className="bg-slate-100 dark:bg-slate-900">
           <img src={post.imageUrl} alt="Post content" className="w-full max-h-[500px] object-cover" loading="lazy" />
         </div>
       )}
 
-      <div className="px-6 py-3 border-t border-white/30 dark:border-slate-700 flex justify-around">
-        <button className="flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors rounded-lg px-2 sm:px-4 py-2 hover:bg-white/20 dark:hover:bg-black/20 text-sm sm:text-base">
+      <div className="px-4 py-3 border-t border-slate-100 dark:border-slate-700 flex justify-around">
+        <button className="flex items-center space-x-2 text-slate-600 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 font-medium transition-colors rounded-lg px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-sm">
           <ThumbsUpIcon className="w-5 h-5" />
           <span>{t('postCard.like')} ({post.likes})</span>
         </button>
-        <button className="flex items-center space-x-2 text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors rounded-lg px-2 sm:px-4 py-2 hover:bg-white/20 dark:hover:bg-black/20 text-sm sm:text-base">
+        <button className="flex items-center space-x-2 text-slate-600 dark:text-slate-400 hover:text-orange-600 dark:hover:text-orange-400 font-medium transition-colors rounded-lg px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700/50 text-sm">
           <ChatBubbleIcon className="w-5 h-5" />
           <span>{t('postCard.comment')} ({post.comments.length})</span>
         </button>

@@ -6,17 +6,41 @@ const VolunteerPage: React.FC = () => {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError('');
         setIsLoading(true);
 
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            if (Math.random() > 0.8) {
-                throw new Error("Could not submit application. Please try again.");
-            }
+            const form = e.currentTarget;
+            const formData = new FormData(form);
+            
+            const name = formData.get('name') as string;
+            const email = formData.get('email') as string;
+            const phone = formData.get('phone') as string;
+            const address = formData.get('address') as string;
+            const availability = formData.get('availability') as string;
+            
+            // Get all checked skills manually since FormData might handle multiple same-name inputs differently depending on iteration
+            const skillNodes = form.querySelectorAll('input[name="skills"]:checked');
+            const skills = Array.from(skillNodes).map((node) => (node as HTMLInputElement).value).join(', ');
+
+            const subject = `Volunteer Application: ${name}`;
+            const body = `Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Address: ${address}
+
+Skills/Interests: ${skills}
+
+Availability:
+${availability}
+
+Sent from KUTTAWAALA App`;
+
+            const mailtoLink = `mailto:kuttawaala@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            window.location.href = mailtoLink;
             setFormSubmitted(true);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unknown error occurred.');
@@ -42,8 +66,13 @@ const VolunteerPage: React.FC = () => {
                     <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-6">Become a Volunteer</h2>
                     {formSubmitted ? (
                         <div className="text-center p-8 bg-green-500/10 border border-green-500/30 rounded-lg">
-                            <h3 className="text-2xl font-bold text-green-900 dark:text-green-200">Thank You!</h3>
-                            <p className="text-slate-800 dark:text-slate-200 mt-2">Your application has been received. We'll get in touch with you soon!</p>
+                            <h3 className="text-2xl font-bold text-green-900 dark:text-green-200">Email Draft Opened!</h3>
+                            <p className="text-slate-800 dark:text-slate-200 mt-2">
+                                Your default email client should have opened with your application details. Please click <strong>Send</strong> to complete your application to <span className="font-semibold text-orange-600 dark:text-orange-400">kuttawaala@gmail.com</span>.
+                            </p>
+                            <p className="text-slate-600 dark:text-slate-400 text-sm mt-4">
+                                Didn't open? Please manually email your details to us.
+                            </p>
                              <button 
                                 onClick={() => {
                                     setFormSubmitted(false);
@@ -58,37 +87,37 @@ const VolunteerPage: React.FC = () => {
                             <FormError message={error} />
                             <div>
                                 <label htmlFor="name" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Full Name <span className="text-red-500">*</span></label>
-                                <input type="text" id="name" required className={inputStyle} autoComplete="name" />
+                                <input type="text" id="name" name="name" required className={inputStyle} autoComplete="name" />
                             </div>
                              <div>
                                 <label htmlFor="email" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Email <span className="text-red-500">*</span></label>
-                                <input type="email" id="email" required className={inputStyle} autoComplete="email" />
+                                <input type="email" id="email" name="email" required className={inputStyle} autoComplete="email" />
                             </div>
                              <div>
                                 <label htmlFor="phone" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Phone <span className="text-red-500">*</span></label>
-                                <input type="tel" id="phone" required className={inputStyle} autoComplete="tel" />
+                                <input type="tel" id="phone" name="phone" required className={inputStyle} autoComplete="tel" />
                             </div>
                              <div>
                                 <label htmlFor="address" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Address <span className="text-red-500">*</span></label>
-                                <textarea id="address" rows={2} required className={inputStyle} autoComplete="street-address"></textarea>
+                                <textarea id="address" name="address" rows={2} required className={inputStyle} autoComplete="street-address"></textarea>
                             </div>
                             <div>
                                 <label className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Skills/Interests</label>
                                 <div className="space-y-2 mt-2 text-slate-800 dark:text-slate-200">
-                                    <label className="flex items-center"><input type="checkbox" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Animal Handling</label>
-                                    <label className="flex items-center"><input type="checkbox" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Event Support</label>
-                                    <label className="flex items-center"><input type="checkbox" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Transport/Driving</label>
-                                    <label className="flex items-center"><input type="checkbox" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Photography/Videography</label>
-                                    <label className="flex items-center"><input type="checkbox" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Administrative Tasks</label>
+                                    <label className="flex items-center"><input type="checkbox" name="skills" value="Animal Handling" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Animal Handling</label>
+                                    <label className="flex items-center"><input type="checkbox" name="skills" value="Event Support" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Event Support</label>
+                                    <label className="flex items-center"><input type="checkbox" name="skills" value="Transport/Driving" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Transport/Driving</label>
+                                    <label className="flex items-center"><input type="checkbox" name="skills" value="Photography/Videography" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Photography/Videography</label>
+                                    <label className="flex items-center"><input type="checkbox" name="skills" value="Administrative Tasks" className="h-5 w-5 mr-3 rounded text-orange-500 focus:ring-orange-500" /> Administrative Tasks</label>
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="availability" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Availability <span className="text-red-500">*</span></label>
-                                <textarea id="availability" rows={3} placeholder="e.g., Weekends, weekday evenings..." required className={inputStyle}></textarea>
+                                <textarea id="availability" name="availability" rows={3} placeholder="e.g., Weekends, weekday evenings..." required className={inputStyle}></textarea>
                             </div>
                             <div>
                                 <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg text-lg hover:bg-orange-600 transition-colors disabled:bg-orange-300 disabled:cursor-wait">
-                                    {isLoading ? 'Submitting...' : 'Submit Application'}
+                                    {isLoading ? 'Preparing Email...' : 'Submit Application via Email'}
                                 </button>
                             </div>
                         </form>

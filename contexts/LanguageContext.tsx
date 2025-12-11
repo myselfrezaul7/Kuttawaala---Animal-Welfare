@@ -20,9 +20,13 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 // Helper function to get the system's preferred language, can be called without hooks.
 const getSystemLanguage = (): Language => {
   if (typeof window !== 'undefined') {
-    const browserLang = navigator.language.split('-')[0];
-    if (browserLang === 'bn') {
-      return 'bn';
+    try {
+        const browserLang = navigator.language.split('-')[0];
+        if (browserLang === 'bn') {
+          return 'bn';
+        }
+    } catch (e) {
+        console.warn("Could not determine system language", e);
     }
   }
   return 'en';
@@ -38,7 +42,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (hasConsent('preferences')) {
       try {
         const storedLang = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-        newLanguage = (storedLang === 'en' || storedLang === 'bn') ? storedLang : getSystemLanguage();
+        // Validate
+        if (storedLang === 'en' || storedLang === 'bn') {
+            newLanguage = storedLang;
+        } else {
+            newLanguage = getSystemLanguage();
+        }
       } catch (error) {
         console.error("Could not read language from localStorage:", error);
         newLanguage = getSystemLanguage();
@@ -51,26 +60,32 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   
   // This effect applies the language to the DOM and saves/removes it from storage.
   useEffect(() => {
-    document.documentElement.lang = language;
-    if (hasConsent('preferences')) {
-      try {
-        localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-      } catch (error) {
-        console.error("Could not save language to localStorage:", error);
-      }
-    } else {
-      // Ensure language is removed from storage if consent is not given for preferences
-      try {
-        localStorage.removeItem(LANGUAGE_STORAGE_KEY);
-      } catch (error) {
-        console.error("Could not remove language from localStorage:", error);
-      }
+    try {
+        document.documentElement.lang = language;
+        if (hasConsent('preferences')) {
+            try {
+                localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+            } catch (error) {
+                console.error("Could not save language to localStorage:", error);
+            }
+        } else {
+            // Ensure language is removed from storage if consent is not given for preferences
+            try {
+                localStorage.removeItem(LANGUAGE_STORAGE_KEY);
+            } catch (error) {
+                console.error("Could not remove language from localStorage:", error);
+            }
+        }
+    } catch (e) {
+        console.error("Error applying language", e);
     }
   }, [language, hasConsent]);
 
   const t = useCallback((key: keyof Translations, options?: { [key: string]: string | number }) => {
-    let translation = translations[language][key] || translations['en'][key] || key;
-    if (options) {
+    const currentDict = translations[language] || translations['en'];
+    let translation = currentDict[key] || translations['en'][key] || key;
+    
+    if (options && typeof translation === 'string') {
       Object.keys(options).forEach(optionKey => {
         translation = translation.replace(`{{${optionKey}}}`, String(options[optionKey]));
       });

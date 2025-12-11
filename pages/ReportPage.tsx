@@ -108,15 +108,17 @@ const ReportPage: React.FC = () => {
 
         if (result.animalType && animalTypeRef.current) {
             // Safe conversion without generic syntax in TSX to avoid parsing errors
-            const options = Array.from(animalTypeRef.current.options).map(o => o.value);
-            const match = options.find(opt => opt.toLowerCase() === result.animalType.toLowerCase());
+            // Explicitly casting to HTMLOptionElement[] to solve type errors
+            const options = Array.from(animalTypeRef.current.options) as HTMLOptionElement[];
+            const optionValues = options.map(o => o.value);
+            const match = optionValues.find((opt: string) => opt.toLowerCase() === result.animalType.toLowerCase());
             
             if (match) {
                 animalTypeRef.current.value = match;
             } else {
                  // Default to 'Other' if specific type not found, or leave as is if unsure
                  if (['dog', 'cat', 'bird'].includes(result.animalType.toLowerCase())) {
-                       const exactMatch = Array.from(animalTypeRef.current.options).find((o: HTMLOptionElement) => o.value.toLowerCase() === result.animalType.toLowerCase());
+                       const exactMatch = options.find((o) => o.value.toLowerCase() === result.animalType.toLowerCase());
                        if(exactMatch) animalTypeRef.current.value = exactMatch.value;
                  } else {
                      animalTypeRef.current.value = "Other";

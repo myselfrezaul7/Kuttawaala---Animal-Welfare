@@ -4,13 +4,12 @@ import type { ChatMessage } from '../types';
 // Safety check for process.env in purely browser environments
 const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : '';
 
-if (!apiKey) {
-  console.error("API_KEY environment variable is not set");
-}
+// Initialize AI lazily or handle the missing key gracefuly inside functions
+const ai = apiKey ? new GoogleGenAI({ apiKey: apiKey }) : null;
 
-// Initialize AI only if key exists to avoid immediate crash on load, 
-// though actual calls will fail if key is missing.
-const ai = new GoogleGenAI({ apiKey: apiKey || 'dummy_key_to_prevent_crash' });
+if (!apiKey) {
+  console.warn("API_KEY environment variable is not set. AI features will be disabled or return mock responses.");
+}
 
 const SYSTEM_INSTRUCTION_EN = `You are an AI Vet for KUTTAWAALA, an animal welfare organization. Your purpose is to provide general guidance and first-aid information ONLY.
 Always start every single response with this exact disclaimer, on its own line: '***Disclaimer: I am an AI Vet and not a substitute for professional veterinary advice. This information is for general guidance and first-aid purposes only. ALWAYS consult a licensed, in-person veterinarian for any health concerns or emergencies.***'
@@ -60,10 +59,10 @@ const fileToPart = async (file: File) => {
 };
 
 export const getVetAssistantResponseStream = async function* (history: ChatMessage[], language: 'en' | 'bn') {
-  if (!apiKey) {
+  if (!ai) {
       yield language === 'bn' 
-        ? "API কী কনফিগার করা হয়নি।"
-        : "API Key is not configured.";
+        ? "API কী কনফিগার করা হয়নি। দয়া করে প্রশাসকের সাথে যোগাযোগ করুন।"
+        : "API Key is not configured. Please contact the administrator.";
       return;
   }
   
@@ -80,7 +79,9 @@ export const getVetAssistantResponseStream = async function* (history: ChatMessa
     });
 
     for await (const chunk of responseStream) {
-        yield chunk.text;
+        if(chunk.text) {
+            yield chunk.text;
+        }
     }
 
   } catch (error) {
@@ -98,7 +99,7 @@ export const getVetAssistantResponseStream = async function* (history: ChatMessa
 };
 
 export const analyzeImageForReport = async (file: File) => {
-    if (!apiKey) throw new Error("API Key missing");
+    if (!ai) throw new Error("API Key missing");
 
     try {
         const imagePart = await fileToPart(file);
@@ -120,7 +121,7 @@ export const analyzeImageForReport = async (file: File) => {
             }
         });
 
-        return response.text;
+        return response.text || "{}";
     } catch (error) {
         console.error("Error analyzing image:", error);
         throw new Error("Failed to analyze image with AI.");

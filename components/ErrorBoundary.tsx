@@ -1,8 +1,9 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 import { en, bn } from '../i18n/translations';
+import PawHeartLoader from './PawHeartLoader';
 
 interface Props {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 interface State {
@@ -11,11 +12,10 @@ interface State {
 
 const translations = { en, bn };
 
-class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+class ErrorBoundary extends React.Component<Props, State> {
+  public state: State = {
+    hasError: false
+  };
 
   public static getDerivedStateFromError(_: Error): State {
     return { hasError: true };
@@ -28,7 +28,7 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       // Simple language detection fallback
-      const lang = document.documentElement.lang === 'bn' ? 'bn' : 'en';
+      const lang = (typeof document !== 'undefined' && document.documentElement.lang === 'bn') ? 'bn' : 'en';
       const t = (key: keyof typeof en): string => {
         const dict = translations[lang] as Record<string, string>;
         const fallback = translations['en'] as Record<string, string>;
@@ -38,12 +38,14 @@ class ErrorBoundary extends Component<Props, State> {
       };
       
       return (
-        <div className="container mx-auto px-6 py-16 text-center">
-          <h1 className="text-4xl font-bold text-red-600 dark:text-red-400">{t('errorBoundary.title')}</h1>
-          <p className="text-lg text-slate-800 dark:text-slate-200 mt-4">{t('errorBoundary.subtitle')}</p>
+        <div className="container mx-auto px-6 py-16 flex flex-col items-center justify-center min-h-[60vh]">
+          <PawHeartLoader isError={true} text={t('errorBoundary.title')} />
+          <p className="text-lg text-slate-800 dark:text-slate-200 mt-4 text-center max-w-md">
+            {t('errorBoundary.subtitle')}
+          </p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-8 bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition-colors"
+            className="mt-8 bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition-colors shadow-lg hover:shadow-orange-500/30"
           >
             {t('errorBoundary.button')}
           </button>

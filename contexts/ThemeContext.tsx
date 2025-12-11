@@ -28,7 +28,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (hasConsent('preferences')) {
       try {
         const storedTheme = window.localStorage.getItem('theme');
-        newTheme = (storedTheme === 'light' || storedTheme === 'dark') ? storedTheme : getSystemTheme();
+        // Validate stored value is actually a valid Theme
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+            newTheme = storedTheme;
+        } else {
+            newTheme = getSystemTheme();
+        }
       } catch (error) {
         console.error("Could not read theme from localStorage:", error);
         newTheme = getSystemTheme();
@@ -41,23 +46,27 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // This effect applies the theme to the DOM and saves/removes it from storage.
   useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add(theme);
-    
-    if (hasConsent('preferences')) {
-        try {
-            localStorage.setItem('theme', theme);
-        } catch (error) {
-            console.error("Could not save theme to localStorage:", error);
+    try {
+        const root = window.document.documentElement;
+        root.classList.remove('light', 'dark');
+        root.classList.add(theme);
+        
+        if (hasConsent('preferences')) {
+            try {
+                localStorage.setItem('theme', theme);
+            } catch (error) {
+                console.error("Could not save theme to localStorage:", error);
+            }
+        } else {
+            // Ensure theme is removed from storage if consent is not given for preferences
+            try {
+                localStorage.removeItem('theme');
+            } catch (error) {
+                console.error("Could not remove theme from localStorage:", error);
+            }
         }
-    } else {
-        // Ensure theme is removed from storage if consent is not given for preferences
-        try {
-            localStorage.removeItem('theme');
-        } catch (error) {
-            console.error("Could not remove theme from localStorage:", error);
-        }
+    } catch (e) {
+        console.error("Error applying theme", e);
     }
   }, [theme, hasConsent]);
 

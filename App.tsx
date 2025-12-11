@@ -8,8 +8,9 @@ import { FavoritesProvider } from './contexts/FavoritesContext';
 import { CookieConsentProvider } from './contexts/CookieConsentContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import CookieConsentBanner from './components/CookieConsentBanner';
-import { ArrowUpIcon, PawIcon } from './components/icons';
+import { ArrowUpIcon } from './components/icons';
 import ErrorBoundary from './components/ErrorBoundary';
+import PawHeartLoader from './components/PawHeartLoader';
 
 // Lazy load page components
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -27,18 +28,6 @@ const MemorialPage = lazy(() => import('./pages/MemorialPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CommunityPage = lazy(() => import('./pages/CommunityPage'));
 
-const LoadingSpinner: React.FC = () => (
-  <div className="flex flex-col justify-center items-center h-[60vh]">
-    <div className="relative p-8 bg-white/20 dark:bg-black/20 backdrop-blur-xl rounded-full shadow-2xl">
-      <div className="w-16 h-16 border-4 border-orange-200/50 dark:border-slate-700/50 border-t-orange-500 rounded-full animate-spin"></div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <PawIcon className="w-6 h-6 text-orange-500 animate-pulse" />
-      </div>
-    </div>
-    <p className="mt-6 text-slate-700 dark:text-slate-300 font-bold tracking-widest uppercase text-sm animate-pulse">Loading KUTTAWAALA...</p>
-  </div>
-);
-
 // ScrollToTop component handles resetting window scroll position on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -53,18 +42,27 @@ const ScrollToTop = () => {
 function App() {
   const [showScroll, setShowScroll] = useState(false);
 
+  // Performance Optimization: Throttle scroll event for Show Scroll button
   useEffect(() => {
+    let ticking = false;
+
     const checkScrollTop = () => {
-      if (!showScroll && window.pageYOffset > 400) {
-        setShowScroll(true);
-      } else if (showScroll && window.pageYOffset <= 400) {
-        setShowScroll(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.pageYOffset > 400) {
+            setShowScroll(true);
+          } else {
+            setShowScroll(false);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', checkScrollTop);
+    window.addEventListener('scroll', checkScrollTop, { passive: true });
     return () => window.removeEventListener('scroll', checkScrollTop);
-  }, [showScroll]);
+  }, []);
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -80,10 +78,14 @@ function App() {
                   <HashRouter>
                       <ScrollToTop />
                       <ErrorBoundary>
-                        <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden">
+                        <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden relative">
                         <Header />
                         <main className="flex-grow pt-24 sm:pt-28">
-                          <Suspense fallback={<LoadingSpinner />}>
+                          <Suspense fallback={
+                            <div className="flex items-center justify-center min-h-[60vh]">
+                                <PawHeartLoader text="Loading KUTTAWAALA..." />
+                            </div>
+                          }>
                             <div className="animate-fade-in">
                               <Routes>
                                 <Route path="/" element={<HomePage />} />

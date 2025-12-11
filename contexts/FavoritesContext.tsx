@@ -20,10 +20,22 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (hasConsent('functional')) {
       try {
         const favorites = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
-        setFavoriteIds(favorites ? JSON.parse(favorites) : []);
+        if (favorites) {
+            const parsed = JSON.parse(favorites);
+            if (Array.isArray(parsed)) {
+                setFavoriteIds(parsed);
+            } else {
+                setFavoriteIds([]);
+            }
+        } else {
+            setFavoriteIds([]);
+        }
       } catch (error) {
         console.error("Error reading favorites from localStorage", error);
+        // Fallback to empty to prevent crash
         setFavoriteIds([]);
+        // Optional: clear corrupted storage
+        try { window.localStorage.removeItem(FAVORITES_STORAGE_KEY); } catch(e) {}
       }
     } else {
       setFavoriteIds([]);

@@ -8,15 +8,20 @@ import { useCookieConsent } from '../contexts/CookieConsentContext';
 const MEMORIALS_STORAGE_KEY = 'kuttawaala_memorials';
 
 const MemorialCard: React.FC<{ memorial: Memorial }> = React.memo(({ memorial }) => (
-  <div className="bg-white/40 dark:bg-slate-800/40 backdrop-blur-xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden flex flex-col group">
-    <img src={memorial.imageUrl} alt={memorial.petName} className="w-full h-64 object-cover" loading="lazy" />
+  <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/30 dark:border-white/10 rounded-3xl shadow-xl overflow-hidden flex flex-col group h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+    <div className="relative h-48 sm:h-64 overflow-hidden">
+        <img src={memorial.imageUrl} alt={memorial.petName} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+        <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white drop-shadow-md">{memorial.petName}</h3>
+            <HeartIcon className="w-6 h-6 text-red-400 drop-shadow-md" />
+        </div>
+    </div>
     <div className="p-6 flex flex-col flex-grow">
-      <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">{memorial.petName}</h3>
-        <HeartIcon className="w-6 h-6 text-red-400" />
-      </div>
-      <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-4">Lovingly remembered by {memorial.ownerName}</p>
-      <p className="text-slate-800 dark:text-slate-200 flex-grow">{memorial.tribute}</p>
+      <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Remembered by {memorial.ownerName}</p>
+      <p className="text-base text-slate-800 dark:text-slate-200 flex-grow leading-relaxed italic border-l-2 border-orange-400 pl-4">
+        "{memorial.tribute}"
+      </p>
     </div>
   </div>
 ));
@@ -122,50 +127,52 @@ const MemorialForm: React.FC<{ isVisible: boolean; onClose: () => void; onSubmit
 
     if (!isVisible) return null;
 
-    const inputStyle = "w-full p-3 bg-white/50 dark:bg-slate-900/50 border border-white/30 dark:border-slate-700 text-slate-900 dark:text-slate-50 placeholder:text-slate-600 dark:placeholder:text-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500/80 focus:border-orange-500 focus:bg-white/70 dark:focus:bg-slate-900/70 transition-colors";
+    const inputStyle = "w-full p-4 bg-white/40 dark:bg-black/40 border border-white/20 dark:border-white/10 text-slate-900 dark:text-slate-50 placeholder:text-slate-500 dark:placeholder:text-slate-400 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white/60 dark:focus:bg-black/60 transition-all backdrop-blur-sm";
 
     return (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-lg z-50 flex justify-center items-center p-4" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="memorial-form-title">
-            <div ref={modalRef} className="bg-white/60 dark:bg-slate-800/70 backdrop-blur-2xl border border-white/30 dark:border-slate-700 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-                <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                    <div className="flex justify-between items-center">
-                        <h2 id="memorial-form-title" className="text-3xl font-bold text-slate-900 dark:text-slate-50">Share a Memory</h2>
-                        <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="Close" className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 text-4xl font-light">&times;</button>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xl z-50 flex justify-center items-center p-4" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="memorial-form-title">
+            <div ref={modalRef} className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border border-white/30 dark:border-white/10 rounded-[2rem] shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+                <form onSubmit={handleSubmit} className="p-8 sm:p-10 space-y-6">
+                    <div className="flex justify-between items-center mb-2">
+                        <h2 id="memorial-form-title" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Share a Memory</h2>
+                        <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="Close" className="text-slate-500 hover:text-slate-800 dark:hover:text-white text-4xl font-light transition-colors">&times;</button>
                     </div>
                     <FormError message={error} />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label htmlFor="petName" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Pet's Name</label>
+                            <label htmlFor="petName" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Pet's Name</label>
                             <input type="text" id="petName" value={petName} onChange={e => setPetName(e.target.value)} required className={inputStyle} autoComplete="off" />
                         </div>
                         <div>
-                            <label htmlFor="ownerName" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Your Name</label>
+                            <label htmlFor="ownerName" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Your Name</label>
                             <input type="text" id="ownerName" value={ownerName} onChange={e => setOwnerName(e.target.value)} required className={inputStyle} placeholder="e.g., The Khan Family" autoComplete="name" />
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="tribute" className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Tribute</label>
+                        <label htmlFor="tribute" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Tribute</label>
                         <textarea id="tribute" value={tribute} onChange={e => setTribute(e.target.value)} rows={4} required placeholder="Share a few words about your beloved pet..." className={inputStyle}></textarea>
                     </div>
                      <div>
-                        <label className="block text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">Photo of Your Pet</label>
+                        <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wide">Photo of Your Pet</label>
                         {!image ? (
                              <div className="mt-2 flex items-center justify-center w-full">
-                                <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-400/80 dark:border-slate-600 border-dashed rounded-lg cursor-pointer bg-white/30 dark:bg-slate-900/30 hover:bg-white/50 dark:hover:bg-slate-900/50">
-                                    <ImageIcon className="w-10 h-10 text-slate-700 dark:text-slate-300 mb-3" />
-                                    <p className="text-sm text-slate-800 dark:text-slate-200"><span className="font-semibold">Click to upload</span></p>
+                                <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-white/30 dark:border-white/10 border-dashed rounded-2xl cursor-pointer bg-white/20 dark:bg-black/20 hover:bg-white/40 dark:hover:bg-black/40 transition-all group">
+                                    <div className="p-4 bg-white/30 dark:bg-white/10 rounded-full mb-3 group-hover:scale-110 transition-transform">
+                                        <ImageIcon className="w-8 h-8 text-slate-600 dark:text-slate-300" />
+                                    </div>
+                                    <p className="text-sm text-slate-700 dark:text-slate-200 font-medium">Click to upload</p>
                                     <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageChange} className="hidden" required />
                                 </label>
                             </div>
                         ) : (
-                            <div className="mt-4 relative">
-                                <img src={image} alt="Preview" className="max-h-60 w-full rounded-lg object-cover" />
-                                <button type="button" onClick={() => {setImage(null); if(fileInputRef.current) fileInputRef.current.value = ""}} className="absolute top-2 right-2 bg-black/50 text-white rounded-full h-7 w-7 flex items-center justify-center font-bold text-lg hover:bg-black/80">&times;</button>
+                            <div className="mt-4 relative rounded-2xl overflow-hidden shadow-lg border border-white/20">
+                                <img src={image} alt="Preview" className="max-h-60 w-full object-cover" />
+                                <button type="button" onClick={() => {setImage(null); if(fileInputRef.current) fileInputRef.current.value = ""}} className="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg hover:bg-black/80 transition-colors">&times;</button>
                             </div>
                         )}
                     </div>
-                    <div className="flex justify-end pt-4 border-t border-slate-300 dark:border-slate-600">
-                        <button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-orange-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-orange-600 transition-colors disabled:bg-orange-300 disabled:cursor-wait">
+                    <div className="flex justify-end pt-4 border-t border-white/20 dark:border-white/10">
+                        <button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold py-4 px-10 rounded-xl text-lg hover:shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-wait">
                             {isLoading ? 'Submitting...' : 'Submit Tribute'}
                         </button>
                     </div>
@@ -208,20 +215,22 @@ const MemorialPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-6 py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50">The Memorial Wall</h1>
-        <p className="text-lg text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mt-4">
-          A place to honor and remember the beloved animal companions who have crossed the rainbow bridge. Gone but never forgotten.
-        </p>
+    <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 drop-shadow-sm">The Memorial Wall</h1>
+        <div className="max-w-3xl mx-auto bg-white/30 dark:bg-black/30 backdrop-blur-xl border border-white/30 dark:border-white/10 rounded-[2rem] p-8 shadow-lg">
+            <p className="text-lg text-slate-700 dark:text-slate-200 leading-relaxed font-light">
+            A place to honor and remember the beloved animal companions who have crossed the rainbow bridge. Gone but never forgotten.
+            </p>
+        </div>
       </div>
 
-      <div className="text-center mb-12">
+      <div className="text-center mb-16">
         <button 
             onClick={() => setIsFormVisible(true)}
-            className="bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition-all transform hover:scale-105 duration-300 shadow-lg"
+            className="bg-white/80 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 text-slate-900 dark:text-white font-bold py-4 px-10 rounded-full text-lg hover:bg-white dark:hover:bg-white/20 transition-all transform hover:scale-105 duration-300 shadow-xl"
         >
-            Add a Tribute
+            + Add a Tribute
         </button>
       </div>
 
@@ -231,7 +240,7 @@ const MemorialPage: React.FC = () => {
         onSubmit={handleAddMemorial}
       />
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {memorials.map(memorial => (
           <MemorialCard key={memorial.id} memorial={memorial} />
         ))}

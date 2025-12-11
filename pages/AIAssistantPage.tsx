@@ -170,16 +170,15 @@ const AIAssistantPage: React.FC = () => {
   }, [t]);
 
   return (
-    <div className="flex flex-col flex-grow container mx-auto p-4 sm:p-6 max-w-4xl h-[calc(100vh-80px)]">
-      <div className="text-center mb-4 flex-shrink-0 animate-fade-in-up">
-        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-50 flex items-center justify-center">
+    <div className="flex flex-col flex-grow container mx-auto p-4 sm:p-6 max-w-3xl h-[calc(100vh-80px)]">
+      <div className="text-center mb-6 flex-shrink-0">
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center justify-center">
             {t('aiAssistantPage.title')} 
-            <span className="text-xs font-bold tracking-wider bg-gradient-to-r from-orange-500 to-pink-500 text-white px-2 py-0.5 rounded ml-3 shadow-sm">GEMINI 3 PRO</span>
         </h1>
-        <p className="text-slate-600 dark:text-slate-300 mt-1">{t('aiAssistantPage.subtitle')}</p>
+        <p className="text-slate-500 dark:text-slate-400 mt-1">{t('aiAssistantPage.subtitle')}</p>
         
         {isWarningVisible && (
-          <div className="relative mt-4 max-w-2xl mx-auto bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100 px-4 py-3 rounded-xl text-sm transition-all duration-300 shadow-sm animate-pop" role="alert">
+          <div className="relative mt-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100 px-4 py-3 rounded-lg text-sm transition-all duration-300" role="alert">
             <button
               onClick={handleDismissWarning}
               className="absolute top-2 right-2 p-1 rounded-full text-amber-800/60 dark:text-amber-200/60 hover:bg-amber-100 dark:hover:bg-amber-800/40 transition-colors"
@@ -198,13 +197,13 @@ const AIAssistantPage: React.FC = () => {
         )}
       </div>
 
-      <div className="flex-grow bg-white/70 dark:bg-slate-800/70 backdrop-blur-2xl border border-white/50 dark:border-slate-700 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-        <div className="flex justify-between items-center p-4 border-b border-slate-100 dark:border-slate-700/50 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md flex-shrink-0">
-          <h2 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-2">{t('aiAssistantPage.conversation')}</h2>
+      <div className="flex-grow bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm flex flex-col overflow-hidden">
+        <div className="flex justify-between items-center p-3 px-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 flex-shrink-0">
+          <h2 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{t('aiAssistantPage.conversation')}</h2>
           <button
               onClick={handleClearChat}
               disabled={chatHistory.length === 0}
-              className="flex items-center gap-2 text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-3 py-1.5 rounded-full hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20 dark:hover:text-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               aria-label={t('aiAssistantPage.clearChat.button')}
           >
               <TrashIcon className="w-3 h-3" />
@@ -212,12 +211,12 @@ const AIAssistantPage: React.FC = () => {
           </button>
         </div>
         
-        <div className="flex-grow p-4 sm:p-6 overflow-y-auto space-y-6 scroll-smooth">
+        <div className="flex-grow p-4 sm:p-6 overflow-y-auto space-y-6 scroll-smooth bg-white dark:bg-slate-800">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-orange-500/30">
-                  <PawIcon className="w-6 h-6" />
+              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                  <PawIcon className="w-5 h-5" />
               </div>
-              <div className="bg-white dark:bg-slate-700 p-5 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm text-slate-800 dark:text-slate-100 leading-relaxed">
+              <div className="bg-slate-100 dark:bg-slate-700 p-4 rounded-lg rounded-tl-none max-w-[90%] text-slate-800 dark:text-slate-100 leading-relaxed text-sm sm:text-base">
                 <p>{t('aiAssistantPage.initialGreeting')}</p>
               </div>
             </div>
@@ -225,15 +224,15 @@ const AIAssistantPage: React.FC = () => {
             {chatHistory.map((message, index) => {
               if (message.isError) {
                 return (
-                  <div key={index} className="flex items-start gap-4 animate-fade-in">
-                    <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-red-500/30">
-                      <WarningIcon className="w-6 h-6" />
+                  <div key={index} className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                      <WarningIcon className="w-5 h-5" />
                     </div>
-                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 p-5 rounded-2xl rounded-tl-none max-w-[85%]">
+                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 p-4 rounded-lg rounded-tl-none max-w-[90%] text-sm sm:text-base">
                       <p className="text-red-800 dark:text-red-200 font-medium">{message.text}</p>
                       <button 
                           onClick={handleRetry} 
-                          className="mt-3 bg-red-100 dark:bg-red-800 text-red-700 dark:text-red-100 font-bold py-1.5 px-4 rounded-full text-xs hover:bg-red-200 dark:hover:bg-red-700 transition-colors"
+                          className="mt-3 bg-red-100 dark:bg-red-800 text-red-700 dark:text-red-100 font-bold py-1.5 px-4 rounded text-xs hover:bg-red-200 dark:hover:bg-red-700 transition-colors"
                           disabled={isLoading}
                       >
                           {t('aiAssistantPage.retry')}
@@ -248,23 +247,23 @@ const AIAssistantPage: React.FC = () => {
               if (isDisclaimer) {
                     const restOfMessage = message.text.substring(FULL_DISCLAIMER_TEXT.length).trim();
                     return (
-                        <div key={index} className="flex flex-col gap-4 animate-fade-in">
+                        <div key={index} className="flex flex-col gap-4">
                              <div className="flex items-start gap-4">
-                                <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-orange-500/30">
-                                    <PawIcon className="w-6 h-6" />
+                                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                    <PawIcon className="w-5 h-5" />
                                 </div>
-                                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 p-4 rounded-2xl rounded-tl-none max-w-[85%] flex items-start gap-3">
-                                    <WarningIcon className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
-                                    <div className="text-amber-900 dark:text-amber-100 text-xs sm:text-sm">
+                                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/50 p-4 rounded-lg rounded-tl-none max-w-[90%] flex items-start gap-3">
+                                    <WarningIcon className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                                    <div className="text-amber-900 dark:text-amber-100 text-xs">
                                         <p className="font-bold mb-1">{t('aiAssistantPage.disclaimer.title')}</p>
-                                        <p className="opacity-90">{t('aiAssistantPage.disclaimer.body')}</p>
+                                        <p className="opacity-90 leading-normal">{t('aiAssistantPage.disclaimer.body')}</p>
                                     </div>
                                 </div>
                              </div>
                             {restOfMessage && (
                                 <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 flex-shrink-0 invisible"></div> {/* Spacer */}
-                                    <div className="bg-white dark:bg-slate-700 p-5 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-wrap">
+                                    <div className="w-8 h-8 flex-shrink-0 invisible"></div> {/* Spacer */}
+                                    <div className="bg-slate-100 dark:bg-slate-700 p-4 rounded-lg rounded-tl-none max-w-[90%] text-slate-800 dark:text-slate-100 leading-relaxed whitespace-pre-wrap text-sm sm:text-base">
                                         <p>{restOfMessage}</p>
                                     </div>
                                 </div>
@@ -274,24 +273,24 @@ const AIAssistantPage: React.FC = () => {
                 }
 
               return (
-                <div key={index} className={`flex items-start gap-4 ${message.sender === 'user' ? 'justify-end' : 'animate-fade-in'}`}>
+                <div key={index} className={`flex items-start gap-4 ${message.sender === 'user' ? 'justify-end' : ''}`}>
                   {message.sender === 'ai' && (
-                    <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg shadow-orange-500/30">
-                      <PawIcon className="w-6 h-6" />
+                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                      <PawIcon className="w-5 h-5" />
                     </div>
                   )}
-                  <div className={`p-5 rounded-2xl max-w-[85%] shadow-sm leading-relaxed whitespace-pre-wrap ${
+                  <div className={`p-4 rounded-lg max-w-[90%] leading-relaxed whitespace-pre-wrap text-sm sm:text-base ${
                     message.sender === 'user' 
-                    ? 'bg-gradient-to-br from-orange-500 to-pink-500 text-white rounded-br-none shadow-orange-500/20' 
-                    : 'bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-tl-none'
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-tr-none' 
+                    : 'bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-tl-none'
                   }`}>
                     {message.text ? (
                         <p>{message.text}</p>
                     ) : (
-                        <div className="flex space-x-1.5 h-6 items-center px-2">
-                            <div className="w-2 h-2 bg-slate-400 dark:bg-slate-500 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-slate-400 dark:bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-2 h-2 bg-slate-400 dark:bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="flex space-x-1.5 h-5 items-center px-2">
+                            <div className="w-1.5 h-1.5 bg-slate-400 dark:bg-slate-500 rounded-full animate-bounce"></div>
+                            <div className="w-1.5 h-1.5 bg-slate-400 dark:bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-1.5 h-1.5 bg-slate-400 dark:bg-slate-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                         </div>
                     )}
                   </div>
@@ -301,20 +300,20 @@ const AIAssistantPage: React.FC = () => {
             <div ref={chatEndRef} />
         </div>
 
-        <div className="p-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border-t border-slate-100 dark:border-slate-700/50">
+        <div className="p-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
           <form onSubmit={handleSubmit} className="relative flex items-center">
             <input
               type="text"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
               placeholder={t('aiAssistantPage.input.placeholder')}
-              className="w-full pl-6 pr-14 py-4 bg-white dark:bg-slate-800 border-none shadow-inner rounded-full text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-orange-500 transition-all"
+              className="w-full pl-4 pr-12 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
               disabled={isLoading}
             />
             <button 
                 type="submit" 
                 disabled={isLoading || !userInput.trim()} 
-                className="absolute right-2 p-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-full transition-all transform hover:scale-105 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:scale-100 disabled:cursor-not-allowed shadow-md shadow-orange-500/30"
+                className="absolute right-2 p-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md transition-colors disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed"
             >
               <SendIcon className="w-5 h-5" />
             </button>

@@ -1,45 +1,56 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HeartIcon, FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
+import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Footer: React.FC = () => {
   const { t } = useLanguage();
+
+  const socialLinks = [
+    { href: "https://www.facebook.com/kuttawaala/", label: "Facebook", Icon: FacebookIcon },
+    { href: "https://www.instagram.com/kutta_waala/", label: "Instagram", Icon: InstagramIcon },
+    { href: "https://youtube.com/@kuttawaala", label: "YouTube", Icon: YouTubeIcon },
+    { href: "https://www.tiktok.com/@kuttawaala", label: "TikTok", Icon: TikTokIcon },
+  ];
+
   return (
-    <footer className="bg-white/50 dark:bg-slate-900/60 text-slate-800 dark:text-slate-200 py-10 mt-auto backdrop-blur-xl border-t border-white/30 dark:border-slate-700">
-      <div className="container mx-auto px-6 text-center">
-        <p className="text-lg italic text-slate-700 dark:text-slate-300 mb-6">
-          {t('footer.tagline')}
-        </p>
-        <div className="flex justify-center space-x-6 mb-8">
-          <a href="https://www.facebook.com/kuttawaalaa/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
-            <FacebookIcon className="w-6 h-6" />
-          </a>
-          <a href="https://www.instagram.com/kutta_waala/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
-            <InstagramIcon className="w-6 h-6" />
-          </a>
-          <a href="https://youtube.com/@kuttawaala" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
-            <YouTubeIcon className="w-6 h-6" />
-          </a>
-          <a href="https://www.tiktok.com/@kuttawaala" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-slate-800 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
-            <TikTokIcon className="w-6 h-6" />
-          </a>
+    <footer className="mt-auto pt-16 pb-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="bg-white/40 dark:bg-black/40 backdrop-blur-2xl border border-white/30 dark:border-white/10 rounded-[3rem] p-8 sm:p-12 shadow-xl">
+            <div className="text-center">
+                <p className="text-2xl italic text-slate-600 dark:text-slate-300 mb-8 font-light font-serif">
+                {t('footer.tagline')}
+                </p>
+                <div className="flex justify-center space-x-6 mb-8">
+                {socialLinks.map(({ href, label, Icon }) => (
+                    <a 
+                    key={label}
+                    href={href} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    aria-label={label} 
+                    className="p-3 bg-white/50 dark:bg-white/5 rounded-full hover:bg-white dark:hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-sm"
+                    >
+                    <Icon className="w-6 h-6 text-slate-700 dark:text-slate-200" />
+                    </a>
+                ))}
+                </div>
+                <nav className="flex justify-center flex-wrap gap-x-8 gap-y-3 mb-8 text-sm uppercase tracking-wide font-bold text-slate-700 dark:text-slate-300">
+                    <Link to="/adopt" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">{t('nav.adopt')}</Link>
+                    <Link to="/volunteer" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">{t('nav.volunteer')}</Link>
+                    <Link to="/memorial" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">{t('nav.memorial')}</Link>
+                    <Link to="/faq" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">FAQ</Link>
+                    <a href="mailto:kuttawaala@gmail.com" className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">{t('footer.contact')}</a>
+                </nav>
+                <div className="h-px w-full max-w-xs mx-auto bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent my-8"></div>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">
+                    {t('footer.inquiries')} <a href="mailto:kuttawaala@gmail.com" className="font-semibold text-slate-800 dark:text-slate-200 hover:underline">kuttawaala@gmail.com</a>
+                </p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">
+                {t('footer.copyright', { year: new Date().getFullYear() })}
+                </p>
+            </div>
         </div>
-        <nav className="flex justify-center flex-wrap gap-x-6 gap-y-2 mb-8">
-            <Link to="/adopt" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">{t('nav.adopt')}</Link>
-            <Link to="/volunteer" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">{t('nav.volunteer')}</Link>
-            <Link to="/memorial" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">{t('nav.memorial')}</Link>
-            <Link to="/faq" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">FAQ</Link>
-            <a href="mailto:kuttawaala@gmail.com" className="text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors font-medium">{t('footer.contact')}</a>
-        </nav>
-        <div className="border-t border-white/20 dark:border-slate-700 max-w-xs mx-auto my-6"></div>
-         <p className="text-slate-700 dark:text-slate-300">
-            {t('footer.inquiries')}<br/>
-            <a href="mailto:kuttawaala@gmail.com" className="font-semibold text-orange-600 dark:text-orange-400 hover:underline">kuttawaala@gmail.com</a>
-        </p>
-        <p className="text-sm text-slate-600 dark:text-slate-400 mt-8">
-          {t('footer.copyright', { year: new Date().getFullYear() })}
-        </p>
       </div>
     </footer>
   );

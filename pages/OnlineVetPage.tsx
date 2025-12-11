@@ -20,14 +20,16 @@ const OnlineVetPage: React.FC = () => {
 
   return (
     <>
-      <div className="container mx-auto px-6 py-16">
-        <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50">Consult a Veterinarian Online</h1>
-            <p className="text-lg text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mt-4">
-            Get professional advice for non-emergency situations from the comfort of your home. Our licensed veterinarians are here to help you with your pet's health concerns.
-            </p>
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <div className="text-center mb-16 max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight mb-6 drop-shadow-sm">Consult a Veterinarian Online</h1>
+            <div className="bg-white/30 dark:bg-black/30 backdrop-blur-xl border border-white/30 dark:border-white/10 rounded-3xl p-8 shadow-lg">
+                <p className="text-lg md:text-xl text-slate-800 dark:text-slate-200 leading-relaxed font-light">
+                Get professional advice for non-emergency situations from the comfort of your home. Our licensed veterinarians are here to help you with your pet's health concerns.
+                </p>
+            </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
           {MOCK_VETS.map(vet => (
             <VetCard key={vet.id} vet={vet} onBookAppointment={handleOpenModal} />
           ))}

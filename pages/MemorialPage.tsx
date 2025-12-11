@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import * as React from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import type { Memorial } from '../types';
 import { MOCK_MEMORIALS } from '../constants';
 import { ImageIcon, HeartIcon } from '../components/icons';

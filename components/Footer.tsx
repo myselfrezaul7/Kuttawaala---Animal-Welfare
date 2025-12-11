@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { FacebookIcon, InstagramIcon, YouTubeIcon, TikTokIcon } from './icons';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -7,10 +7,34 @@ const Footer: React.FC = () => {
   const { t } = useLanguage();
 
   const socialLinks = [
-    { href: "https://www.facebook.com/kuttawaala/", label: "Facebook", Icon: FacebookIcon },
-    { href: "https://www.instagram.com/kutta_waala/", label: "Instagram", Icon: InstagramIcon },
-    { href: "https://youtube.com/@kuttawaala", label: "YouTube", Icon: YouTubeIcon },
-    { href: "https://www.tiktok.com/@kuttawaala", label: "TikTok", Icon: TikTokIcon },
+    { 
+      href: "https://www.facebook.com/kuttawaala/", 
+      label: "Facebook", 
+      Icon: FacebookIcon,
+      // Default: Brand color text. Hover: Brand bg, White text, Blue Glow
+      className: "text-[#1877F2] hover:bg-[#1877F2] hover:text-white hover:shadow-[0_0_20px_rgba(24,119,242,0.6)]"
+    },
+    { 
+      href: "https://www.instagram.com/kutta_waala/", 
+      label: "Instagram", 
+      Icon: InstagramIcon,
+      // Default: Pink text. Hover: Gradient bg, White text, Pink Glow
+      className: "text-[#E1306C] hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white hover:shadow-[0_0_20px_rgba(225,48,108,0.6)]"
+    },
+    { 
+      href: "https://youtube.com/@kuttawaala", 
+      label: "YouTube", 
+      Icon: YouTubeIcon,
+      // Default: Red text. Hover: Red bg, White text, Red Glow
+      className: "text-[#FF0000] hover:bg-[#FF0000] hover:text-white hover:shadow-[0_0_20px_rgba(255,0,0,0.6)]"
+    },
+    { 
+      href: "https://www.tiktok.com/@kuttawaala", 
+      label: "TikTok", 
+      Icon: TikTokIcon,
+      // Default: Black/White text. Hover: Inverted bg, Inverted text, Glow
+      className: "text-black dark:text-white hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:shadow-[0_0_20px_rgba(0,0,0,0.4)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+    },
   ];
 
   return (
@@ -21,17 +45,17 @@ const Footer: React.FC = () => {
                 <p className="text-2xl italic text-slate-600 dark:text-slate-300 mb-8 font-light font-serif">
                 {t('footer.tagline')}
                 </p>
-                <div className="flex justify-center space-x-6 mb-8">
-                {socialLinks.map(({ href, label, Icon }) => (
+                <div className="flex justify-center items-center space-x-4 sm:space-x-6 mb-8">
+                {socialLinks.map(({ href, label, Icon, className }) => (
                     <a 
                     key={label}
                     href={href} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     aria-label={label} 
-                    className="p-3 bg-white/50 dark:bg-white/5 rounded-full hover:bg-white dark:hover:bg-white/20 hover:scale-110 transition-all duration-300 shadow-sm"
+                    className={`p-3.5 rounded-full bg-white/60 dark:bg-white/5 backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-110 shadow-sm ${className}`}
                     >
-                    <Icon className="w-6 h-6 text-slate-700 dark:text-slate-200" />
+                    <Icon className="w-6 h-6 fill-current" />
                     </a>
                 ))}
                 </div>

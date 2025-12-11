@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleIcon } from '../components/icons';
@@ -35,7 +36,7 @@ const SignUpPage: React.FC = () => {
     const SocialButton: React.FC<{ icon: React.ReactNode, label: string }> = ({ icon, label }) => (
     <button
       type="button"
-      className="flex items-center justify-center w-full p-3 border border-white/30 dark:border-slate-700 rounded-lg bg-white/30 dark:bg-slate-900/30 hover:bg-white/50 dark:hover:bg-slate-900/50 transition-colors"
+      className="flex items-center justify-center w-full p-3 border border-white/30 dark:border-slate-700 rounded-lg bg-white/30 dark:bg-slate-900/30 hover:bg-white/50 dark:hover:bg-slate-900/50 transition-all duration-300 hover:scale-[1.02] active:scale-95 hover:shadow-md"
     >
       {icon}
       <span className="ml-3 font-semibold text-slate-800 dark:text-slate-100">{label}</span>
@@ -96,7 +97,7 @@ const SignUpPage: React.FC = () => {
             />
           </div>
           <div>
-            <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg text-lg hover:bg-orange-600 transition-colors disabled:bg-orange-300">
+            <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg text-lg hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 transition-all duration-300 disabled:bg-orange-300 transform active:scale-95">
               {isLoading ? 'Creating Account...' : 'Create Account'}
             </button>
           </div>

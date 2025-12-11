@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import * as React from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import type { ChatMessage } from '../types';
 import { getVetAssistantResponseStream } from '../services/geminiService';
 import { PawIcon, SendIcon, CloseIcon, WarningIcon, TrashIcon } from '../components/icons';

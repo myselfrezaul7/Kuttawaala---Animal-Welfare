@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleIcon } from '../components/icons';
@@ -29,7 +30,7 @@ const LoginPage: React.FC = () => {
   const SocialButton: React.FC<{ icon: React.ReactNode, label: string }> = ({ icon, label }) => (
     <button
       type="button"
-      className="flex items-center justify-center w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+      className="flex items-center justify-center w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-[1.02] active:scale-95 hover:shadow-md"
     >
       {icon}
       <span className="ml-3 font-semibold text-slate-700 dark:text-slate-200">{label}</span>
@@ -79,7 +80,7 @@ const LoginPage: React.FC = () => {
             />
           </div>
           <div>
-            <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-orange-600 transition-colors disabled:bg-orange-300">
+            <button type="submit" disabled={isLoading} className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 transition-all duration-300 disabled:bg-orange-300 transform active:scale-95">
               {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </div>

@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import * as React from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Animal } from '../types';
 import { useFavorites } from '../contexts/FavoritesContext';

@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import * as React from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { QUIZ_QUESTIONS, MOCK_ANIMALS } from '../constants';
 import AnimalCard from '../components/AnimalCard';
 import { Link } from 'react-router-dom';

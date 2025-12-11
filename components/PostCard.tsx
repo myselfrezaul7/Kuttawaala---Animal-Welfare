@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import type { Post } from '../types';
 import { UserIcon, ThumbsUpIcon, ChatBubbleIcon } from './icons';
 import { useLanguage } from '../contexts/LanguageContext';

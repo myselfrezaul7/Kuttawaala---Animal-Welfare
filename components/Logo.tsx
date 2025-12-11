@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const Logo: React.FC<{ className?: string }> = ({ className }) => {
     return (

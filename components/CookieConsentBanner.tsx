@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { useCookieConsent } from '../contexts/CookieConsentContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import CookieInfoModal from './CookieInfoModal';

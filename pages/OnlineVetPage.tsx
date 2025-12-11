@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { MOCK_VETS } from '../constants';
 import type { Vet } from '../types';
 import VetCard from '../components/VetCard';

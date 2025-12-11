@@ -1,9 +1,9 @@
-import React, { ErrorInfo, ReactNode } from 'react';
+import * as React from 'react';
 import { en, bn } from '../i18n/translations';
 import PawHeartLoader from './PawHeartLoader';
 
 interface Props {
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 interface State {
@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component<Props, State> {
     return { hasError: true };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  public componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
   }
 
@@ -30,11 +30,10 @@ class ErrorBoundary extends React.Component<Props, State> {
       // Simple language detection fallback
       const lang = (typeof document !== 'undefined' && document.documentElement.lang === 'bn') ? 'bn' : 'en';
       const t = (key: keyof typeof en): string => {
-        const dict = translations[lang] as Record<string, string>;
+        const dict = (translations[lang] || translations['en']) as Record<string, string>;
         const fallback = translations['en'] as Record<string, string>;
-        // Ensure key is treated as string. keyof typeof en should be string literal union.
-        const k = key as string;
-        return dict[k] || fallback[k] || k;
+        // Cast key to string to allow indexing
+        return dict[key as string] || fallback[key as string] || key as string;
       };
       
       return (

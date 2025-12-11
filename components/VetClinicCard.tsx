@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import type { VetClinic } from '../types';
 import { MapPinIcon, PhoneIcon, GlobeIcon } from './icons';
 

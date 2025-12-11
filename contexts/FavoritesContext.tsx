@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import * as React from 'react';
+import { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { useCookieConsent } from './CookieConsentContext';
 
 const FAVORITES_STORAGE_KEY = 'kuttawaala_favorites';

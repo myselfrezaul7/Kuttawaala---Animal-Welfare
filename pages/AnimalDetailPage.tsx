@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MOCK_ANIMALS } from '../constants';
 import AdoptionForm from '../components/AdoptionForm';

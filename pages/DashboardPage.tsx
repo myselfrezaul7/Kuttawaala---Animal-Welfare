@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import * as React from 'react';
+import { useCallback } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useFavorites } from '../contexts/FavoritesContext';

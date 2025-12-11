@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import * as React from 'react';
+import { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import type { User } from '../types';
 import { MOCK_USERS } from '../constants';
 

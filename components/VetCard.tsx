@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import type { Vet } from '../types';
 import { VideoCameraIcon } from './icons';
 

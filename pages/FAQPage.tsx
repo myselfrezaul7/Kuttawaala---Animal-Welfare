@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import AccordionItem from '../components/AccordionItem';
 
 const faqs = [
@@ -45,7 +45,7 @@ const faqs = [
       },
     ],
   },
-];
+  ];
 
 const FAQPage: React.FC = () => {
   return (

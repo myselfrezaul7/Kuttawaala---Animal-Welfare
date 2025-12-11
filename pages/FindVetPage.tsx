@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import * as React from 'react';
+import { useState, useMemo } from 'react';
 import { MOCK_VET_CLINICS, BANGLADESH_DISTRICTS } from '../constants';
 import VetClinicCard from '../components/VetClinicCard';
 import { useLanguage } from '../contexts/LanguageContext';

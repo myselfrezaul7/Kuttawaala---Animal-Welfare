@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import * as React from 'react';
 import { NavLink, useNavigate, Link, useLocation } from 'react-router-dom';
 import { MenuIcon, CloseIcon, SearchIcon, ChevronDownIcon, UserIcon, GlobeIcon } from './icons';
 import Logo from './Logo';
@@ -7,7 +8,23 @@ import { useAuth } from '../contexts/AuthContext';
 import SearchModal from './SearchModal';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const Header: React.FC = () => {
+interface MobileNavLinkProps {
+  to: string;
+  children?: React.ReactNode;
+  onClose: () => void;
+}
+
+const MobileNavLink = ({ to, children, onClose }: MobileNavLinkProps) => (
+  <NavLink 
+      to={to} 
+      onClick={onClose}
+      className={({ isActive }) => `block py-3 text-xl text-center transition-colors duration-300 ${isActive ? 'text-orange-600 font-bold' : 'text-slate-700 dark:text-slate-200 font-medium hover:text-orange-500'}`}
+  >
+      {children}
+  </NavLink>
+);
+
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -74,16 +91,6 @@ const Header: React.FC = () => {
   const activeLinkClass = 'text-orange-600 dark:text-orange-400 font-bold';
   const inactiveLinkClass = 'text-slate-600 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 font-medium transition-colors duration-200';
   
-  const MobileNavLink: React.FC<{ to: string, children: React.ReactNode }> = ({ to, children }) => (
-    <NavLink 
-        to={to} 
-        onClick={() => setIsMenuOpen(false)}
-        className={({ isActive }) => `block py-3 text-xl text-center transition-colors duration-300 ${isActive ? 'text-orange-600 font-bold' : 'text-slate-700 dark:text-slate-200 font-medium hover:text-orange-500'}`}
-    >
-        {children}
-    </NavLink>
-  );
-
   return (
     <>
       <header 
@@ -209,15 +216,15 @@ const Header: React.FC = () => {
         </div>
         <div className="relative flex-grow flex flex-col justify-center items-center overflow-y-auto pb-20 px-6">
             <nav className="flex flex-col space-y-2 text-center w-full max-w-sm">
-                {isAuthenticated && <MobileNavLink to="/dashboard">{t('nav.dashboard')}</MobileNavLink>}
-                <MobileNavLink to="/">{t('nav.home')}</MobileNavLink>
-                <MobileNavLink to="/adopt">{t('nav.adopt')}</MobileNavLink>
-                <MobileNavLink to="/report">{t('nav.report')}</MobileNavLink>
-                <MobileNavLink to="/community">{t('nav.community')}</MobileNavLink>
-                <MobileNavLink to="/find-vet">{t('nav.findVet')}</MobileNavLink>
-                <MobileNavLink to="/ai-assistant">{t('nav.aiVet')}</MobileNavLink>
-                <MobileNavLink to="/volunteer">{t('nav.volunteer')}</MobileNavLink>
-                <MobileNavLink to="/memorial">{t('nav.memorial')}</MobileNavLink>
+                {isAuthenticated && <MobileNavLink to="/dashboard" onClose={() => setIsMenuOpen(false)}>{t('nav.dashboard')}</MobileNavLink>}
+                <MobileNavLink to="/" onClose={() => setIsMenuOpen(false)}>{t('nav.home')}</MobileNavLink>
+                <MobileNavLink to="/adopt" onClose={() => setIsMenuOpen(false)}>{t('nav.adopt')}</MobileNavLink>
+                <MobileNavLink to="/report" onClose={() => setIsMenuOpen(false)}>{t('nav.report')}</MobileNavLink>
+                <MobileNavLink to="/community" onClose={() => setIsMenuOpen(false)}>{t('nav.community')}</MobileNavLink>
+                <MobileNavLink to="/find-vet" onClose={() => setIsMenuOpen(false)}>{t('nav.findVet')}</MobileNavLink>
+                <MobileNavLink to="/ai-assistant" onClose={() => setIsMenuOpen(false)}>{t('nav.aiVet')}</MobileNavLink>
+                <MobileNavLink to="/volunteer" onClose={() => setIsMenuOpen(false)}>{t('nav.volunteer')}</MobileNavLink>
+                <MobileNavLink to="/memorial" onClose={() => setIsMenuOpen(false)}>{t('nav.memorial')}</MobileNavLink>
                 
                  <div className="mt-8 flex justify-center gap-4 bg-white/30 dark:bg-black/30 p-1.5 rounded-full mx-auto w-fit backdrop-blur-md">
                     <button onClick={() => { setLanguage('en'); }} className={`px-6 py-2 rounded-full transition-all text-sm font-bold ${language === 'en' ? 'bg-white shadow-md text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:text-slate-400'}`}>EN</button>
